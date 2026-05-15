@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>TFT Forge Coach</title>
+<title>M.A.D Forge Coach</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet"/>
 <style>
 :root{--bg:#060a0f;--bg2:#0b1118;--bg3:#111922;--bg4:#182030;--border:#1e2d40;--gold:#c8a96e;--gdim:#7a6240;--glt:#e8d5a3;--text:#d0dce8;--dim:#4a6880;--accent:#4a9eda;--pur:#9b6fe0;--grn:#4ec994;--red:#e05050}
@@ -35,6 +35,11 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .btn-sm:hover{border-color:var(--gold);color:var(--gold)}
 .btn-big{background:linear-gradient(135deg,var(--gdim),var(--gold));border:1px solid var(--glt);color:var(--bg);padding:13px 48px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:block;margin:0 auto;transition:opacity .15s}
 .btn-big:hover{opacity:.88}.btn-big:disabled{opacity:.35;cursor:not-allowed}
+/* Mode tabs */
+.mode-tabs{display:flex;gap:6px;margin-bottom:14px}
+.mode-tab{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--dim);padding:10px 8px;font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;transition:all .15s}
+.mode-tab:hover{border-color:var(--gdim);color:var(--gdim)}
+.mode-tab.active{background:var(--bg3);border-color:var(--gold);color:var(--gold)}
 .status{background:var(--bg3);border:1px solid var(--border);padding:9px 14px;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim);margin-bottom:12px;display:none;align-items:center;gap:10px}
 .status.show{display:flex}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 1.2s infinite}
@@ -48,6 +53,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .pmeta{display:flex;gap:14px;flex-wrap:wrap}
 .mi{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim)}
 .mi span{color:var(--accent)}
+.mode-badge{font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:2px 8px;border:1px solid var(--gdim);color:var(--gdim);background:rgba(200,169,110,.08);display:inline-block;margin-top:4px}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:14px}
 .stat-box{background:var(--bg2);border:1px solid var(--border);padding:12px;text-align:center}
 .stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:5px;letter-spacing:.1em;text-transform:uppercase}
@@ -61,6 +67,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .mrow.sel{border-color:var(--gold);background:var(--bg3)}
 .place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.25rem;text-align:center}
 .p1{color:#ffd700}.p2{color:#c0c0c0}.p3{color:#cd7f32}.p4{color:var(--grn)}.p5,.p6,.p7,.p8{color:var(--red)}
+.win-badge{font-family:'Share Tech Mono',monospace;font-size:.75rem;font-weight:700}
 .chip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:var(--bg4);border:1px solid var(--border);color:var(--dim);display:inline-block;margin:1px 2px}
 .achip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:rgba(155,111,224,.1);border:1px solid rgba(155,111,224,.25);color:var(--pur);display:inline-block;margin:1px 2px}
 .mdate{font-family:'Share Tech Mono',monospace;font-size:.61rem;color:#2a4060;margin-top:3px}
@@ -107,19 +114,24 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .admin-msg.show{display:block}
 .note{margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim);line-height:1.6}
 .note a{color:var(--gdim)}
-@media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}}
+/* ARAM specific */
+.aram-champ{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent)}
+@media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}.mode-tabs{flex-wrap:wrap}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
-  <div class="logo-row"><div class="hex">TFT</div><h1>Forge Coach</h1></div>
-  <div class="tagline">AI-Powered TFT Match Analysis &amp; Deep Coaching</div>
-  <div class="patch-badge" id="patchBadge">Set 17 · Patch 17.3</div>
+  <div class="logo-row">
+    <div class="hex">TFT</div>
+    <h1>M.A.D Forge Coach</h1>
+  </div>
+  <div class="tagline">AI-Powered Match Analysis &amp; Deep Coaching</div>
+  <div class="patch-badge" id="patchBadge">TFT Set 17 · Patch 17.3</div>
 </header>
 
-<!-- API Keys panel — saved to browser, never in code -->
+<!-- API Keys -->
 <div class="panel">
   <div class="plbl">// API Keys — saved to your browser</div>
   <div class="g2">
@@ -134,16 +146,14 @@ select{cursor:pointer}select option{background:var(--bg3)}
       <div class="saved" id="rkSaved">✓ Saved</div>
     </div>
   </div>
-  <div class="note">Keys are stored only in your browser — never sent to our server. Claude key from <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> · Riot key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></div>
+  <div class="note">Keys saved in your browser only — never sent to our server. Claude key: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> · Riot key: <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></div>
 </div>
 
-<!-- Riot key status + admin toggle -->
+<!-- Shared Riot key status + admin -->
 <div class="key-bar">
   <div class="key-status">Shared Riot Key: <span id="keyStatus" style="color:var(--gdim)">checking…</span></div>
   <button class="btn-sm" onclick="toggleAdmin()">⚙ ADMIN</button>
 </div>
-
-<!-- Admin panel — set shared Riot key for all users -->
 <div class="admin-panel" id="adminPanel">
   <div class="plbl">// Admin — Set Shared Riot Key for Everyone</div>
   <div class="g2" style="margin-bottom:12px">
@@ -158,12 +168,19 @@ select{cursor:pointer}select option{background:var(--bg3)}
   </div>
   <button class="btn" onclick="updateRiotKey()">Update Key for Everyone</button>
   <div class="admin-msg" id="adminMsg"></div>
-  <div class="note">This updates the shared key on the server — everyone uses it automatically. Get a key at <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> — expires every 24h.</div>
+  <div class="note">Updates the shared server-side key for all users. Get key at <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> — expires every 24h.</div>
+</div>
+
+<!-- Mode tabs -->
+<div class="mode-tabs">
+  <div class="mode-tab active" id="tab-tft" onclick="setMode('tft')">⚔ TFT Ranked</div>
+  <div class="mode-tab" id="tab-double" onclick="setMode('double')">👥 Double Up</div>
+  <div class="mode-tab" id="tab-aram" onclick="setMode('aram')">⚡ ARAM</div>
 </div>
 
 <!-- Player lookup -->
 <div class="panel">
-  <div class="plbl">// Player Lookup</div>
+  <div class="plbl" id="lookupLabel">// TFT Ranked — Player Lookup</div>
   <div class="g3">
     <div class="ig">
       <label>Riot ID (Name#Tag)</label>
@@ -182,21 +199,12 @@ select{cursor:pointer}select option{background:var(--bg3)}
     </div>
     <button class="btn" id="fetchBtn" onclick="fetchPlayer()">Fetch</button>
   </div>
-  <div style="margin-top:12px">
-    <div class="ig">
-      <label>Matches to load</label>
-      <select id="matchCount" style="max-width:220px">
-        <option value="10">Last 10 matches</option>
-        <option value="15" selected>Last 15 matches</option>
-        <option value="20">Last 20 matches</option>
-      </select>
-    </div>
-  </div>
 </div>
 
 <div class="status" id="status"><div class="dot"></div><span id="stTxt"></span></div>
 <div class="err" id="err"></div>
 
+<!-- Player card -->
 <div class="pcrd" id="pcrd">
   <div class="rbadge" id="rbadge">?</div>
   <div>
@@ -206,36 +214,35 @@ select{cursor:pointer}select option{background:var(--bg3)}
       <div class="mi">LP: <span id="pLP">—</span></div>
       <div class="mi">W/L: <span id="pWL">—</span></div>
     </div>
+    <div class="mode-badge" id="modeBadge">TFT RANKED</div>
   </div>
 </div>
 
+<!-- Stats -->
 <div id="statsRow" style="display:none">
-  <div class="stats-grid">
-    <div class="stat-box"><div class="stat-lbl">Avg Place</div><div class="stat-val" id="sAvg">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">Top 4 %</div><div class="stat-val" id="sTop4">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">Win %</div><div class="stat-val" id="sWin">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">Bot 4 %</div><div class="stat-val" id="sBot">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val" id="sDmg">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Gold Left</div><div class="stat-val" id="sGold">—</div></div>
-  </div>
+  <div class="stats-grid" id="statsGrid"></div>
 </div>
 
+<!-- Match list -->
 <div id="matchSection" style="display:none">
-  <div class="sec-hdr">Recent Matches <small style="font-size:.63rem;font-family:monospace;font-weight:400;color:#2a4060">&nbsp;tap for deep analysis · circle to select</small></div>
+  <div class="sec-hdr">Recent Matches <small style="font-size:.63rem;font-family:monospace;font-weight:400;color:#2a4060">&nbsp;tap for deep analysis · ○ to select</small></div>
   <div class="mlist" id="mlist"></div>
 </div>
 
+<!-- Analyze -->
 <div class="asec" id="asec" style="display:none">
   <div class="scnt" id="scnt"></div>
   <button class="btn-big" id="analyzeBtn" onclick="analyzeAll()">⚔ Analyze &amp; Coach Me</button>
 </div>
 
+<!-- Coaching report -->
 <div class="cpanel" id="cpanel">
-  <div class="chdr"><div class="ctitle">Coaching Report</div><span class="cbadge">CLAUDE AI</span></div>
+  <div class="chdr"><div class="ctitle">Coaching Report</div><span class="cbadge" id="cpanelBadge">CLAUDE AI</span></div>
   <div class="cbody" id="cbody"></div>
 </div>
 </div>
 
+<!-- Single match modal -->
 <div class="overlay" id="matchModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-hdr">
@@ -252,11 +259,14 @@ select{cursor:pointer}select option{background:var(--bg3)}
 
 <script>
 const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
-let matchData=[],selected=new Set(),ddItems={},ddChamps={};
+// Queue type IDs: 1090=TFT Normal, 1100=TFT Ranked, 1110=TFT Tutorial, 1130=TFT Double Up, 1160=TFT Double Up (ranked), 450=ARAM
+const QUEUE_TFT_RANKED=[1100,1090];
+const QUEUE_DOUBLE=[1130,1160];
+const QUEUE_ARAM=[450];
 
-// ── Keys: read from localStorage ──────────────────────────────
+let matchData=[],selected=new Set(),ddItems={},ddChamps={},currentMode='tft';
+
 function getCK(){return localStorage.getItem('tft_ck')||'';}
-function getRK(){return localStorage.getItem('tft_rk')||'';}
 
 function saveKeys(){
   const ck=document.getElementById('claudeKey').value.trim();
@@ -266,64 +276,64 @@ function saveKeys(){
 }
 
 window.addEventListener('load',()=>{
-  // Restore saved keys
-  const ck=getCK();const rk=getRK();
+  const ck=getCK();const rk=localStorage.getItem('tft_rk')||'';
   if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('ckSaved').style.display='block';}
   if(rk){document.getElementById('riotKeyInput').value=rk;document.getElementById('rkSaved').style.display='block';}
-  // Restore saved player
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
   if(rid)document.getElementById('riotId').value=rid;
   if(reg)document.getElementById('region').value=reg;
-  // Load DDragon + shared key status
   loadDDragon();
   checkKeyStatus();
 });
 
-// ── DDragon ────────────────────────────────────────────────────
 async function loadDDragon(){
-  try{
-    const r=await fetch('/api/ddragon');
-    if(!r.ok)throw new Error();
-    const d=await r.json();
-    ddItems=d.items||{};ddChamps=d.champions||{};
-    // Keep "Set 17 · Patch 17.3" — DDragon uses LoL patch numbers which differ
-    // Only update if we get a sensible TFT patch back someday
-  }catch(e){}
+  try{const r=await fetch('/api/ddragon');if(!r.ok)throw new Error();const d=await r.json();ddItems=d.items||{};ddChamps=d.champions||{};}catch(e){}
 }
 
 function getItemName(id){if(id==null)return null;const s=String(id);return ddItems[s]||ddItems[s.replace(/^0+/,'')]||null;}
 function getChampName(cid){if(!cid)return '?';const k=Object.keys(ddChamps).find(k=>cid.toLowerCase().includes(k.toLowerCase()));return k?ddChamps[k].name:cid.replace(/TFT\d+_/,'').replace(/_/g,' ').trim();}
 function getUnitItems(u){return(u.items||u.itemNames||[]).map(id=>{if(typeof id==='string'&&!/^\d+$/.test(id))return id.replace(/TFT_Item_/g,'').replace(/_/g,' ').trim();return getItemName(id)||('Item '+id);}).filter(Boolean);}
 
+// ── Mode switching ─────────────────────────────────────────────
+function setMode(mode){
+  currentMode=mode;
+  ['tft','double','aram'].forEach(m=>{
+    document.getElementById('tab-'+m).classList.toggle('active',m===mode);
+  });
+  const labels={tft:'// TFT Ranked — Player Lookup',double:'// Double Up — Player Lookup',aram:'// ARAM — Player Lookup'};
+  const badges={tft:'TFT RANKED',double:'DOUBLE UP',aram:'ARAM'};
+  document.getElementById('lookupLabel').textContent=labels[mode];
+  document.getElementById('modeBadge').textContent=badges[mode];
+  // Reset results
+  matchData=[];selected.clear();
+  ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}});
+  document.getElementById('cpanel').classList.remove('show');
+  er('');st('');
+  document.getElementById('mlist').innerHTML='';
+  document.getElementById('statsGrid').innerHTML='';
+}
+
 // ── Admin ──────────────────────────────────────────────────────
 function toggleAdmin(){document.getElementById('adminPanel').classList.toggle('show');}
 
 async function checkKeyStatus(){
-  try{
-    const r=await fetch('/api/riotkey');const d=await r.json();
-    const el=document.getElementById('keyStatus');
-    if(d.hasKey){el.textContent=d.masked;el.style.color='var(--grn)';}
-    else{el.textContent='not set — open Admin to add';el.style.color='var(--red)';}
-  }catch(e){document.getElementById('keyStatus').textContent='unknown';}
+  try{const r=await fetch('/api/riotkey');const d=await r.json();const el=document.getElementById('keyStatus');
+  if(d.hasKey){el.textContent=d.masked;el.style.color='var(--grn)';}
+  else{el.textContent='not set — open Admin';el.style.color='var(--red)';}}
+  catch(e){document.getElementById('keyStatus').textContent='unknown';}
 }
 
 async function updateRiotKey(){
-  const key=document.getElementById('adminRiotKey').value.trim();
-  const pass=document.getElementById('adminPass').value.trim();
-  const msg=document.getElementById('adminMsg');
-  msg.className='admin-msg show';msg.style.color='var(--dim)';msg.textContent='Updating…';
-  try{
-    const r=await fetch('/api/riotkey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,adminPass:pass})});
-    const d=await r.json();if(!r.ok)throw new Error(d.error||'Failed');
-    msg.style.color='var(--grn)';msg.textContent='✓ Key updated for everyone: '+d.masked;
-    document.getElementById('keyStatus').textContent=d.masked;
-    document.getElementById('keyStatus').style.color='var(--grn)';
-    document.getElementById('adminRiotKey').value='';
-    document.getElementById('adminPass').value='';
-  }catch(e){msg.style.color='#e08080';msg.textContent='✗ '+e.message;}
+  const key=document.getElementById('adminRiotKey').value.trim();const pass=document.getElementById('adminPass').value.trim();
+  const msg=document.getElementById('adminMsg');msg.className='admin-msg show';msg.style.color='var(--dim)';msg.textContent='Updating…';
+  try{const r=await fetch('/api/riotkey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,adminPass:pass})});
+  const d=await r.json();if(!r.ok)throw new Error(d.error||'Failed');
+  msg.style.color='var(--grn)';msg.textContent='✓ Key updated for everyone: '+d.masked;
+  document.getElementById('keyStatus').textContent=d.masked;document.getElementById('keyStatus').style.color='var(--grn)';
+  document.getElementById('adminRiotKey').value='';document.getElementById('adminPass').value='';}
+  catch(e){msg.style.color='#e08080';msg.textContent='✗ '+e.message;}
 }
 
-// ── UI helpers ─────────────────────────────────────────────────
 function st(msg){const el=document.getElementById('status');document.getElementById('stTxt').textContent=msg;el.classList.toggle('show',!!msg);}
 function er(msg){const el=document.getElementById('err');el.textContent=msg?'⚠ '+msg:'';el.classList.toggle('show',!!msg);}
 function lock(on){document.getElementById('fetchBtn').disabled=on;document.getElementById('analyzeBtn').disabled=on;}
@@ -335,19 +345,26 @@ async function riotGet(url){
   return d;
 }
 
-// ── Fetch player ───────────────────────────────────────────────
+// ── LoL API for ARAM ───────────────────────────────────────────
+async function lolGet(url){
+  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
+  const d=await r.json();
+  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
+  return d;
+}
+
+// ── Main fetch ─────────────────────────────────────────────────
 async function fetchPlayer(){
   er('');st('');matchData=[];selected.clear();
   ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}});
   document.getElementById('cpanel').classList.remove('show');
+  document.getElementById('mlist').innerHTML='';
+  document.getElementById('statsGrid').innerHTML='';
 
   const riotId=document.getElementById('riotId').value.trim();
   const region=document.getElementById('region').value;
-  const count=parseInt(document.getElementById('matchCount').value);
-  const ck=getCK();
-
   if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
-  if(!ck){er('Enter your Claude API key in the API Keys panel above');return;}
+  if(!getCK()){er('Enter your Claude API key in the API Keys panel above');return;}
 
   localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
   const[name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
@@ -359,33 +376,61 @@ async function fetchPlayer(){
     const acct=await riotGet(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
     const puuid=acct.puuid;
 
-    st('Fetching summoner…');
-    const summ=await riotGet(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
-
-    st('Fetching rank…');
-    let ranked=null;
-    try{const lg=await riotGet(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);ranked=(lg||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
-
-    st('Loading matches…');
-    const ids=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=${count}`);
-
-    const raw=[];
-    for(let i=0;i<ids.length;i++){
-      st(`Loading match ${i+1}/${ids.length}…`);
-      try{const m=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);const p=m.info.participants.find(p=>p.puuid===puuid);if(p)raw.push({id:ids[i],date:m.info.game_datetime,data:p});}catch(e){}
+    if(currentMode==='aram'){
+      await fetchARAM(puuid,routing,region,name,tag);
+    } else {
+      await fetchTFT(puuid,routing,region,name,tag,currentMode);
     }
-
-    if(!raw.length)throw new Error('No TFT matches found for this player.');
-    showPlayerCard(name,tag,ranked,raw);matchData=raw;renderMatches();st('');
-  }catch(e){st('');er(e.message||'Failed. Check Riot ID and make sure a Riot key is set.');}
+    st('');
+  }catch(e){st('');er(e.message||'Failed. Check your Riot ID and that a key is set.');}
   lock(false);
 }
 
-// ── Player card ────────────────────────────────────────────────
-function showPlayerCard(name,tag,ranked,matches){
+// ── TFT fetch (Ranked + Double Up) ────────────────────────────
+async function fetchTFT(puuid,routing,region,name,tag,mode){
+  st('Fetching summoner…');
+  const summ=await riotGet(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
+
+  st('Fetching rank…');
+  let ranked=null;
+  try{
+    const lg=await riotGet(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);
+    const qType=mode==='double'?'RANKED_TFT_DOUBLE_UP':'RANKED_TFT';
+    ranked=(lg||[]).find(l=>l.queueType===qType)||null;
+  }catch(e){}
+
+  st('Loading matches…');
+  // Fetch more to filter by queue type
+  const ids=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=30`);
+
+  const raw=[];
+  for(let i=0;i<ids.length&&raw.length<15;i++){
+    st(`Loading match ${i+1}/${ids.length}…`);
+    try{
+      const m=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);
+      const queueId=m.info?.queue_id||m.info?.queueId||0;
+      const validQueues=mode==='double'?QUEUE_DOUBLE:QUEUE_TFT_RANKED;
+      // If queue_id is 0 or undefined, include anyway (some API responses omit it)
+      if(validQueues.includes(queueId)||queueId===0){
+        const p=m.info.participants.find(p=>p.puuid===puuid);
+        if(p)raw.push({id:ids[i],date:m.info.game_datetime,queueId,data:p});
+      }
+    }catch(e){}
+  }
+
+  if(!raw.length)throw new Error(`No ${mode==='double'?'Double Up':'TFT Ranked'} matches found. Try fetching more or check the mode.`);
+
+  showPlayerCardTFT(name,tag,ranked,raw,mode);
+  matchData=raw;
+  renderTFTMatches(mode);
+}
+
+function showPlayerCardTFT(name,tag,ranked,matches,mode){
   document.getElementById('pname').textContent=`${name}#${tag}`;
   if(ranked){document.getElementById('rbadge').textContent=ranked.tier.slice(0,1)+(ranked.rank||'');document.getElementById('pRank').textContent=`${ranked.tier} ${ranked.rank}`;document.getElementById('pLP').textContent=ranked.leaguePoints+' LP';document.getElementById('pWL').textContent=`${ranked.wins}W ${ranked.losses}L`;}
+  document.getElementById('modeBadge').textContent=mode==='double'?'DOUBLE UP':'TFT RANKED';
   document.getElementById('pcrd').classList.add('show');
+
   const pl=matches.map(m=>m.data.placement);
   const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);
   const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);
@@ -393,17 +438,21 @@ function showPlayerCard(name,tag,ranked,matches){
   const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);
   const dmg=Math.round(matches.map(m=>m.data.total_damage_to_players||0).reduce((a,b)=>a+b,0)/matches.length);
   const gold=(matches.map(m=>m.data.gold_left||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
-  const set=(id,val,good,bad)=>{const el=document.getElementById(id);el.textContent=val;el.className='stat-val'+(good?' good':bad?' bad':'');};
-  set('sAvg',avg,avg<=4.5,avg>=5.5);set('sTop4',top4+'%',top4>=50,top4<=35);
-  set('sWin',wins+'%',false,false);set('sBot',bot+'%',false,bot>=50);
-  set('sDmg',dmg,false,false);set('sGold',gold,false,false);
+
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-box"><div class="stat-lbl">Avg Place</div><div class="stat-val ${avg<=4.5?'good':avg>=5.5?'bad':''}" id="sAvg">${avg}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Top 4 %</div><div class="stat-val ${top4>=50?'good':top4<=35?'bad':''}">${top4}%</div></div>
+    <div class="stat-box"><div class="stat-lbl">Win %</div><div class="stat-val">${wins}%</div></div>
+    <div class="stat-box"><div class="stat-lbl">Bot 4 %</div><div class="stat-val ${bot>=50?'bad':''}">${bot}%</div></div>
+    <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${dmg}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Avg Gold Left</div><div class="stat-val">${gold}</div></div>`;
   document.getElementById('statsRow').style.display='block';
 }
 
 function roundToStage(r){if(!r||r<1)return '?';const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}return String(r);}
 function cleanAug(a){if(!a)return '';return a.replace(/TFT\w*_Augment_/g,'').replace(/TFT\d*_/g,'').replace(/_/g,' ').trim();}
 
-function renderMatches(){
+function renderTFTMatches(mode){
   const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
   matchData.forEach((m,idx)=>{
     const p=m.data;
@@ -412,7 +461,78 @@ function renderMatches(){
     const date=m.date?new Date(m.date).toLocaleDateString():'';
     const pc=Math.min(p.placement,8);const stage=roundToStage(p.last_round);
     const row=document.createElement('div');row.className='mrow';
-    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ended ${stage} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for single-match deep coaching</div></div><div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
+    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ended ${stage} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep coaching</div></div><div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
+    row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
+    list.appendChild(row);
+  });
+  document.getElementById('matchSection').style.display='block';
+  document.getElementById('asec').style.display='block';
+}
+
+// ── ARAM fetch ─────────────────────────────────────────────────
+async function fetchARAM(puuid,routing,region,name,tag){
+  st('Loading ARAM matches…');
+  // Use LoL match API for ARAM
+  const ids=await lolGet(`https://${routing}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=450&count=15`);
+  if(!ids||!ids.length)throw new Error('No ARAM matches found.');
+
+  const raw=[];
+  for(let i=0;i<ids.length;i++){
+    st(`Loading ARAM match ${i+1}/${ids.length}…`);
+    try{
+      const m=await lolGet(`https://${routing}.api.riotgames.com/lol/match/v5/matches/${ids[i]}`);
+      const p=m.info.participants.find(p=>p.puuid===puuid);
+      if(p)raw.push({id:ids[i],date:m.info.gameCreation,data:p,gameMode:'ARAM',gameDuration:m.info.gameDuration});
+    }catch(e){}
+  }
+
+  if(!raw.length)throw new Error('No ARAM matches found.');
+  showPlayerCardARAM(name,tag,raw);
+  matchData=raw;
+  renderARAMMatches();
+}
+
+function showPlayerCardARAM(name,tag,matches){
+  document.getElementById('pname').textContent=`${name}#${tag}`;
+  document.getElementById('rbadge').textContent='AR';
+  document.getElementById('pRank').textContent='ARAM';
+  document.getElementById('pLP').textContent='—';
+  document.getElementById('modeBadge').textContent='ARAM';
+  document.getElementById('pcrd').classList.add('show');
+
+  const wins=matches.filter(m=>m.data.win).length;
+  const losses=matches.length-wins;
+  document.getElementById('pWL').textContent=`${wins}W ${losses}L`;
+
+  const kda=matches.map(m=>(m.data.kills+m.data.assists)/Math.max(1,m.data.deaths));
+  const avgKda=(kda.reduce((a,b)=>a+b,0)/kda.length).toFixed(2);
+  const avgDmg=Math.round(matches.map(m=>m.data.totalDamageDealtToChampions||0).reduce((a,b)=>a+b,0)/matches.length);
+  const avgKills=(matches.map(m=>m.data.kills||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
+  const avgDeaths=(matches.map(m=>m.data.deaths||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
+  const winPct=((wins/matches.length)*100).toFixed(0);
+
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-box"><div class="stat-lbl">Win %</div><div class="stat-val ${winPct>=55?'good':winPct<=40?'bad':''}">${winPct}%</div></div>
+    <div class="stat-box"><div class="stat-lbl">Avg KDA</div><div class="stat-val ${avgKda>=3?'good':avgKda<1.5?'bad':''}">${avgKda}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Avg Kills</div><div class="stat-val">${avgKills}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Avg Deaths</div><div class="stat-val ${avgDeaths>=8?'bad':''}">${avgDeaths}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${avgDmg.toLocaleString()}</div></div>
+    <div class="stat-box"><div class="stat-lbl">W/L</div><div class="stat-val">${wins}/${losses}</div></div>`;
+  document.getElementById('statsRow').style.display='block';
+}
+
+function renderARAMMatches(){
+  const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
+  matchData.forEach((m,idx)=>{
+    const p=m.data;
+    const win=p.win;
+    const champ=p.championName||'Unknown';
+    const kda=`${p.kills}/${p.deaths}/${p.assists}`;
+    const dmg=(p.totalDamageDealtToChampions||0).toLocaleString();
+    const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
+    const date=m.date?new Date(m.date).toLocaleDateString():'';
+    const row=document.createElement('div');row.className='mrow';
+    row.innerHTML=`<div class="win-badge" style="color:${win?'var(--grn)':'var(--red)';font-size:.85rem}">${win?'W':'L'}</div><div><div class="aram-champ">${champ}</div><div class="mdate">${date} · KDA ${kda} · ${dmg} dmg · ${dur}</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep coaching</div></div><div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
     row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
     list.appendChild(row);
   });
@@ -429,50 +549,76 @@ function toggleSel(idx){
 
 function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches — tap ○ to select specific ones`:`${n} match${n>1?'es':''} selected`;}
 
-function buildSummary(matches){
+// ── Build summaries ────────────────────────────────────────────
+function buildTFTSummary(matches,mode){
   return matches.map((m,i)=>{
     const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';const stage=roundToStage(p.last_round);
     const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
     const augRaw=p.augments||p.augment||[];
     const augs=Array.isArray(augRaw)&&augRaw.length?augRaw.map(cleanAug).filter(Boolean).join(', '):'none in API data';
     const units=(p.units||[]).sort((a,b)=>b.tier-a.tier).map(u=>{const name=getChampName(u.character_id);const items=getUnitItems(u);return `${name}★${u.tier}${items.length?' ['+items.join(', ')+']':''}`;}).join(', ');
-    return[`=== MATCH ${i+1} (${date}) ===`,`Placement: ${p.placement}/8`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}`,`Damage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}`,`Traits: ${traits||'none'}`,`Augments: ${augs}`,`Units with items: ${units||'none'}`].join('\n');
+    return[`=== ${mode==='double'?'DOUBLE UP ':''} MATCH ${i+1} (${date}) ===`,`Placement: ${p.placement}/8`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}`,`Damage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}`,`Traits: ${traits||'none'}`,`Augments: ${augs}`,`Units with items: ${units||'none'}`].join('\n');
   }).join('\n\n');
 }
 
+function buildARAMSummary(matches){
+  return matches.map((m,i)=>{
+    const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';
+    const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
+    const items=[p.item0,p.item1,p.item2,p.item3,p.item4,p.item5,p.item6].filter(Boolean).map(id=>ddItems[String(id)]||'Item '+id).join(', ');
+    return[`=== ARAM MATCH ${i+1} (${date}) ===`,`Result: ${p.win?'WIN':'LOSS'} | Duration: ${dur}`,`Champion: ${p.championName||'?'} (Level ${p.champLevel||'?'})`,`KDA: ${p.kills}/${p.deaths}/${p.assists} | KDA Ratio: ${((p.kills+p.assists)/Math.max(1,p.deaths)).toFixed(2)}`,`Damage to Champions: ${(p.totalDamageDealtToChampions||0).toLocaleString()}`,`Damage Taken: ${(p.totalDamageTaken||0).toLocaleString()}`,`Healing: ${(p.totalHeal||0).toLocaleString()}`,`Vision Score: ${p.visionScore||0} | CS: ${(p.totalMinionsKilled||0)+(p.neutralMinionsKilled||0)}`,`Items: ${items||'none'}`,`Spells: ${p.summoner1Id||'?'} / ${p.summoner2Id||'?'}`].join('\n');
+  }).join('\n\n');
+}
+
+// ── Claude ─────────────────────────────────────────────────────
 async function callClaude(prompt,maxTokens){
   const ck=getCK();
-  if(!ck)throw new Error('No Claude API key — enter it in the API Keys panel at the top of the page');
+  if(!ck)throw new Error('No Claude API key — enter it in the API Keys panel at the top');
   const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens,messages:[{role:'user',content:prompt}]})
   });
   if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude API error ${res.status}`);}
-  const d=await res.json();
-  return d.content.map(c=>c.text||'').join('');
+  const d=await res.json();return d.content.map(c=>c.text||'').join('');
 }
 
 async function analyzeAll(){
   er('');
   const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;
   if(!toAnalyze.length){er('No matches to analyze');return;}
-  const summary=buildSummary(toAnalyze);
   const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
   panel.classList.add('show');
   body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 20 seconds.</div>`;
   panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
-  try{
-    const text=await callClaude(`You are a Grand Master / Challenger TFT (Set 17: Space Gods, Patch 17.3) coach. Help this player reach Master tier.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall rating 1-10 vs Master standard. Placement distribution. Skill tier estimate. Biggest gap vs Master.\n\n## 💰 Economy & Leveling\nGold left per game. Master standard: 50g interest, never roll below 30g before level 7. Level 6 by 3-2, level 7 by 4-1, level 8 by 4-5. Over-rolling? Specific thresholds.\n\n## 🎯 Comp Building & Itemization\nEach comp — meta or off-meta? Trait breakpoints? For EVERY unit with items: correct? BiS in Set 17 patch 17.3? Be specific: "Jinx has Rabadon — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's."\n\n## 🔮 Augment Choices\nQuality per match, synergy, what to prioritize at 2-1/3-2/4-2.\n\n## ⚔️ Combat & Positioning\nDamage/elimination patterns, positioning tips per comp.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp, itemization grade, key mistake, Master player fix.\n\n## 🎓 Top 3 Recurring Patterns\n\n## 🚀 Top 5 Priority Changes to Reach Master\nExtremely specific. WHY, HOW, RESULT for each.\n\nStage format (3-2, 4-1). Set 17 Space Gods patch 17.3 meta. Be brutally honest.`,4000);
-    body.innerHTML=renderCoaching(text);
-  }catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown'));}
+
+  let prompt='';
+  if(currentMode==='aram'){
+    const summary=buildARAMSummary(toAnalyze);
+    prompt=`You are a high-elo League of Legends ARAM specialist coach. Analyze these ${toAnalyze.length} ARAM matches and provide deep, actionable coaching.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall performance rating 1-10. Win rate analysis. Are they performing well on these champions? Key strengths and weaknesses.\n\n## ⚔️ Champion Performance\nFor each champion played: was the build correct? What are the BiS ARAM items for each champion? Damage numbers — are they contributing enough? Deaths — are they playing too aggressively or not aggressively enough?\n\n## 🛡️ Build Analysis\nFor EVERY match: evaluate the item build. What should be built differently for ARAM? ARAM-specific items like Warmog's, Ability Overpower, etc. — are they taking advantage of them?\n\n## 💀 Death Patterns\nAre they dying too much? Are deaths from poor positioning, wrong engages, or just bad trades? How should they position on Howling Abyss for their champion type?\n\n## 🎯 Damage & Impact\nDamage numbers vs win/loss — are they carrying their weight? Are they focusing the right targets? Poke vs all-in decisions.\n\n## 📊 Match-by-Match Breakdown\nFor every match: champion, key mistake, what a high-elo player does differently on that champion in ARAM.\n\n## 🎓 Top 3 ARAM Habits to Fix\n\n## 🚀 Top 5 Priority Changes\nExtremely specific. WHY, HOW, RESULT for each. ARAM-specific tips only.\n\nBe direct and concrete. Reference current patch meta for ARAM.`;
+  } else {
+    const summary=buildTFTSummary(toAnalyze,currentMode);
+    const modeStr=currentMode==='double'?'TFT Double Up':'TFT Ranked';
+    const doubleNote=currentMode==='double'?'\n\nNote: This is DOUBLE UP mode — partner synergy, shared economy decisions, and coordinated comping are critical. Evaluate if they are playing around their partner effectively.':'';
+    prompt=`You are a Grand Master / Challenger ${modeStr} (Set 17: Space Gods, Patch 17.3) coach. Help this player improve.${doubleNote}\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall rating 1-10. Placement distribution. Skill tier estimate. Biggest gap.\n\n## 💰 Economy & Leveling\nGold left per game. Master standard: 50g interest, never roll below 30g before level 7. Level 6 by 3-2, level 7 by 4-1, level 8 by 4-5. Over-rolling? Specific thresholds.${currentMode==='double'?'\n\nDouble Up specific: are they coordinating economy with partner? Shared gold usage?':''}\n\n## 🎯 Comp Building & Itemization\nEach comp — meta or off-meta? Trait breakpoints? For EVERY unit with items: correct? BiS in Set 17 patch 17.3? Be specific.${currentMode==='double'?'\n\nDouble Up specific: are comps synergizing with partner? Shared trait stacking?':''}\n\n## 🔮 Augment Choices\nQuality per match, synergy, what to prioritize at 2-1/3-2/4-2.\n\n## ⚔️ Combat & Positioning\nDamage/elimination patterns, positioning tips.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp, itemization grade, key mistake, fix.\n\n## 🎓 Top 3 Recurring Patterns\n\n## 🚀 Top 5 Priority Changes\nExtremely specific. WHY, HOW, RESULT for each.\n\nStage format (3-2, 4-1). Set 17 Space Gods patch 17.3 meta. Be brutally honest.`;
+  }
+
+  try{const text=await callClaude(prompt,4000);body.innerHTML=renderCoaching(text);}
+  catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown'));}
   lock(false);
 }
 
+// ── Single match modal ─────────────────────────────────────────
 function closeModal(){document.getElementById('matchModal').classList.remove('show');}
 
 async function openModal(idx){
-  const m=matchData[idx];const p=m.data;
+  const m=matchData[idx];
+  if(currentMode==='aram'){openARAMModal(idx,m);}
+  else{openTFTModal(idx,m,currentMode);}
+}
+
+async function openTFTModal(idx,m,mode){
+  const p=m.data;
   const PC={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#4ec994'};
   const color=PC[p.placement]||(p.placement<=4?'#4ec994':'#e05050');
   const date=m.date?new Date(m.date).toLocaleDateString():'?';const stage=roundToStage(p.last_round);
@@ -482,14 +628,10 @@ async function openModal(idx){
 
   document.getElementById('modalPlace').textContent=p.placement;
   document.getElementById('modalPlace').style.color=color;
-  document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'}`;
+  document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'} ${mode==='double'?'· DOUBLE UP':''}`;
   document.getElementById('modalSub').textContent=`Ended round ${stage} · ${p.total_damage_to_players||0} dmg · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
 
-  const unitCards=units.map(u=>{
-    const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);
-    return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;
-  }).join('');
-
+  const unitCards=units.map(u=>{const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;}).join('');
   const traitTags=traits.map(t=>`<span class="chip">${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} ${t.tier_current}/${t.tier_total||3}</span>`).join('');
   const augTags=augs.length?augs.map(a=>`<span class="achip">${a}</span>`).join(''):'<span style="color:var(--dim);font-size:.8rem">No augment data in API</span>';
 
@@ -516,13 +658,53 @@ async function openModal(idx){
   const traitsStr=traits.map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
   const unitsStr=units.map(u=>{const name=getChampName(u.character_id);const items=getUnitItems(u);return `${name}★${u.tier}${items.length?' holding: '+items.join(', '):''}`;}).join(' | ');
   const matchSummary=[`Date: ${date} | Placement: ${p.placement}/8`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}`,`Damage: ${p.total_damage_to_players||0} | Eliminations: ${p.players_eliminated||0}`,`Traits: ${traitsStr||'none'}`,`Augments: ${augs.join(', ')||'none in API data'}`,`Units with items: ${unitsStr||'none'}`].join('\n');
+  const doubleNote=mode==='double'?'\n\nThis is DOUBLE UP — also evaluate partner synergy opportunities and whether comps could have been better coordinated.':'';
 
   try{
-    const text=await callClaude(`You are a Master/Challenger TFT (Set 17: Space Gods, Patch 17.3) coach. Analyze this single match. Items listed — evaluate every one.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp, execution, result.\n\n## Economy Assessment\nGold left story — over-rolled, under-rolled, correct? Exact recommendation.\n\n## Comp Execution\nTrait breakpoints, unit stars, what was missing.\n\n## Itemization Analysis\nFor EVERY unit with items: correct in Set 17 patch 17.3? BiS items? What to swap?\nFormat: "Jinx★2 has Rabadon + Archangel — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's Hurricane."\n\n## Augment Synergy\nGood or bad picks for this comp?\n\n## The Key Mistake\nOne very specific thing that cost the most LP.\n\n## What a Master Player Does Differently\nExact Master decision at the critical moment.\n\n## 2 Quick Wins\nTwo immediate fixes for next time.\n\nEvery sentence actionable. Stage format. Set 17 patch 17.3 meta.`,2500);
+    const text=await callClaude(`You are a Master/Challenger TFT (Set 17: Space Gods, Patch 17.3) coach.${doubleNote}\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp, execution, result.\n\n## Economy Assessment\nGold left story — over-rolled, under-rolled, correct?\n\n## Comp Execution\nTrait breakpoints, unit stars, what was missing.\n\n## Itemization Analysis\nFor EVERY unit with items: correct in Set 17 patch 17.3? BiS items? What to swap?\nFormat: "Jinx★2 has Rabadon + Archangel — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's."\n\n## Augment Synergy\nGood or bad picks?\n\n## The Key Mistake\nOne very specific thing that cost the most LP.\n\n## What a Master Player Does Differently\nExact Master decision at the critical moment.\n\n## 2 Quick Wins\nTwo immediate fixes for next time.\n\nEvery sentence actionable. Stage format. Set 17 patch 17.3 meta.`,2500);
     document.getElementById('modalCoaching').innerHTML=renderCoaching(text);
-  }catch(e){
-    document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;
-  }
+  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
+}
+
+async function openARAMModal(idx,m){
+  const p=m.data;
+  const win=p.win;
+  const color=win?'var(--grn)':'var(--red)';
+  const date=m.date?new Date(m.date).toLocaleDateString():'?';
+  const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
+  const items=[p.item0,p.item1,p.item2,p.item3,p.item4,p.item5,p.item6].filter(id=>id&&id!==0);
+  const itemNames=items.map(id=>ddItems[String(id)]||'Item '+id);
+
+  document.getElementById('modalPlace').textContent=win?'W':'L';
+  document.getElementById('modalPlace').style.color=color;
+  document.getElementById('modalTitle').textContent=`${date} — ${p.championName||'?'} — ${win?'VICTORY':'DEFEAT'}`;
+  document.getElementById('modalSub').textContent=`${dur} · KDA ${p.kills}/${p.deaths}/${p.assists} · ${(p.totalDamageDealtToChampions||0).toLocaleString()} dmg`;
+
+  document.getElementById('modalBody').innerHTML=`
+    <div class="modal-stats">
+      <div class="mstat"><div class="mstat-lbl">Result</div><div class="mstat-val" style="color:${color}">${win?'WIN':'LOSS'}</div></div>
+      <div class="mstat"><div class="mstat-lbl">KDA</div><div class="mstat-val">${p.kills}/${p.deaths}/${p.assists}</div></div>
+      <div class="mstat"><div class="mstat-lbl">Damage</div><div class="mstat-val">${Math.round((p.totalDamageDealtToChampions||0)/1000)}k</div></div>
+      <div class="mstat"><div class="mstat-lbl">Dmg Taken</div><div class="mstat-val">${Math.round((p.totalDamageTaken||0)/1000)}k</div></div>
+      <div class="mstat"><div class="mstat-lbl">Healing</div><div class="mstat-val">${Math.round((p.totalHeal||0)/1000)}k</div></div>
+      <div class="mstat"><div class="mstat-lbl">Vision</div><div class="mstat-val">${p.visionScore||0}</div></div>
+    </div>
+    <div style="margin-bottom:12px"><span class="section-lbl">CHAMPION</span><div class="aram-champ">${p.championName||'?'} · Level ${p.champLevel||'?'}</div></div>
+    <div style="margin-bottom:16px"><span class="section-lbl">ITEMS BUILT</span><div style="margin-top:6px">${itemNames.length?itemNames.map(it=>`<span class="chip" style="color:var(--accent);border-color:rgba(74,158,218,.3)">${it}</span>`).join(''):'<span style="color:var(--dim)">No items found</span>'}</div></div>
+    <div style="border-top:1px solid var(--border);padding-top:16px">
+      <span class="section-lbl">AI COACHING ANALYSIS</span>
+      <div id="modalCoaching" style="color:var(--dim);font-family:monospace;font-size:.8rem">Analyzing this match… ~10 seconds</div>
+    </div>`;
+
+  document.getElementById('matchModal').classList.add('show');
+  document.getElementById('matchModal').scrollTop=0;
+
+  const matchSummary=[`Date: ${date} | Result: ${win?'WIN':'LOSS'} | Duration: ${dur}`,`Champion: ${p.championName||'?'} Level ${p.champLevel||'?'}`,`KDA: ${p.kills}/${p.deaths}/${p.assists} | KDA Ratio: ${((p.kills+p.assists)/Math.max(1,p.deaths)).toFixed(2)}`,`Damage to champions: ${(p.totalDamageDealtToChampions||0).toLocaleString()}`,`Damage taken: ${(p.totalDamageTaken||0).toLocaleString()}`,`Healing: ${(p.totalHeal||0).toLocaleString()}`,`Vision score: ${p.visionScore||0}`,`Items: ${itemNames.join(', ')||'none'}`].join('\n');
+
+  try{
+    const text=await callClaude(`You are a high-elo ARAM specialist coach. Analyze this single ARAM game in depth.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: champion, how the game went, result.\n\n## Build Analysis\nEvaluate every item built. Are these the correct ARAM items for this champion? What should be changed and why? Reference ARAM-specific meta (Warmog's, Ability Overpower, etc when applicable).\n\n## KDA Assessment\nAre the kill/death numbers appropriate for this champion and game outcome? Too aggressive or too passive? What should the death count be?\n\n## Damage Assessment\nDamage dealt vs taken — is the ratio healthy for this champion type? Are they contributing enough to team fights?\n\n## Positioning & Playstyle\nBased on the stats, what positioning mistakes were likely made? How should this champion be played on Howling Abyss?\n\n## The Key Mistake\nOne very specific thing that most likely cost this game or cost performance.\n\n## What a High-Elo Player Does Differently\nExact decision a Plat+ ARAM player makes differently.\n\n## 2 Quick Wins\nTwo immediate changes for next time on this champion.\n\nEvery sentence actionable. Current ARAM meta.`,2000);
+    document.getElementById('modalCoaching').innerHTML=renderCoaching(text);
+  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
 }
 
 function renderCoaching(t){
