@@ -6,17 +6,10 @@
 <title>TFT Forge Coach</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg:#060a0f; --bg2:#0b1118; --bg3:#111922; --bg4:#182030;
-  --border:#1e2d40; --gold:#c8a96e; --gdim:#7a6240; --glt:#e8d5a3;
-  --text:#d0dce8; --dim:#4a6880; --accent:#4a9eda;
-  --pur:#9b6fe0; --grn:#4ec994; --red:#e05050;
-}
+:root{--bg:#060a0f;--bg2:#0b1118;--bg3:#111922;--bg4:#182030;--border:#1e2d40;--gold:#c8a96e;--gdim:#7a6240;--glt:#e8d5a3;--text:#d0dce8;--dim:#4a6880;--accent:#4a9eda;--pur:#9b6fe0;--grn:#4ec994;--red:#e05050}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:repeating-linear-gradient(60deg,transparent,transparent 34px,rgba(200,169,110,.02) 34px,rgba(200,169,110,.02) 35px),
-  repeating-linear-gradient(-60deg,transparent,transparent 34px,rgba(200,169,110,.02) 34px,rgba(200,169,110,.02) 35px)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:repeating-linear-gradient(60deg,transparent,transparent 34px,rgba(200,169,110,.02) 34px,rgba(200,169,110,.02) 35px),repeating-linear-gradient(-60deg,transparent,transparent 34px,rgba(200,169,110,.02) 34px,rgba(200,169,110,.02) 35px)}
 .wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 16px 80px}
 header{text-align:center;margin-bottom:28px}
 .logo-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
@@ -32,18 +25,16 @@ h1{font-family:'Rajdhani',sans-serif;font-size:2.3rem;font-weight:700;letter-spa
 input,select{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:'Exo 2',sans-serif;font-size:.9rem;outline:none;width:100%;transition:border-color .2s}
 input:focus,select:focus{border-color:var(--gdim)}
 input::placeholder{color:var(--dim)}
-select{cursor:pointer}
-select option{background:var(--bg3)}
+select{cursor:pointer}select option{background:var(--bg3)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .g3{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end}
+.saved{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--grn);margin-top:3px;display:none}
 .btn{background:linear-gradient(135deg,var(--gdim),#5a4020);border:1px solid var(--gold);color:var(--bg);padding:9px 20px;font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;height:40px;white-space:nowrap;transition:opacity .15s}
-.btn:hover{opacity:.85}
-.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:hover{opacity:.85}.btn:disabled{opacity:.35;cursor:not-allowed}
 .btn-sm{background:none;border:1px solid var(--border);color:var(--dim);padding:5px 12px;font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.1em;cursor:pointer;transition:all .15s}
 .btn-sm:hover{border-color:var(--gold);color:var(--gold)}
 .btn-big{background:linear-gradient(135deg,var(--gdim),var(--gold));border:1px solid var(--glt);color:var(--bg);padding:13px 48px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:block;margin:0 auto;transition:opacity .15s}
-.btn-big:hover{opacity:.88}
-.btn-big:disabled{opacity:.35;cursor:not-allowed}
+.btn-big:hover{opacity:.88}.btn-big:disabled{opacity:.35;cursor:not-allowed}
 .status{background:var(--bg3);border:1px solid var(--border);padding:9px 14px;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim);margin-bottom:12px;display:none;align-items:center;gap:10px}
 .status.show{display:flex}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 1.2s infinite}
@@ -61,8 +52,7 @@ select option{background:var(--bg3)}
 .stat-box{background:var(--bg2);border:1px solid var(--border);padding:12px;text-align:center}
 .stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:5px;letter-spacing:.1em;text-transform:uppercase}
 .stat-val{font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gold)}
-.stat-val.good{color:var(--grn)}
-.stat-val.bad{color:var(--red)}
+.stat-val.good{color:var(--grn)}.stat-val.bad{color:var(--red)}
 .sec-hdr{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.83rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:10px}
 .sec-hdr::after{content:'';flex:1;height:1px;background:var(--border)}
 .mlist{display:flex;flex-direction:column;gap:4px;margin-bottom:18px}
@@ -70,8 +60,7 @@ select option{background:var(--bg3)}
 .mrow:hover{border-color:var(--gdim);background:var(--bg3)}
 .mrow.sel{border-color:var(--gold);background:var(--bg3)}
 .place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.25rem;text-align:center}
-.p1{color:#ffd700}.p2{color:#c0c0c0}.p3{color:#cd7f32}
-.p4{color:var(--grn)}.p5,.p6,.p7,.p8{color:var(--red)}
+.p1{color:#ffd700}.p2{color:#c0c0c0}.p3{color:#cd7f32}.p4{color:var(--grn)}.p5,.p6,.p7,.p8{color:var(--red)}
 .chip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:var(--bg4);border:1px solid var(--border);color:var(--dim);display:inline-block;margin:1px 2px}
 .achip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:rgba(155,111,224,.1);border:1px solid rgba(155,111,224,.25);color:var(--pur);display:inline-block;margin:1px 2px}
 .mdate{font-family:'Share Tech Mono',monospace;font-size:.61rem;color:#2a4060;margin-top:3px}
@@ -86,9 +75,7 @@ select option{background:var(--bg3)}
 .cbody{padding:20px 24px;line-height:1.82;font-size:.9rem;color:var(--text)}
 .cbody h2{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--glt);margin:22px 0 6px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:4px}
 .cbody h3{font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin:14px 0 4px}
-.cbody strong{color:var(--glt)}
-.cbody ul{padding-left:18px}
-.cbody li{margin-bottom:5px}
+.cbody strong{color:var(--glt)}.cbody ul{padding-left:18px}.cbody li{margin-bottom:5px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 16px}
 .overlay.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);width:100%;max-width:820px;margin:auto}
@@ -100,9 +87,7 @@ select option{background:var(--bg3)}
 .modal-body{padding:20px 24px;line-height:1.8;font-size:.9rem;color:var(--text)}
 .modal-body h2{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--glt);margin:18px 0 5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:3px}
 .modal-body h3{font-family:'Rajdhani',sans-serif;font-size:.92rem;font-weight:700;color:var(--accent);margin:12px 0 3px}
-.modal-body strong{color:var(--glt)}
-.modal-body ul{padding-left:18px}
-.modal-body li{margin-bottom:5px}
+.modal-body strong{color:var(--glt)}.modal-body ul{padding-left:18px}.modal-body li{margin-bottom:5px}
 .modal-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:16px}
 .mstat{background:var(--bg3);border:1px solid var(--border);padding:10px;text-align:center}
 .mstat-lbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-bottom:3px;letter-spacing:.08em;text-transform:uppercase}
@@ -127,17 +112,40 @@ select option{background:var(--bg3)}
 </head>
 <body>
 <div class="wrap">
+
 <header>
   <div class="logo-row"><div class="hex">TFT</div><h1>Forge Coach</h1></div>
   <div class="tagline">AI-Powered TFT Match Analysis &amp; Deep Coaching</div>
-  <div class="patch-badge" id="patchBadge">Loading patch data…</div>
+  <div class="patch-badge" id="patchBadge">Set 17 · Patch 17.3</div>
 </header>
+
+<!-- API Keys panel — saved to browser, never in code -->
+<div class="panel">
+  <div class="plbl">// API Keys — saved to your browser</div>
+  <div class="g2">
+    <div class="ig">
+      <label>Claude API Key</label>
+      <input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()"/>
+      <div class="saved" id="ckSaved">✓ Saved</div>
+    </div>
+    <div class="ig">
+      <label>Riot API Key <span style="color:var(--red);font-size:.58rem">(renews every 24h)</span></label>
+      <input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()"/>
+      <div class="saved" id="rkSaved">✓ Saved</div>
+    </div>
+  </div>
+  <div class="note">Keys are stored only in your browser — never sent to our server. Claude key from <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> · Riot key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></div>
+</div>
+
+<!-- Riot key status + admin toggle -->
 <div class="key-bar">
-  <div class="key-status">Riot Key: <span id="keyStatus" style="color:var(--gdim)">checking…</span></div>
+  <div class="key-status">Shared Riot Key: <span id="keyStatus" style="color:var(--gdim)">checking…</span></div>
   <button class="btn-sm" onclick="toggleAdmin()">⚙ ADMIN</button>
 </div>
+
+<!-- Admin panel — set shared Riot key for all users -->
 <div class="admin-panel" id="adminPanel">
-  <div class="plbl">// Admin — Update Riot API Key</div>
+  <div class="plbl">// Admin — Set Shared Riot Key for Everyone</div>
   <div class="g2" style="margin-bottom:12px">
     <div class="ig">
       <label>New Riot API Key</label>
@@ -150,8 +158,10 @@ select option{background:var(--bg3)}
   </div>
   <button class="btn" onclick="updateRiotKey()">Update Key for Everyone</button>
   <div class="admin-msg" id="adminMsg"></div>
-  <div class="note">Get a free Riot key at <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> — expires every 24h.</div>
+  <div class="note">This updates the shared key on the server — everyone uses it automatically. Get a key at <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> — expires every 24h.</div>
 </div>
+
+<!-- Player lookup -->
 <div class="panel">
   <div class="plbl">// Player Lookup</div>
   <div class="g3">
@@ -183,8 +193,10 @@ select option{background:var(--bg3)}
     </div>
   </div>
 </div>
+
 <div class="status" id="status"><div class="dot"></div><span id="stTxt"></span></div>
 <div class="err" id="err"></div>
+
 <div class="pcrd" id="pcrd">
   <div class="rbadge" id="rbadge">?</div>
   <div>
@@ -196,6 +208,7 @@ select option{background:var(--bg3)}
     </div>
   </div>
 </div>
+
 <div id="statsRow" style="display:none">
   <div class="stats-grid">
     <div class="stat-box"><div class="stat-lbl">Avg Place</div><div class="stat-val" id="sAvg">—</div></div>
@@ -206,19 +219,23 @@ select option{background:var(--bg3)}
     <div class="stat-box"><div class="stat-lbl">Avg Gold Left</div><div class="stat-val" id="sGold">—</div></div>
   </div>
 </div>
+
 <div id="matchSection" style="display:none">
   <div class="sec-hdr">Recent Matches <small style="font-size:.63rem;font-family:monospace;font-weight:400;color:#2a4060">&nbsp;tap for deep analysis · circle to select</small></div>
   <div class="mlist" id="mlist"></div>
 </div>
+
 <div class="asec" id="asec" style="display:none">
   <div class="scnt" id="scnt"></div>
   <button class="btn-big" id="analyzeBtn" onclick="analyzeAll()">⚔ Analyze &amp; Coach Me</button>
 </div>
+
 <div class="cpanel" id="cpanel">
   <div class="chdr"><div class="ctitle">Coaching Report</div><span class="cbadge">CLAUDE AI</span></div>
   <div class="cbody" id="cbody"></div>
 </div>
 </div>
+
 <div class="overlay" id="matchModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-hdr">
@@ -232,72 +249,148 @@ select option{background:var(--bg3)}
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
+
 <script>
-const CLAUDE_KEY = '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';
-const ROUTING = {na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
+const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
 let matchData=[],selected=new Set(),ddItems={},ddChamps={};
 
+// ── Keys: read from localStorage ──────────────────────────────
+function getCK(){return localStorage.getItem('tft_ck')||'';}
+function getRK(){return localStorage.getItem('tft_rk')||'';}
+
+function saveKeys(){
+  const ck=document.getElementById('claudeKey').value.trim();
+  const rk=document.getElementById('riotKeyInput').value.trim();
+  if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('ckSaved').style.display='block';}
+  if(rk){localStorage.setItem('tft_rk',rk);document.getElementById('rkSaved').style.display='block';}
+}
+
 window.addEventListener('load',()=>{
-  loadDDragon();checkKeyStatus();
+  // Restore saved keys
+  const ck=getCK();const rk=getRK();
+  if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('ckSaved').style.display='block';}
+  if(rk){document.getElementById('riotKeyInput').value=rk;document.getElementById('rkSaved').style.display='block';}
+  // Restore saved player
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
   if(rid)document.getElementById('riotId').value=rid;
   if(reg)document.getElementById('region').value=reg;
+  // Load DDragon + shared key status
+  loadDDragon();
+  checkKeyStatus();
 });
 
+// ── DDragon ────────────────────────────────────────────────────
 async function loadDDragon(){
-  try{const r=await fetch('/api/ddragon');if(!r.ok)throw new Error();const d=await r.json();ddItems=d.items||{};ddChamps=d.champions||{};document.getElementById('patchBadge').textContent=d.patch?'Set 17 · Patch '+d.patch:'Set 17 · Space Gods';}
-  catch(e){document.getElementById('patchBadge').textContent='Set 17 · Space Gods';}
+  try{
+    const r=await fetch('/api/ddragon');
+    if(!r.ok)throw new Error();
+    const d=await r.json();
+    ddItems=d.items||{};ddChamps=d.champions||{};
+    // Keep "Set 17 · Patch 17.3" — DDragon uses LoL patch numbers which differ
+    // Only update if we get a sensible TFT patch back someday
+  }catch(e){}
 }
+
 function getItemName(id){if(id==null)return null;const s=String(id);return ddItems[s]||ddItems[s.replace(/^0+/,'')]||null;}
 function getChampName(cid){if(!cid)return '?';const k=Object.keys(ddChamps).find(k=>cid.toLowerCase().includes(k.toLowerCase()));return k?ddChamps[k].name:cid.replace(/TFT\d+_/,'').replace(/_/g,' ').trim();}
 function getUnitItems(u){return(u.items||u.itemNames||[]).map(id=>{if(typeof id==='string'&&!/^\d+$/.test(id))return id.replace(/TFT_Item_/g,'').replace(/_/g,' ').trim();return getItemName(id)||('Item '+id);}).filter(Boolean);}
+
+// ── Admin ──────────────────────────────────────────────────────
 function toggleAdmin(){document.getElementById('adminPanel').classList.toggle('show');}
+
 async function checkKeyStatus(){
-  try{const r=await fetch('/api/riotkey');const d=await r.json();const el=document.getElementById('keyStatus');
-  if(d.hasKey){el.textContent=d.masked;el.style.color='var(--grn)';}else{el.textContent='not set — open Admin';el.style.color='var(--red)';}}
-  catch(e){document.getElementById('keyStatus').textContent='unknown';}
+  try{
+    const r=await fetch('/api/riotkey');const d=await r.json();
+    const el=document.getElementById('keyStatus');
+    if(d.hasKey){el.textContent=d.masked;el.style.color='var(--grn)';}
+    else{el.textContent='not set — open Admin to add';el.style.color='var(--red)';}
+  }catch(e){document.getElementById('keyStatus').textContent='unknown';}
 }
+
 async function updateRiotKey(){
-  const key=document.getElementById('adminRiotKey').value.trim();const pass=document.getElementById('adminPass').value.trim();
-  const msg=document.getElementById('adminMsg');msg.className='admin-msg show';msg.style.color='var(--dim)';msg.textContent='Updating…';
-  try{const r=await fetch('/api/riotkey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,adminPass:pass})});
-  const d=await r.json();if(!r.ok)throw new Error(d.error||'Failed');
-  msg.style.color='var(--grn)';msg.textContent='✓ Key updated for everyone: '+d.masked;
-  document.getElementById('keyStatus').textContent=d.masked;document.getElementById('keyStatus').style.color='var(--grn)';
-  document.getElementById('adminRiotKey').value='';document.getElementById('adminPass').value='';}
-  catch(e){msg.style.color='#e08080';msg.textContent='✗ '+e.message;}
+  const key=document.getElementById('adminRiotKey').value.trim();
+  const pass=document.getElementById('adminPass').value.trim();
+  const msg=document.getElementById('adminMsg');
+  msg.className='admin-msg show';msg.style.color='var(--dim)';msg.textContent='Updating…';
+  try{
+    const r=await fetch('/api/riotkey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,adminPass:pass})});
+    const d=await r.json();if(!r.ok)throw new Error(d.error||'Failed');
+    msg.style.color='var(--grn)';msg.textContent='✓ Key updated for everyone: '+d.masked;
+    document.getElementById('keyStatus').textContent=d.masked;
+    document.getElementById('keyStatus').style.color='var(--grn)';
+    document.getElementById('adminRiotKey').value='';
+    document.getElementById('adminPass').value='';
+  }catch(e){msg.style.color='#e08080';msg.textContent='✗ '+e.message;}
 }
+
+// ── UI helpers ─────────────────────────────────────────────────
 function st(msg){const el=document.getElementById('status');document.getElementById('stTxt').textContent=msg;el.classList.toggle('show',!!msg);}
 function er(msg){const el=document.getElementById('err');el.textContent=msg?'⚠ '+msg:'';el.classList.toggle('show',!!msg);}
 function lock(on){document.getElementById('fetchBtn').disabled=on;document.getElementById('analyzeBtn').disabled=on;}
-async function riotGet(url){const r=await fetch('/api/riot?url='+encodeURIComponent(url));const d=await r.json();if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);return d;}
+
+async function riotGet(url){
+  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
+  const d=await r.json();
+  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
+  return d;
+}
+
+// ── Fetch player ───────────────────────────────────────────────
 async function fetchPlayer(){
   er('');st('');matchData=[];selected.clear();
   ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}});
   document.getElementById('cpanel').classList.remove('show');
-  const riotId=document.getElementById('riotId').value.trim();const region=document.getElementById('region').value;const count=parseInt(document.getElementById('matchCount').value);
+
+  const riotId=document.getElementById('riotId').value.trim();
+  const region=document.getElementById('region').value;
+  const count=parseInt(document.getElementById('matchCount').value);
+  const ck=getCK();
+
   if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
+  if(!ck){er('Enter your Claude API key in the API Keys panel above');return;}
+
   localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
-  const[name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];const routing=ROUTING[region]||'americas';
+  const[name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
+  const routing=ROUTING[region]||'americas';
   lock(true);
+
   try{
-    st('Looking up account…');const acct=await riotGet(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);const puuid=acct.puuid;
-    st('Fetching summoner…');const summ=await riotGet(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
-    st('Fetching rank…');let ranked=null;try{const lg=await riotGet(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);ranked=(lg||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
-    st('Loading matches…');const ids=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=${count}`);
-    const raw=[];for(let i=0;i<ids.length;i++){st(`Loading match ${i+1}/${ids.length}…`);try{const m=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);const p=m.info.participants.find(p=>p.puuid===puuid);if(p)raw.push({id:ids[i],date:m.info.game_datetime,data:p});}catch(e){}}
+    st('Looking up account…');
+    const acct=await riotGet(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
+    const puuid=acct.puuid;
+
+    st('Fetching summoner…');
+    const summ=await riotGet(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
+
+    st('Fetching rank…');
+    let ranked=null;
+    try{const lg=await riotGet(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);ranked=(lg||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
+
+    st('Loading matches…');
+    const ids=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=${count}`);
+
+    const raw=[];
+    for(let i=0;i<ids.length;i++){
+      st(`Loading match ${i+1}/${ids.length}…`);
+      try{const m=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);const p=m.info.participants.find(p=>p.puuid===puuid);if(p)raw.push({id:ids[i],date:m.info.game_datetime,data:p});}catch(e){}
+    }
+
     if(!raw.length)throw new Error('No TFT matches found for this player.');
     showPlayerCard(name,tag,ranked,raw);matchData=raw;renderMatches();st('');
-  }catch(e){st('');er(e.message||'Failed. Make sure a Riot key is set in Admin.');}
+  }catch(e){st('');er(e.message||'Failed. Check Riot ID and make sure a Riot key is set.');}
   lock(false);
 }
+
+// ── Player card ────────────────────────────────────────────────
 function showPlayerCard(name,tag,ranked,matches){
   document.getElementById('pname').textContent=`${name}#${tag}`;
   if(ranked){document.getElementById('rbadge').textContent=ranked.tier.slice(0,1)+(ranked.rank||'');document.getElementById('pRank').textContent=`${ranked.tier} ${ranked.rank}`;document.getElementById('pLP').textContent=ranked.leaguePoints+' LP';document.getElementById('pWL').textContent=`${ranked.wins}W ${ranked.losses}L`;}
   document.getElementById('pcrd').classList.add('show');
   const pl=matches.map(m=>m.data.placement);
-  const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);
-  const wins=((pl.filter(p=>p===1).length/pl.length)*100).toFixed(0);const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);
+  const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);
+  const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);
+  const wins=((pl.filter(p=>p===1).length/pl.length)*100).toFixed(0);
+  const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);
   const dmg=Math.round(matches.map(m=>m.data.total_damage_to_players||0).reduce((a,b)=>a+b,0)/matches.length);
   const gold=(matches.map(m=>m.data.gold_left||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
   const set=(id,val,good,bad)=>{const el=document.getElementById(id);el.textContent=val;el.className='stat-val'+(good?' good':bad?' bad':'');};
@@ -306,62 +399,100 @@ function showPlayerCard(name,tag,ranked,matches){
   set('sDmg',dmg,false,false);set('sGold',gold,false,false);
   document.getElementById('statsRow').style.display='block';
 }
+
 function roundToStage(r){if(!r||r<1)return '?';const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}return String(r);}
 function cleanAug(a){if(!a)return '';return a.replace(/TFT\w*_Augment_/g,'').replace(/TFT\d*_/g,'').replace(/_/g,' ').trim();}
+
 function renderMatches(){
   const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
   matchData.forEach((m,idx)=>{
-    const p=m.data;const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
-    const augs=(p.augments||p.augment||[]).slice(0,3).map(cleanAug).filter(Boolean);const date=m.date?new Date(m.date).toLocaleDateString():'';
+    const p=m.data;
+    const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
+    const augs=(p.augments||p.augment||[]).slice(0,3).map(cleanAug).filter(Boolean);
+    const date=m.date?new Date(m.date).toLocaleDateString():'';
     const pc=Math.min(p.placement,8);const stage=roundToStage(p.last_round);
     const row=document.createElement('div');row.className='mrow';
     row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ended ${stage} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for single-match deep coaching</div></div><div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
     row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
     list.appendChild(row);
   });
-  document.getElementById('matchSection').style.display='block';document.getElementById('asec').style.display='block';
+  document.getElementById('matchSection').style.display='block';
+  document.getElementById('asec').style.display='block';
 }
-function toggleSel(idx){const row=document.getElementById('chk'+idx).closest('.mrow');if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('chk'+idx).textContent='○';document.getElementById('chk'+idx).style.color='#2a4060';}else{selected.add(idx);row.classList.add('sel');document.getElementById('chk'+idx).textContent='✓';document.getElementById('chk'+idx).style.color='var(--gold)';}updateCount();}
-function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches — tap circle to select specific ones`:`${n} match${n>1?'es':''} selected`;}
+
+function toggleSel(idx){
+  const row=document.getElementById('chk'+idx).closest('.mrow');
+  if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('chk'+idx).textContent='○';document.getElementById('chk'+idx).style.color='#2a4060';}
+  else{selected.add(idx);row.classList.add('sel');document.getElementById('chk'+idx).textContent='✓';document.getElementById('chk'+idx).style.color='var(--gold)';}
+  updateCount();
+}
+
+function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches — tap ○ to select specific ones`:`${n} match${n>1?'es':''} selected`;}
+
 function buildSummary(matches){
   return matches.map((m,i)=>{
     const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';const stage=roundToStage(p.last_round);
     const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
-    const augRaw=p.augments||p.augment||[];const augs=Array.isArray(augRaw)&&augRaw.length?augRaw.map(cleanAug).filter(Boolean).join(', '):'none in API data';
+    const augRaw=p.augments||p.augment||[];
+    const augs=Array.isArray(augRaw)&&augRaw.length?augRaw.map(cleanAug).filter(Boolean).join(', '):'none in API data';
     const units=(p.units||[]).sort((a,b)=>b.tier-a.tier).map(u=>{const name=getChampName(u.character_id);const items=getUnitItems(u);return `${name}★${u.tier}${items.length?' ['+items.join(', ')+']':''}`;}).join(', ');
-    return [`=== MATCH ${i+1} (${date}) ===`,`Placement: ${p.placement}/8`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}`,`Damage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}`,`Traits: ${traits||'none'}`,`Augments: ${augs}`,`Units with items: ${units||'none'}`].join('\n');
+    return[`=== MATCH ${i+1} (${date}) ===`,`Placement: ${p.placement}/8`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}`,`Damage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}`,`Traits: ${traits||'none'}`,`Augments: ${augs}`,`Units with items: ${units||'none'}`].join('\n');
   }).join('\n\n');
 }
+
 async function callClaude(prompt,maxTokens){
-  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens,messages:[{role:'user',content:prompt}]})});
+  const ck=getCK();
+  if(!ck)throw new Error('No Claude API key — enter it in the API Keys panel at the top of the page');
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens,messages:[{role:'user',content:prompt}]})
+  });
   if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude API error ${res.status}`);}
-  const d=await res.json();return d.content.map(c=>c.text||'').join('');
+  const d=await res.json();
+  return d.content.map(c=>c.text||'').join('');
 }
+
 async function analyzeAll(){
-  er('');const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;if(!toAnalyze.length){er('No matches to analyze');return;}
-  const summary=buildSummary(toAnalyze);const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
-  panel.classList.add('show');body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 20 seconds.</div>`;
+  er('');
+  const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;
+  if(!toAnalyze.length){er('No matches to analyze');return;}
+  const summary=buildSummary(toAnalyze);
+  const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
+  panel.classList.add('show');
+  body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 20 seconds.</div>`;
   panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
   try{
-    const text=await callClaude(`You are a Grand Master / Challenger TFT (Set 17: Space Gods) coach. Help this player reach Master tier.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall rating 1-10 vs Master standard. Placement distribution — consistent or volatile? What rank they're playing like. Biggest gap vs Master.\n\n## 💰 Economy & Leveling\nGold left per game analysis. Master standard: 50g interest, never roll below 30g before level 7. Level 6 by 3-2, level 7 by 4-1, level 8 by 4-5. Are they over-rolling? Specific thresholds.\n\n## 🎯 Comp Building & Itemization\nEach comp — meta or off-meta? Trait breakpoints? For EVERY unit with items: are those correct? What are BiS items in Set 17? Be specific: "Jinx has Rabadon — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's."\n\n## 🔮 Augment Choices\nQuality per match, synergy, what to prioritize at 2-1/3-2/4-2.\n\n## ⚔️ Combat & Positioning\nDamage/elimination patterns, positioning tips per comp.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp, itemization grade, key mistake, Master player fix.\n\n## 🎓 Top 3 Recurring Patterns\nCross-game patterns, what they reveal, how Master differs.\n\n## 🚀 Top 5 Priority Changes to Reach Master\nExtremely specific. WHY, HOW, RESULT for each.\n\nStage format (3-2, 4-1). Set 17 Space Gods meta. Be brutally honest.`,4000);
+    const text=await callClaude(`You are a Grand Master / Challenger TFT (Set 17: Space Gods, Patch 17.3) coach. Help this player reach Master tier.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall rating 1-10 vs Master standard. Placement distribution. Skill tier estimate. Biggest gap vs Master.\n\n## 💰 Economy & Leveling\nGold left per game. Master standard: 50g interest, never roll below 30g before level 7. Level 6 by 3-2, level 7 by 4-1, level 8 by 4-5. Over-rolling? Specific thresholds.\n\n## 🎯 Comp Building & Itemization\nEach comp — meta or off-meta? Trait breakpoints? For EVERY unit with items: correct? BiS in Set 17 patch 17.3? Be specific: "Jinx has Rabadon — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's."\n\n## 🔮 Augment Choices\nQuality per match, synergy, what to prioritize at 2-1/3-2/4-2.\n\n## ⚔️ Combat & Positioning\nDamage/elimination patterns, positioning tips per comp.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp, itemization grade, key mistake, Master player fix.\n\n## 🎓 Top 3 Recurring Patterns\n\n## 🚀 Top 5 Priority Changes to Reach Master\nExtremely specific. WHY, HOW, RESULT for each.\n\nStage format (3-2, 4-1). Set 17 Space Gods patch 17.3 meta. Be brutally honest.`,4000);
     body.innerHTML=renderCoaching(text);
   }catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown'));}
   lock(false);
 }
+
 function closeModal(){document.getElementById('matchModal').classList.remove('show');}
+
 async function openModal(idx){
   const m=matchData[idx];const p=m.data;
-  const PC={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#4ec994'};const color=PC[p.placement]||(p.placement<=4?'#4ec994':'#e05050');
+  const PC={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#4ec994'};
+  const color=PC[p.placement]||(p.placement<=4?'#4ec994':'#e05050');
   const date=m.date?new Date(m.date).toLocaleDateString():'?';const stage=roundToStage(p.last_round);
   const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current);
   const augRaw=p.augments||p.augment||[];const augs=Array.isArray(augRaw)?augRaw.map(cleanAug).filter(Boolean):[];
   const units=(p.units||[]).sort((a,b)=>b.tier-a.tier);
-  document.getElementById('modalPlace').textContent=p.placement;document.getElementById('modalPlace').style.color=color;
+
+  document.getElementById('modalPlace').textContent=p.placement;
+  document.getElementById('modalPlace').style.color=color;
   document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'}`;
   document.getElementById('modalSub').textContent=`Ended round ${stage} · ${p.total_damage_to_players||0} dmg · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
-  const unitCards=units.map(u=>{const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;}).join('');
+
+  const unitCards=units.map(u=>{
+    const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);
+    return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;
+  }).join('');
+
   const traitTags=traits.map(t=>`<span class="chip">${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} ${t.tier_current}/${t.tier_total||3}</span>`).join('');
   const augTags=augs.length?augs.map(a=>`<span class="achip">${a}</span>`).join(''):'<span style="color:var(--dim);font-size:.8rem">No augment data in API</span>';
+
   document.getElementById('modalBody').innerHTML=`
     <div class="modal-stats">
       <div class="mstat"><div class="mstat-lbl">Placement</div><div class="mstat-val" style="color:${color}">${p.placement}/8</div></div>
@@ -378,16 +509,25 @@ async function openModal(idx){
       <span class="section-lbl">AI COACHING ANALYSIS</span>
       <div id="modalCoaching" style="color:var(--dim);font-family:monospace;font-size:.8rem">Analyzing this match… ~10 seconds</div>
     </div>`;
-  document.getElementById('matchModal').classList.add('show');document.getElementById('matchModal').scrollTop=0;
+
+  document.getElementById('matchModal').classList.add('show');
+  document.getElementById('matchModal').scrollTop=0;
+
   const traitsStr=traits.map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
   const unitsStr=units.map(u=>{const name=getChampName(u.character_id);const items=getUnitItems(u);return `${name}★${u.tier}${items.length?' holding: '+items.join(', '):''}`;}).join(' | ');
   const matchSummary=[`Date: ${date} | Placement: ${p.placement}/8`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}`,`Damage: ${p.total_damage_to_players||0} | Eliminations: ${p.players_eliminated||0}`,`Traits: ${traitsStr||'none'}`,`Augments: ${augs.join(', ')||'none in API data'}`,`Units with items: ${unitsStr||'none'}`].join('\n');
+
   try{
-    const text=await callClaude(`You are a Master/Challenger TFT (Set 17: Space Gods) coach. Analyze this single match. Items are listed — evaluate every one.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp, execution, result.\n\n## Economy Assessment\nGold left story — over-rolled, under-rolled, or correct? Exact recommendation.\n\n## Comp Execution\nTrait breakpoints, unit stars, what was missing.\n\n## Itemization Analysis\nFor EVERY unit with items: are they correct in Set 17? What are BiS items? What to swap?\nFormat: "Jinx★2 has Rabadon + Archangel — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's Hurricane."\n\n## Augment Synergy\nGood or bad picks for this comp?\n\n## The Key Mistake\nOne very specific thing that cost the most LP.\n\n## What a Master Player Does Differently\nExact Master decision at the critical moment.\n\n## 2 Quick Wins\nTwo immediate fixes for next time.\n\nEvery sentence actionable. Stage format. Set 17 meta.`,2500);
+    const text=await callClaude(`You are a Master/Challenger TFT (Set 17: Space Gods, Patch 17.3) coach. Analyze this single match. Items listed — evaluate every one.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp, execution, result.\n\n## Economy Assessment\nGold left story — over-rolled, under-rolled, correct? Exact recommendation.\n\n## Comp Execution\nTrait breakpoints, unit stars, what was missing.\n\n## Itemization Analysis\nFor EVERY unit with items: correct in Set 17 patch 17.3? BiS items? What to swap?\nFormat: "Jinx★2 has Rabadon + Archangel — WRONG. BiS: Giant Slayer + Last Whisper + Runaan's Hurricane."\n\n## Augment Synergy\nGood or bad picks for this comp?\n\n## The Key Mistake\nOne very specific thing that cost the most LP.\n\n## What a Master Player Does Differently\nExact Master decision at the critical moment.\n\n## 2 Quick Wins\nTwo immediate fixes for next time.\n\nEvery sentence actionable. Stage format. Set 17 patch 17.3 meta.`,2500);
     document.getElementById('modalCoaching').innerHTML=renderCoaching(text);
-  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
+  }catch(e){
+    document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;
+  }
 }
-function renderCoaching(t){return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');}
+
+function renderCoaching(t){
+  return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
 </script>
 </body>
 </html>
