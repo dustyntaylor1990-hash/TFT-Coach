@@ -105,7 +105,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .unit-st{color:#ffd700;font-size:.7rem;margin-bottom:4px}
 .item-tag{font-family:'Share Tech Mono',monospace;font-size:.55rem;padding:2px 4px;background:rgba(74,158,218,.1);border:1px solid rgba(74,158,218,.2);color:var(--accent);display:block;margin:1px 0;word-break:break-word;text-align:left}
 .section-lbl{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em;margin-bottom:6px;display:block}
-.key-bar{background:var(--bg2);border:1px solid var(--border);padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
 .key-status{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim)}
 .admin-panel{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--gdim);padding:18px 20px;margin-bottom:14px;position:relative;display:none}
 .admin-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -116,7 +116,70 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .note a{color:var(--gdim)}
 /* ARAM specific */
 .aram-champ{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent)}
-@media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}.mode-tabs{flex-wrap:wrap}}
+/* Squad podium */
+.podium-stage{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:0 4px}
+.pod-col{display:flex;flex-direction:column;align-items:center;flex:1;max-width:200px}
+.pod-card{width:100%;border:1px solid var(--border);border-bottom:none;padding:14px 10px 10px;text-align:center;position:relative}
+.pod-1 .pod-card{background:rgba(200,169,110,.06);border-color:var(--gold)}
+.pod-2 .pod-card{background:rgba(136,136,136,.05);border-color:#888}
+.pod-3 .pod-card{background:rgba(205,127,50,.05);border-color:#cd7f32}
+.pod-base{width:100%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-top:none}
+.pod-1 .pod-base{height:60px;background:var(--gold);border-color:var(--gold)}
+.pod-2 .pod-base{height:42px;background:#888;border-color:#888}
+.pod-3 .pod-base{height:26px;background:#cd7f32;border-color:#cd7f32}
+.pod-place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.4rem;color:var(--bg)}
+.pod-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--glt);margin-bottom:5px}
+.pod-rank{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);margin-bottom:4px}
+.pod-lp{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim)}
+.pod-trend{font-size:1.1rem;margin-bottom:4px}
+.pod-trend.up{color:var(--grn)}.pod-trend.down{color:var(--red)}.pod-trend.flat{color:var(--gold)}
+.pod-dots{display:flex;gap:2px;justify-content:center;margin-top:5px;flex-wrap:wrap}
+.pd{width:9px;height:9px;border-radius:1px}
+.pd.t{background:var(--grn)}.pd.b{background:var(--red)}
+/* Meta comps */
+.mc-card{background:var(--bg2);border:1px solid var(--border);margin-bottom:8px}
+.mc-card.s-tier{border-left:2px solid var(--gold)}
+.mc-card.a-tier{border-left:2px solid var(--pur)}
+.mc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;transition:background .12s}
+.mc-head:hover{background:var(--bg3)}
+.mc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--glt)}
+.mc-badges{display:flex;gap:6px;align-items:center}
+.mc-tier{font-family:'Share Tech Mono',monospace;font-size:.58rem;padding:2px 7px;border:1px solid}
+.mc-tier.s{border-color:var(--gold);color:var(--gold)}
+.mc-tier.a{border-color:var(--pur);color:var(--pur)}
+.mc-style{font-family:'Share Tech Mono',monospace;font-size:.58rem;padding:2px 7px;border:1px solid var(--border);color:var(--dim)}
+.mc-body{display:none;padding:14px;border-top:1px solid var(--border)}
+.mc-body.open{display:block}
+.mc-section{margin-bottom:12px}
+.mc-slbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.hex-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;max-width:100%}
+.hx{aspect-ratio:1;border-radius:2px;background:var(--bg3);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:1px}
+.hx.carry{border-color:var(--gold);background:rgba(200,169,110,.08)}
+.hx.tank{border-color:var(--accent);background:rgba(74,158,218,.08)}
+.hx.support{border-color:var(--pur);background:rgba(155,111,224,.08)}
+.hx-st{font-size:7px;color:#ffd700;line-height:1}
+.hx-nm{font-size:7px;font-weight:700;color:var(--text);text-align:center;line-height:1.1}
+.hx-sub{font-size:5px;color:var(--dim);text-align:center;line-height:1;overflow:hidden;max-width:100%}
+.hx-dots{display:flex;gap:1px;margin-top:1px}
+.hd{width:5px;height:5px;border-radius:1px}
+.hd.ad{background:var(--gold);opacity:.8}.hd.ap{background:var(--pur);opacity:.8}.hd.as{background:var(--grn);opacity:.8}.hd.tk{background:var(--accent);opacity:.8}
+.lv-table{width:100%;border-collapse:collapse;font-family:'Share Tech Mono',monospace;font-size:.62rem}
+.lv-table th{background:var(--bg3);border:1px solid var(--border);padding:4px 6px;color:var(--dim);text-align:center}
+.lv-table td{border:1px solid var(--border);padding:4px 6px;text-align:center;color:var(--text)}
+.tip-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;font-size:.8rem;line-height:1.5}
+.tip-icon{font-size:.9rem;flex-shrink:0;margin-top:1px}
+.aug-row{display:flex;gap:6px;align-items:baseline;margin-bottom:4px;font-size:.78rem}
+.aug-lbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);min-width:52px}
+.aug-val{color:var(--text)}.aug-val.bis{color:var(--gold);font-weight:700}
+.itm-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:.78rem}
+.itm-unit{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);min-width:60px;padding-top:2px}
+.itm-tags{display:flex;flex-wrap:wrap;gap:3px}
+.itag{font-family:'Share Tech Mono',monospace;font-size:.58rem;padding:2px 5px;background:var(--bg3);border:1px solid var(--border);color:var(--text)}
+.itag.key{border-color:var(--gdim);color:var(--gold);background:rgba(200,169,110,.07)}
+.cond-notice{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:6px 10px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.cond-notice.warn{background:rgba(224,80,80,.07);border:1px solid rgba(224,80,80,.25);color:#e08080}
+.cond-notice.ok{background:rgba(78,201,148,.07);border:1px solid rgba(78,201,148,.25);color:var(--grn)}
+@media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}.mode-tabs{flex-wrap:wrap}.pod-name{font-size:.85rem}.podium-stage{gap:5px}}
 </style>
 </head>
 <body>
@@ -131,55 +194,43 @@ select{cursor:pointer}select option{background:var(--bg3)}
   <div class="patch-badge" id="patchBadge">TFT Set 17 · Patch 17.3</div>
 </header>
 
-<!-- API Keys -->
-<div class="panel">
-  <div class="plbl">// API Keys — saved to your browser</div>
-  <div class="g2">
-    <div class="ig">
-      <label>Claude API Key</label>
-      <input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()"/>
-      <div class="saved" id="ckSaved">✓ Saved</div>
+<!-- API Keys — compact single row -->
+<div style="background:var(--bg2);border:1px solid var(--border);padding:8px 14px;margin-bottom:10px">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gdim);letter-spacing:.15em;text-transform:uppercase;white-space:nowrap">// Keys</span>
+    <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:140px">
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);white-space:nowrap">Claude:</span>
+      <input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()" style="height:30px;padding:4px 8px;font-size:.75rem;flex:1;min-width:80px"/>
+      <span class="saved" id="ckSaved" style="font-size:.58rem">✓</span>
     </div>
-    <div class="ig">
-      <label>Riot API Key <span style="color:var(--red);font-size:.58rem">(renews every 24h)</span></label>
-      <input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()"/>
-      <div class="saved" id="rkSaved">✓ Saved</div>
+    <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:140px">
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);white-space:nowrap">Riot:</span>
+      <input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()" style="height:30px;padding:4px 8px;font-size:.75rem;flex:1;min-width:80px"/>
+      <span class="saved" id="rkSaved" style="font-size:.58rem">✓</span>
     </div>
   </div>
-  <div class="note">Keys saved in your browser only — never sent to our server. Claude key: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> · Riot key: <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></div>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-top:5px">
+    Get Claude key: <a href="https://console.anthropic.com" target="_blank" style="color:var(--gdim)">console.anthropic.com</a>
+    &nbsp;·&nbsp;
+    Riot key (renews 24h): <a href="https://developer.riotgames.com" target="_blank" style="color:var(--gdim)">developer.riotgames.com</a>
+    &nbsp;·&nbsp; Keys saved in browser only
+  </div>
 </div>
 
-<!-- Shared Riot key status + admin -->
-<div class="key-bar">
-  <div class="key-status">Shared Riot Key: <span id="keyStatus" style="color:var(--gdim)">checking…</span></div>
-  <button class="btn-sm" onclick="toggleAdmin()">⚙ ADMIN</button>
-</div>
-<div class="admin-panel" id="adminPanel">
-  <div class="plbl">// Admin — Set Shared Riot Key for Everyone</div>
-  <div class="g2" style="margin-bottom:12px">
-    <div class="ig">
-      <label>New Riot API Key</label>
-      <input type="password" id="adminRiotKey" placeholder="RGAPI-…"/>
-    </div>
-    <div class="ig">
-      <label>Admin Password</label>
-      <input type="password" id="adminPass" placeholder="password" onkeydown="if(event.key==='Enter')updateRiotKey()"/>
-    </div>
-  </div>
-  <button class="btn" onclick="updateRiotKey()">Update Key for Everyone</button>
-  <div class="admin-msg" id="adminMsg"></div>
-  <div class="note">Updates the shared server-side key for all users. Get key at <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> — expires every 24h.</div>
-</div>
+<!-- Mini squad podium — always visible on load -->
+<div id="miniPodium" style="margin-bottom:10px"></div>
 
 <!-- Mode tabs -->
 <div class="mode-tabs">
-  <div class="mode-tab active" id="tab-tft" onclick="setMode('tft')">⚔ TFT Ranked</div>
+  <div class="mode-tab active" id="tab-tft" onclick="setMode('tft')">⚔ TFT</div>
   <div class="mode-tab" id="tab-double" onclick="setMode('double')">👥 Double Up</div>
   <div class="mode-tab" id="tab-aram" onclick="setMode('aram')">⚡ ARAM</div>
+  <div class="mode-tab" id="tab-meta" onclick="setMode('meta')">📊 Meta</div>
+  <div class="mode-tab" id="tab-squad" onclick="setMode('squad')">🏆 Squad</div>
 </div>
 
 <!-- Player lookup -->
-<div class="panel">
+<div class="panel" id="lookupPanel">
   <div class="plbl" id="lookupLabel">// TFT Ranked — Player Lookup</div>
   <div class="g3">
     <div class="ig">
@@ -240,7 +291,71 @@ select{cursor:pointer}select option{background:var(--bg3)}
   <div class="chdr"><div class="ctitle">Coaching Report</div><span class="cbadge" id="cpanelBadge">CLAUDE AI</span></div>
   <div class="cbody" id="cbody"></div>
 </div>
+
+<!-- ── META TAB ─────────────────────────────────────────────── -->
+<div id="metaTab" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--glt)">S &amp; A Tier Comps</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--dim);margin-top:3px">Tap a comp to expand · auto-updated by AI</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--gdim);padding:3px 8px;border:1px solid var(--border)">Set 17 · Patch 17.3</span>
+      <button class="btn-sm" onclick="updateMetaTab()">↺ Update Meta</button>
+    </div>
+  </div>
+  <div id="metaTabContent"></div>
 </div>
+
+<!-- ── SQUAD TAB ────────────────────────────────────────────── -->
+<div id="squadTab" style="display:none">
+  <!-- Podium -->
+  <div id="podiumArea" style="margin-bottom:20px"></div>
+
+  <!-- Squad recent form -->
+  <div id="squadFormArea" style="margin-bottom:20px"></div>
+
+  <!-- Admin + player setup panel -->
+  <div class="panel">
+    <div class="plbl">// Squad Setup &amp; Admin</div>
+
+    <!-- Player names -->
+    <div style="margin-bottom:14px">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase">Player Riot IDs</div>
+      <div class="g3" style="margin-bottom:8px">
+        <div class="ig"><label>Player 1 (You)</label><input type="text" id="sq1" placeholder="Bahagabag#NA1"/></div>
+        <div class="ig"><label>Region</label><select id="sq1r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option><option value="br1">BR</option><option value="la1">LAN</option><option value="la2">LAS</option><option value="oc1">OCE</option><option value="tr1">TR</option><option value="ru">RU</option></select></div>
+        <div></div>
+      </div>
+      <div class="g3" style="margin-bottom:8px">
+        <div class="ig"><label>Player 2</label><input type="text" id="sq2" placeholder="Adam#NA1"/></div>
+        <div class="ig"><label>Region</label><select id="sq2r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div>
+        <div></div>
+      </div>
+      <div class="g3" style="margin-bottom:12px">
+        <div class="ig"><label>Player 3</label><input type="text" id="sq3" placeholder="Mikey#NA1"/></div>
+        <div class="ig"><label>Region</label><select id="sq3r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div>
+        <div></div>
+      </div>
+      <button class="btn" onclick="saveSquadAndRefresh()">Save &amp; Refresh Podium</button>
+      <div class="saved" id="squadSaved" style="margin-top:6px">✓ Saved</div>
+    </div>
+
+    <!-- Admin Riot key section -->
+    <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:6px">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase">Admin — Update Shared Riot Key</div>
+      <div class="g2" style="margin-bottom:10px">
+        <div class="ig"><label>New Riot API Key</label><input type="password" id="adminRiotKey" placeholder="RGAPI-…"/></div>
+        <div class="ig"><label>Admin Password</label><input type="password" id="adminPass" placeholder="password" onkeydown="if(event.key==='Enter')updateRiotKey()"/></div>
+      </div>
+      <button class="btn" onclick="updateRiotKey()">Update Key for Everyone</button>
+      <div class="admin-msg" id="adminMsg" style="display:none;margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.72rem"></div>
+      <div class="note">Get a free Riot key at <a href="https://developer.riotgames.com" target="_blank" style="color:var(--gdim)">developer.riotgames.com</a> — expires every 24h. Only the admin password holder can update.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
 
 <!-- Single match modal -->
 <div class="overlay" id="matchModal" onclick="if(event.target===this)closeModal()">
@@ -283,7 +398,9 @@ window.addEventListener('load',()=>{
   if(rid)document.getElementById('riotId').value=rid;
   if(reg)document.getElementById('region').value=reg;
   loadDDragon();
-  checkKeyStatus();
+  loadSquadSetup();
+  renderMetaTab();
+  renderMiniPodium();
 });
 
 async function loadDDragon(){
@@ -297,20 +414,35 @@ function getUnitItems(u){return(u.items||u.itemNames||[]).map(id=>{if(typeof id=
 // ── Mode switching ─────────────────────────────────────────────
 function setMode(mode){
   currentMode=mode;
-  ['tft','double','aram'].forEach(m=>{
+  ['tft','double','aram','meta','squad'].forEach(m=>{
     document.getElementById('tab-'+m).classList.toggle('active',m===mode);
   });
-  const labels={tft:'// TFT Ranked — Player Lookup',double:'// Double Up — Player Lookup',aram:'// ARAM — Player Lookup'};
-  const badges={tft:'TFT RANKED',double:'DOUBLE UP',aram:'ARAM'};
-  document.getElementById('lookupLabel').textContent=labels[mode];
-  document.getElementById('modeBadge').textContent=badges[mode];
-  // Reset results
-  matchData=[];selected.clear();
-  ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}});
-  document.getElementById('cpanel').classList.remove('show');
-  er('');st('');
-  document.getElementById('mlist').innerHTML='';
-  document.getElementById('statsGrid').innerHTML='';
+
+  // Show/hide sections based on mode
+  const isGame=['tft','double','aram'].includes(mode);
+  const isMeta=mode==='meta';
+  const isSquad=mode==='squad';
+
+  // Game sections
+  ['lookupPanel','status','err','pcrd','statsRow','matchSection','asec','cpanel'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.style.display='none';
+  });
+  document.getElementById('metaTab').style.display=isMeta?'block':'none';
+  document.getElementById('squadTab').style.display=isSquad?'block':'none';
+
+  if(isGame){
+    document.getElementById('lookupPanel').style.display='block';
+    const labels={tft:'// TFT Ranked — Player Lookup',double:'// Double Up — Player Lookup',aram:'// ARAM — Player Lookup'};
+    const badges={tft:'TFT RANKED',double:'DOUBLE UP',aram:'ARAM'};
+    document.getElementById('lookupLabel').textContent=labels[mode];
+    document.getElementById('modeBadge').textContent=badges[mode];
+    // Reset match data
+    matchData=[];selected.clear();
+    document.getElementById('mlist').innerHTML='';
+    document.getElementById('statsGrid').innerHTML='';
+    er('');st('');
+  }
 }
 
 // ── Admin ──────────────────────────────────────────────────────
@@ -358,6 +490,8 @@ async function fetchPlayer(){
   er('');st('');matchData=[];selected.clear();
   ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}});
   document.getElementById('cpanel').classList.remove('show');
+  document.getElementById('status').style.display='';
+  document.getElementById('err').style.display='';
   document.getElementById('mlist').innerHTML='';
   document.getElementById('statsGrid').innerHTML='';
 
@@ -710,6 +844,341 @@ async function openARAMModal(idx,m){
 
 function renderCoaching(t){
   return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
+
+// ── ADMIN (now in Squad tab) ──────────────────────────────────
+async function updateRiotKey(){
+  const key=document.getElementById('adminRiotKey').value.trim();
+  const pass=document.getElementById('adminPass').value.trim();
+  const msg=document.getElementById('adminMsg');
+  msg.style.display='block';msg.style.color='var(--dim)';msg.textContent='Updating…';
+  try{
+    const r=await fetch('/api/riotkey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,adminPass:pass})});
+    const d=await r.json();if(!r.ok)throw new Error(d.error||'Failed');
+    msg.style.color='var(--grn)';msg.textContent='✓ Key updated for everyone: '+d.masked;
+    document.getElementById('adminRiotKey').value='';document.getElementById('adminPass').value='';
+  }catch(e){msg.style.color='#e08080';msg.textContent='✗ '+e.message;}
+}
+
+// ── SQUAD TAB ─────────────────────────────────────────────────
+const TIER_ORDER={IRON:0,BRONZE:1,SILVER:2,GOLD:3,PLATINUM:4,EMERALD:5,DIAMOND:6,MASTER:7,GRANDMASTER:8,CHALLENGER:9};
+const RANK_ORDER={IV:0,III:1,II:2,I:3};
+const TIER_ICONS={IRON:'⬛',BRONZE:'🟫',SILVER:'⬜',GOLD:'🟡',PLATINUM:'🩵',EMERALD:'💚',DIAMOND:'💎',MASTER:'🟣',GRANDMASTER:'🔴',CHALLENGER:'🏆',UNRANKED:'❓'};
+let squadData=[null,null,null],squadSnapshotLP=[null,null,null];
+
+function getTotalLP(ranked){
+  if(!ranked)return -1;
+  return(TIER_ORDER[ranked.tier]||0)*400+(RANK_ORDER[ranked.rank]||0)*100+(ranked.leaguePoints||0);
+}
+
+function loadSquadSetup(){
+  const saved=localStorage.getItem('squad_players');
+  if(saved){
+    try{
+      const p=JSON.parse(saved);
+      if(p[0])document.getElementById('sq1').value=p[0].id||'';
+      if(p[1])document.getElementById('sq2').value=p[1].id||'';
+      if(p[2])document.getElementById('sq3').value=p[2].id||'';
+      if(p[0])document.getElementById('sq1r').value=p[0].region||'na1';
+      if(p[1])document.getElementById('sq2r').value=p[1].region||'na1';
+      if(p[2])document.getElementById('sq3r').value=p[2].region||'na1';
+    }catch(e){}
+  }
+  const snap=localStorage.getItem('squad_snapshot');
+  if(snap)try{squadSnapshotLP=JSON.parse(snap);}catch(e){}
+  const cached=localStorage.getItem('squad_data');
+  if(cached)try{squadData=JSON.parse(cached);renderPodium();renderMiniPodium();}catch(e){}
+}
+
+function saveSquadAndRefresh(){
+  const players=[
+    {id:document.getElementById('sq1').value.trim(),region:document.getElementById('sq1r').value},
+    {id:document.getElementById('sq2').value.trim(),region:document.getElementById('sq2r').value},
+    {id:document.getElementById('sq3').value.trim(),region:document.getElementById('sq3r').value},
+  ];
+  localStorage.setItem('squad_players',JSON.stringify(players));
+  document.getElementById('squadSaved').style.display='block';
+  setTimeout(()=>document.getElementById('squadSaved').style.display='none',2000);
+  refreshSquad();
+}
+
+async function refreshSquad(){
+  const saved=localStorage.getItem('squad_players');
+  if(!saved){renderPodiumEmpty();return;}
+  const players=JSON.parse(saved);
+  document.getElementById('podiumArea').innerHTML=`<div style="text-align:center;padding:2rem;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim)">Loading rank data…</div>`;
+
+  // Save current LP as snapshot before updating
+  squadData.forEach((d,i)=>{if(d&&d.ranked)squadSnapshotLP[i]=getTotalLP(d.ranked);});
+  localStorage.setItem('squad_snapshot',JSON.stringify(squadSnapshotLP));
+
+  const results=await Promise.all(players.map(async(p,i)=>{
+    try{
+      if(!p.id)return null;
+      const[name,tag]=p.id.includes('#')?p.id.split('#'):[p.id,'NA1'];
+      const routing=ROUTING[p.region]||'americas';
+      const ar=await riotGet(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
+      const sr=await riotGet(`https://${p.region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${ar.puuid}`);
+      let ranked=null;
+      try{const lr=await riotGet(`https://${p.region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${sr.id}`);ranked=(lr||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
+      let recentPl=[];
+      try{
+        const idr=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${ar.puuid}/ids?count=8`);
+        for(const id of idr.slice(0,5)){
+          try{const mr=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${id}`);const pp=mr.info.participants.find(pp=>pp.puuid===ar.puuid);if(pp)recentPl.push(pp.placement);}catch(e){}
+        }
+      }catch(e){}
+      return{name,tag,ranked,recentPl};
+    }catch(e){return null;}
+  }));
+
+  squadData=results;
+  localStorage.setItem('squad_data',JSON.stringify(squadData));
+  renderPodium();
+}
+
+function getTrend(idx){
+  const d=squadData[idx];if(!d||!d.ranked)return'flat';
+  const cur=getTotalLP(d.ranked);
+  const prev=squadSnapshotLP[idx];
+  if(prev===null||prev===undefined)return'flat';
+  if(cur-prev>10)return'up';
+  if(prev-cur>10)return'down';
+  return'flat';
+}
+
+function renderPodiumEmpty(){
+  document.getElementById('podiumArea').innerHTML=`<div style="text-align:center;padding:2rem;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim)">Enter player names below and click Save &amp; Refresh Podium.</div>`;
+}
+
+function renderMiniPodium(){
+  const el=document.getElementById('miniPodium');
+  if(!el)return;
+  const indices=[0,1,2];
+  const sorted=[...indices].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
+  const podOrder=[sorted[1],sorted[0],sorted[2]];
+  const heights=['38px','56px','26px'];
+  const crowns=['🥈','🥇','🥉'];
+  const bgColors=['#888','var(--gold)','#cd7f32'];
+
+  // Check if we have any real data
+  const hasData=squadData.some(d=>d&&d.ranked);
+  if(!hasData){
+    el.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim)">🏆 Squad — go to Squad tab to set up your group</div>
+      <button class="btn-sm" onclick="setMode('squad')" style="white-space:nowrap;font-size:.58rem;padding:3px 10px">Set up →</button>
+    </div>`;
+    return;
+  }
+
+  let html=`<div style="background:var(--bg2);border:1px solid var(--border);padding:8px 12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gdim);letter-spacing:.15em;text-transform:uppercase">// Squad</span>
+      <button class="btn-sm" onclick="setMode('squad')" style="font-size:.58rem;padding:2px 8px">Full view →</button>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:6px;justify-content:center">`;
+
+  podOrder.forEach((dataIdx,podPos)=>{
+    if(dataIdx===undefined){html+=`<div style="flex:1;max-width:200px;text-align:center"><div style="height:${heights[podPos]};background:#333;border-radius:2px 2px 0 0"></div></div>`;return;}
+    const d=squadData[dataIdx];
+    const trend=getTrend(dataIdx);
+    const tIcon=trend==='up'?'▲':trend==='down'?'▼':'→';
+    const tColor=trend==='up'?'var(--grn)':trend==='down'?'var(--red)':'var(--gold)';
+    const name=d?.name||'?';
+    let rankStr='Unranked',lpStr='';
+    if(d?.ranked){
+      const r=d.ranked;
+      const isApex=['MASTER','GRANDMASTER','CHALLENGER'].includes(r.tier);
+      rankStr=isApex?r.tier:`${r.tier} ${r.rank}`;
+      lpStr=r.leaguePoints+'LP';
+    }
+    html+=`<div style="flex:1;max-width:200px;text-align:center">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;color:var(--glt);margin-bottom:2px">${name}</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);margin-bottom:1px">${rankStr}</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.55rem;color:var(--dim);margin-bottom:3px">${lpStr}</div>
+      <div style="font-size:.75rem;color:${tColor};margin-bottom:3px;font-weight:700">${tIcon}</div>
+      <div style="height:${heights[podPos]};background:${bgColors[podPos]};border-radius:2px 2px 0 0;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:.9rem">${crowns[podPos]}</span>
+      </div>
+    </div>`;
+  });
+
+  html+=`</div></div>`;
+  el.innerHTML=html;
+}
+
+function renderPodium(){
+  const indices=[0,1,2];
+  const sorted=[...indices].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
+  // podium order: 2nd left, 1st center, 3rd right
+  const podOrder=[sorted[1],sorted[0],sorted[2]];
+  const podClasses=['pod-2','pod-1','pod-3'];
+  const podPlaces=['2','1','3'];
+  const crowns=['🥈','🥇','🥉'];
+
+  let html='<div class="podium-stage">';
+  podOrder.forEach((dataIdx,podPos)=>{
+    if(dataIdx===undefined){html+=`<div class="pod-col ${podClasses[podPos]}"><div class="pod-card"><div class="pod-name" style="color:var(--dim)">—</div></div><div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div></div>`;return;}
+    const d=squadData[dataIdx];
+    const trend=getTrend(dataIdx);
+    const trendIcon=trend==='up'?'▲':trend==='down'?'▼':'→';
+    const trendClass=trend==='up'?'up':trend==='down'?'down':'flat';
+    const trendLabel=trend==='up'?'Rising':trend==='down'?'Falling':'Steady';
+    const name=d?.name||'Unknown';
+    let rankStr='Unranked',lpStr='0 LP',icon='❓';
+    if(d?.ranked){
+      const r=d.ranked;
+      icon=TIER_ICONS[r.tier]||'❓';
+      const isApex=['MASTER','GRANDMASTER','CHALLENGER'].includes(r.tier);
+      rankStr=isApex?r.tier:`${r.tier} ${r.rank}`;
+      lpStr=`${r.leaguePoints} LP · ${r.wins}W ${r.losses}L`;
+    }
+    const dots=(d?.recentPl||[]).map(p=>`<div class="pd ${p<=4?'t':'b'}" title="Place ${p}"></div>`).join('');
+
+    html+=`<div class="pod-col ${podClasses[podPos]}">
+      <div class="pod-card">
+        <div style="font-size:1.3rem;margin-bottom:4px">${crowns[podPos]}</div>
+        <div class="pod-name">${name}</div>
+        <div class="pod-trend ${trendClass}">${trendIcon} <span style="font-size:.65rem;font-family:'Share Tech Mono',monospace">${trendLabel}</span></div>
+        <div style="font-size:1.4rem;margin-bottom:2px">${icon}</div>
+        <div class="pod-rank">${rankStr}</div>
+        <div class="pod-lp">${lpStr}</div>
+        ${dots?`<div class="pod-dots">${dots}</div>`:''}
+      </div>
+      <div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div>
+    </div>`;
+  });
+  html+='</div>';
+
+  // Recent form table
+  html+=`<div style="margin-top:16px">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Recent Form (last 5 games)</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">`;
+  sorted.forEach(idx=>{
+    const d=squadData[idx];
+    const name=d?.name||'—';
+    const pl=d?.recentPl||[];
+    const top4=pl.filter(p=>p<=4).length;
+    const avg=pl.length?(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(1):'—';
+    const dots=pl.map(p=>`<div class="pd ${p<=4?'t':'b'}" title="Place ${p}"></div>`).join('');
+    html+=`<div style="background:var(--bg2);border:1px solid var(--border);padding:10px;text-align:center">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;color:var(--glt);margin-bottom:5px">${name}</div>
+      <div class="pod-dots" style="justify-content:center;margin-bottom:4px">${dots||'<span style="font-size:.65rem;color:var(--dim)">No games</span>'}</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim)">Avg: <span style="color:var(--text)">${avg}</span> · Top4: <span style="color:var(--grn)">${pl.length?top4+'/'+pl.length:'—'}</span></div>
+    </div>`;
+  });
+  html+='</div></div>';
+
+  document.getElementById('podiumArea').innerHTML=html;
+  renderMiniPodium();
+}
+
+// ── META TAB ──────────────────────────────────────────────────
+const META_COMPS=[
+  {name:"Corki Riven",tier:"S",style:"Fast 8/9",warn:false,condition:"Items for Corki, Riven, Rammus by stage 4",gods:"Ahri, Kayle",
+   board:[{n:"Rammus",r:"tank",s:2,i:["tk","tk"],c:0,row:0},{n:"Meepsie",r:"support",s:2,i:[],c:1,row:0},{n:"Poppy",r:"tank",s:2,i:["tk"],c:2,row:0},{n:"Veigar",r:"support",s:2,i:[],c:3,row:0},{n:"Milio",r:"support",s:2,i:[],c:4,row:0},{n:"Corki",r:"carry",s:2,i:["ad","ad","ad"],c:5,row:1},{n:"Riven",r:"carry",s:2,i:["ad","tk","tk"],c:6,row:1}],
+   items:[{u:"Corki",tags:["Last Whisper","Striker's","Blue Buff"],key:true},{u:"Riven",tags:["Bloodthirster","Titan's","Sterak's"],key:true},{u:"Rammus",tags:["Generic tank"],key:false}],
+   augments:{bis:"Meeple Emblem",order:"Item > Econ > Combat",picks:"Trait Tree · Pandora's Bench · Living Forge"},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5-2",l:"9"}],
+   tips:["💰 Win streak preferred. Maintain 50g interest through stage 3. Don't roll before level 8 unless stabilizing.","⚔️ <b>Level 8 on 4-2</b> — roll for Corki 2, Riven 2, Rammus 2. Finding Rammus 2 is key.","🎯 Corki already crits as a Fateweaver — build crit items. Both Corki and Riven deal AD so Last Whisper's Sunder hits both.","🔝 Level 9 for Bard. Drop to 3 Meeple + 2 Bastion if gold allows. Meeple Riven is max cap."]},
+  {name:"6 Dark Stars",tier:"S",style:"Fast 8/9",warn:true,condition:"Dark Star Emblem required",gods:"Kayle, Ahri",
+   board:[{n:"Nunu",r:"tank",s:2,i:["tk","tk"],c:0,row:0},{n:"Talon",r:"tank",s:2,i:[],c:1,row:0},{n:"Gwen",r:"tank",s:2,i:[],c:2,row:0},{n:"Briar",r:"tank",s:2,i:[],c:3,row:0},{n:"Xayah",r:"carry",s:2,i:["as","ad","ad"],c:4,row:1},{n:"Riven",r:"carry",s:2,i:["ad","tk","tk"],c:5,row:1},{n:"Jhin",r:"carry",s:1,i:["ad","ad","ad"],c:6,row:1}],
+   items:[{u:"Riven (Emblem)",tags:["Sterak's","Hand of Justice"],key:true},{u:"Xayah (Emblem)",tags:["Guinsoo's","Red Buff"],key:true},{u:"Jhin",tags:["Infinity Edge","Last Whisper","Striker's"],key:true}],
+   augments:{bis:"Dark Star Emblem on Riven or Xayah",order:"Trait > Items > Econ > Combat",picks:"Aura Farming Jhin · Trait Tree · Living Forge"},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5-2",l:"9"}],
+   tips:["🌟 Dark Star already gives massive AD/AP — don't build raw stat items. Build multipliers like Last Whisper and Kraken Slayer.","💰 Look for 4 Dark Star in stage 2 — the trait gives huge early stats.","⚔️ Level 8 on 4-2. Spike around 6 Dark Star + 2-star 4-cost. Both Riven and Xayah variants are stable here.","🔝 Jhin is the highest cap — play him as soon as possible on level 9. Avoid scaling items entirely."]},
+  {name:"Vex Fast 9",tier:"S",style:"Fast 9 — Exodia",warn:true,condition:"Must reach level 9 by 4-5. Cannot play from loss streak.",gods:"Ahri, Kayle",
+   board:[{n:"Nunu",r:"tank",s:2,i:["tk","tk"],c:0,row:0},{n:"Fiora",r:"tank",s:2,i:["tk","tk","tk"],c:1,row:0},{n:"Gwen",r:"tank",s:2,i:[],c:2,row:0},{n:"Talon",r:"support",s:1,i:[],c:3,row:0},{n:"Akali",r:"support",s:2,i:[],c:4,row:0},{n:"Graves",r:"carry",s:2,i:["ad","ad","ad"],c:5,row:1},{n:"Vex",r:"carry",s:2,i:["ap","ap","ap"],c:6,row:1}],
+   items:[{u:"Vex",tags:["Guinsoo's","Giant Slayer","Gunblade"],key:true},{u:"Graves",tags:["Edge of Night","Giant Slayer","Striker's"],key:true},{u:"Fiora",tags:["Sterak's","Titan's","Bloodthirster"],key:false}],
+   augments:{bis:"Bronze For Life",order:"Econ > Item > Combat > Trait",picks:"Banking on Gold · Loaded Dice · Scuttle Puddle"},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-5",l:"9"},{r:"5+",l:"—"}],
+   tips:["💰 Win streak to 9. If you aren't winning stage 2-3 consider pivoting. Needs HP + econ to skip straight to 9.","⚠️ No 5-cost tank this set — if you can't hit 9 by 4-5 all frontline copies will be gone. Pivot from LeBlanc comp.","⚔️ Graves build path: Assault Frame → Melt Through → Grav Booster → Buckshot++. Only 1 Grav Booster proc then all Buckshot.","🛡️ Prioritize CC immunity on Graves. Don't build Shred/Sunder — NOVA buffs provide it after 6 seconds.","🔝 Latest Graves is playable: 5-2. After that, add more frontline for Vex instead."]},
+  {name:"Brawler Yi",tier:"A",style:"Fast 8/9",warn:false,condition:"AD Psionic item preferred. Play from tempo, not loss streak.",gods:"Kayle, Ahri",
+   board:[{n:"TK",r:"tank",s:2,i:["tk","tk"],c:0,row:0},{n:"Leona",r:"tank",s:2,i:[],c:1,row:0},{n:"Malphite",r:"tank",s:2,i:[],c:2,row:0},{n:"Jarvan",r:"tank",s:2,i:[],c:3,row:0},{n:"Kindred",r:"carry",s:2,i:["ad","as","ad"],c:4,row:1},{n:"Yi",r:"carry",s:2,i:["ad","ad","ad"],c:5,row:1},{n:"Fiora",r:"carry",s:1,i:[],c:6,row:1}],
+   items:[{u:"Master Yi",tags:["Edge of Night","Malware Matrix","Giant Slayer"],key:true},{u:"Kindred",tags:["Kraken Slayer","Guinsoo's","Giant Slayer"],key:false},{u:"Tahm Kench",tags:["Biomatter Preserver","tank"],key:false}],
+   augments:{bis:"Marauder Emblem on Yi",order:"Item > Econ > Combat > Trait",picks:"Marauder Emblem · Brawler Emblem · Psionic Emblem"},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5+",l:"9"}],
+   tips:["⚔️ Edge of Night is mandatory on Yi — aggro drop keeps him alive long enough to delete backlines.","🎯 Malware Matrix is Yi's best Psionic item — shreds through frontlines faster than anything else.","💫 Position Yi near aura units (Morgana, Shen) — melee carry needs aura buffs to survive.","🏷️ Emblem priority: Marauder > Brawler > Psionic = Challenger > NOVA.","🔝 Max cap: Level 9 for Fiora + Vex 2."]},
+  {name:"Vanguard LeBlanc",tier:"A",style:"Any Streak — Flexible",warn:false,condition:"Guinsoo's on LeBlanc required. Offensive Arbiter ideal.",gods:"Kayle, Ahri",
+   board:[{n:"Nunu",r:"tank",s:2,i:["tk","tk"],c:0,row:0},{n:"Malphite",r:"tank",s:2,i:[],c:1,row:0},{n:"Leona",r:"tank",s:2,i:[],c:2,row:0},{n:"Jarvan",r:"tank",s:2,i:[],c:3,row:0},{n:"Karma",r:"carry",s:2,i:["ap","ap","ap"],c:4,row:1},{n:"LeBlanc",r:"carry",s:2,i:["as","ap","ap"],c:5,row:1},{n:"Nami",r:"support",s:2,i:["ap","ap"],c:6,row:1}],
+   items:[{u:"LeBlanc",tags:["Guinsoo's","Archangel's","Gunblade"],key:true},{u:"Karma",tags:["Jeweled Gauntlet","Nashor's","Void Staff"],key:true},{u:"Nunu",tags:["Protector's Vow","mana tank"],key:false}],
+   augments:{bis:"Hold the Line",order:"Items > Econ > Combat",picks:"Vanguard Emblem · Shepherd Emblem · Voyager Emblem"},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-2",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5+",l:"9"}],
+   tips:["💰 Most flexible comp — playable from win or loss streak as long as you have Guinsoo's for LeBlanc.","🎯 LeBlanc items first always. Karma/Nami do AoE but can't finish targets on their own.","🔮 Picking the right Arbiter is the skill test — plan items around it. Archangel's built = AS Arbiters better.","🏗️ Core: 3 Shepherd + LeBlanc + Karma/Nami + 2 Arbiter. 4 Vanguard frontline is easiest to stabilize.","🔝 Cap: Level 9 for Bard + Sona + Blitzcrank."]}
+];
+
+function renderMetaTab(){
+  const s=META_COMPS.filter(c=>c.tier==='S');
+  const a=META_COMPS.filter(c=>c.tier==='A');
+  let html='';
+  if(s.length)html+=`<div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)">S Tier — ${s.length} comps</div>${s.map(renderMetaComp).join('')}`;
+  if(a.length)html+=`<div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--pur);letter-spacing:.15em;text-transform:uppercase;margin:12px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border)">A Tier — ${a.length} comps</div>${a.map(renderMetaComp).join('')}`;
+  document.getElementById('metaTabContent').innerHTML=html;
+}
+
+function renderMetaComp(comp){
+  const t=comp.tier.toLowerCase();
+  const id='mc_'+comp.name.replace(/\s+/g,'_');
+
+  // Board grid
+  const grid=Array(2).fill(null).map(()=>Array(7).fill(null));
+  comp.board.forEach(u=>{grid[u.row][u.c]=u;});
+  let boardHtml='<div class="hex-grid">';
+  for(let r=0;r<2;r++){for(let c=0;c<7;c++){
+    const u=grid[r][c];
+    if(u){
+      const stars='★'.repeat(Math.min(u.s,3));
+      const dots=u.i.map(t=>`<div class="hd ${t}"></div>`).join('');
+      boardHtml+=`<div class="hx ${u.r}" title="${u.n}"><div class="hx-st">${stars}</div><div class="hx-nm">${u.n.slice(0,4)}</div><div class="hx-sub">${u.n}</div>${u.i.length?`<div class="hx-dots">${dots}</div>`:''}</div>`;
+    } else boardHtml+=`<div class="hx"></div>`;
+  }}
+  boardHtml+='</div><div style="display:flex;gap:10px;margin-top:5px;font-family:monospace;font-size:8px;color:var(--dim);flex-wrap:wrap"><span>🟡 carry</span><span>🔵 tank</span><span>🟣 support</span><span style="margin-left:4px">dots: 🟡AD 🟣AP 🟢AS 🔵Tank</span></div>';
+
+  const itemsHtml=comp.items.map(i=>`<div class="itm-row"><span class="itm-unit">${i.u}</span><div class="itm-tags">${i.tags.map(t=>`<span class="itag ${i.key?'key':''}">${t}</span>`).join('')}</div></div>`).join('');
+  const lvlHtml=`<div style="overflow-x:auto"><table class="lv-table"><tr>${comp.leveling.map(l=>`<th>${l.r}</th>`).join('')}</tr><tr>${comp.leveling.map(l=>`<td>Lv ${l.l}</td>`).join('')}</tr></table></div>`;
+  const tipsHtml=comp.tips.map(t=>`<div class="tip-item"><span class="tip-icon">${t.slice(0,2)}</span><span style="font-size:.8rem;color:var(--text);line-height:1.5">${t.slice(2).trim()}</span></div>`).join('');
+
+  return `<div class="mc-card ${t}-tier">
+    <div class="mc-head" onclick="toggleMC('${id}')">
+      <span class="mc-name">${comp.name}</span>
+      <div class="mc-badges">
+        <span class="mc-style">${comp.style}</span>
+        <span class="mc-tier ${t}">${comp.tier}</span>
+        <span style="color:var(--dim);font-size:11px" id="chev_${id}">▼</span>
+      </div>
+    </div>
+    <div class="mc-body" id="${id}">
+      <div class="${comp.warn?'cond-notice warn':'cond-notice ok'}">
+        ${comp.warn?'⚠':'✓'} ${comp.condition}
+      </div>
+      <div class="mc-section"><div class="mc-slbl">Positioning</div>${boardHtml}</div>
+      <div class="mc-section"><div class="mc-slbl">Items</div>${itemsHtml}</div>
+      <div class="mc-section"><div class="mc-slbl">Augments</div>
+        <div class="aug-row"><span class="aug-lbl">BiS:</span><span class="aug-val bis">${comp.augments.bis}</span></div>
+        <div class="aug-row"><span class="aug-lbl">Priority:</span><span class="aug-val">${comp.augments.order}</span></div>
+        <div class="aug-row"><span class="aug-lbl">Good picks:</span><span class="aug-val">${comp.augments.picks}</span></div>
+      </div>
+      <div class="mc-section"><div class="mc-slbl">Leveling guide</div>${lvlHtml}</div>
+      <div class="mc-section"><div class="mc-slbl">Tips &amp; gameplan</div>${tipsHtml}</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-top:8px">Gods: ${comp.gods}</div>
+    </div>
+  </div>`;
+}
+
+function toggleMC(id){
+  const b=document.getElementById(id);const c=document.getElementById('chev_'+id);
+  const open=b.classList.toggle('open');
+  c.textContent=open?'▲':'▼';
+}
+
+function updateMetaTab(){
+  // Shows a message — in the real app, user would ask Claude to update
+  const el=document.getElementById('metaTabContent');
+  const banner=document.createElement('div');
+  banner.style.cssText='font-family:monospace;font-size:.72rem;color:var(--grn);padding:8px 12px;border:1px solid var(--grn);margin-bottom:12px;background:rgba(78,201,148,.07)';
+  banner.textContent='✓ Showing latest known data for Set 17 Patch 17.3. Ask the M.A.D coach in chat to fetch fresher meta.';
+  el.prepend(banner);
+  setTimeout(()=>banner.remove(),4000);
 }
 </script>
 </body>
