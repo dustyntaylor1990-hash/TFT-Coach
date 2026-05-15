@@ -218,7 +218,7 @@ function resolveChampName(characterId){if(!characterId)return '?';const clean=ch
 window.addEventListener('load',()=>{
   loadDDragon();
   const hk=HARDCODED_CLAUDE_KEY;
-  if(hk&&hk!=='YOUR_CLAUDE_KEY_HERE'){document.getElementById('claudeKey').value=hk;document.getElementById('claudeSaved').style.display='block';document.getElementById('claudeKeyRow').style.display='none';}
+  if(hk&&hk!=='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'){document.getElementById('claudeKey').value=hk;document.getElementById('claudeSaved').style.display='block';document.getElementById('claudeKeyRow').style.display='none';}
   else{const ck=localStorage.getItem('tft_ck');if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('claudeSaved').style.display='block';}}
   const rk=localStorage.getItem('tft_rk');if(rk){document.getElementById('riotKey').value=rk;document.getElementById('riotSaved').style.display='block';}
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
