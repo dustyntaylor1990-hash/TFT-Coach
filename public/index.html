@@ -16,6 +16,7 @@ header{text-align:center;margin-bottom:32px}
 .hex{width:46px;height:46px;background:linear-gradient(135deg,var(--gdim),var(--gold));clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;color:var(--bg)}
 h1{font-family:'Rajdhani',sans-serif;font-size:2.3rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,var(--glt),var(--gold),var(--gdim));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .tagline{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim);letter-spacing:.2em;text-transform:uppercase}
+.patch-badge{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gdim);margin-top:4px}
 .panel{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--gdim);padding:20px 20px 16px;margin-bottom:14px;position:relative}
 .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .plbl{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
@@ -61,7 +62,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .chip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:var(--bg4);border:1px solid var(--border);color:var(--dim);display:inline-block;margin:1px 2px}
 .achip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:rgba(155,111,224,.1);border:1px solid rgba(155,111,224,.25);color:var(--pur);display:inline-block;margin:1px 2px}
 .mdate{font-family:'Share Tech Mono',monospace;font-size:.61rem;color:#2a4060;margin-top:3px}
-.chk{font-family:'Share Tech Mono',monospace;font-size:.68rem}
+.chk{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:4px 8px}
 .asec{text-align:center;margin-bottom:20px}
 .scnt{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--gdim);margin-bottom:10px}
 .cpanel{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold);display:none}
@@ -95,11 +96,12 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .modal-stat{background:var(--bg3);border:1px solid var(--border);padding:10px;text-align:center}
 .modal-stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-bottom:3px;letter-spacing:.08em;text-transform:uppercase}
 .modal-stat-val{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold)}
-.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;margin:8px 0 16px}
-.unit-card{background:var(--bg3);border:1px solid var(--border);padding:8px 6px;text-align:center}
-.unit-nm{font-family:'Share Tech Mono',monospace;font-size:.59rem;color:var(--text);word-break:break-all;margin-bottom:2px}
-.unit-st{color:#ffd700;font-size:.65rem}
-.unit-it{font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--pur);margin-top:2px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:8px 0 16px}
+.unit-card{background:var(--bg3);border:1px solid var(--border);padding:10px 8px;text-align:center}
+.unit-nm{font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;color:var(--glt);margin-bottom:2px}
+.unit-st{color:#ffd700;font-size:.7rem;margin-bottom:4px}
+.unit-items{margin-top:4px}
+.item-tag{font-family:'Share Tech Mono',monospace;font-size:.55rem;padding:2px 4px;background:rgba(74,158,218,.1);border:1px solid rgba(74,158,218,.2);color:var(--accent);display:block;margin:1px 0;text-align:left;word-break:break-word}
 @media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -108,10 +110,11 @@ select{cursor:pointer}select option{background:var(--bg3)}
 <header>
   <div class="logo-row"><div class="hex">TFT</div><h1>Forge Coach</h1></div>
   <div class="tagline">AI-Powered TFT Match Analysis &amp; Deep Coaching</div>
+  <div class="patch-badge" id="patchBadge">Loading patch data…</div>
 </header>
 <div class="panel">
-  <div class="plbl">// API Keys (saved to this device)</div>
-  <div class="g2">
+  <div class="plbl">// API Keys</div>
+  <div class="g2" id="claudeKeyRow">
     <div class="ig">
       <label>Claude API Key</label>
       <input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()"/>
@@ -123,7 +126,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
       <div class="saved-tag" id="riotSaved" style="display:none">✓ Saved</div>
     </div>
   </div>
-  <div class="note">Keys saved in your browser. Riot key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> (free, renew daily).</div>
+  <div class="note">Riot key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> (free, renew daily).</div>
 </div>
 <div class="panel">
   <div class="plbl">// Player Lookup</div>
@@ -193,7 +196,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 </div>
 </div>
 <div class="modal-overlay" id="matchModal" onclick="closeModal(event)">
-  <div class="modal" id="modalBox">
+  <div class="modal">
     <div class="modal-hdr">
       <div class="modal-place" id="modalPlace">—</div>
       <div class="modal-info">
@@ -206,176 +209,94 @@ select{cursor:pointer}select option{background:var(--bg3)}
   </div>
 </div>
 <script>
+const HARDCODED_CLAUDE_KEY = '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';
 const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
-let matchData=[],selected=new Set();
+let matchData=[],selected=new Set(),ddItems={},ddChamps={},ddPatch='';
+async function loadDDragon(){try{const r=await fetch('/api/ddragon');if(r.ok){const d=await r.json();ddItems=d.items||{};ddChamps=d.champions||{};ddPatch=d.patch||'';document.getElementById('patchBadge').textContent='Set 17 · Patch '+ddPatch;}}catch(e){document.getElementById('patchBadge').textContent='Set 17 · Space Gods';}}
+function getItemName(id){if(!id&&id!==0)return null;const s=String(id);return ddItems[s]||ddItems[s.replace(/^0+/,'')]||'Item '+s;}
+function resolveChampName(characterId){if(!characterId)return '?';const clean=characterId.replace(/TFT\d+_/,'').replace(/_/g,' ');const key=Object.keys(ddChamps).find(k=>characterId.toLowerCase().includes(k.toLowerCase()));return key?ddChamps[key].name:clean;}
 window.addEventListener('load',()=>{
-  const ck=localStorage.getItem('tft_ck');const rk=localStorage.getItem('tft_rk');
-  if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('claudeSaved').style.display='block'}
-  if(rk){document.getElementById('riotKey').value=rk;document.getElementById('riotSaved').style.display='block'}
+  loadDDragon();
+  const hk=HARDCODED_CLAUDE_KEY;
+  if(hk&&hk!=='YOUR_CLAUDE_KEY_HERE'){document.getElementById('claudeKey').value=hk;document.getElementById('claudeSaved').style.display='block';document.getElementById('claudeKeyRow').style.display='none';}
+  else{const ck=localStorage.getItem('tft_ck');if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('claudeSaved').style.display='block';}}
+  const rk=localStorage.getItem('tft_rk');if(rk){document.getElementById('riotKey').value=rk;document.getElementById('riotSaved').style.display='block';}
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
-  if(rid)document.getElementById('riotId').value=rid;
-  if(reg)document.getElementById('region').value=reg;
+  if(rid)document.getElementById('riotId').value=rid;if(reg)document.getElementById('region').value=reg;
 });
-function saveKeys(){
-  const ck=document.getElementById('claudeKey').value;const rk=document.getElementById('riotKey').value;
-  if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('claudeSaved').style.display='block'}
-  if(rk){localStorage.setItem('tft_rk',rk);document.getElementById('riotSaved').style.display='block'}
-}
-function st(msg){const el=document.getElementById('status');document.getElementById('stTxt').textContent=msg;el.classList.toggle('show',!!msg)}
-function er(msg){const el=document.getElementById('err');el.textContent=msg?'⚠ '+msg:'';el.classList.toggle('show',!!msg)}
-function lock(on){document.getElementById('fetchBtn').disabled=on;document.getElementById('analyzeBtn').disabled=on}
-async function riot(url){
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
-  const d=await r.json();
-  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
-  return d;
-}
+function saveKeys(){const ck=document.getElementById('claudeKey').value;const rk=document.getElementById('riotKey').value;if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('claudeSaved').style.display='block';}if(rk){localStorage.setItem('tft_rk',rk);document.getElementById('riotSaved').style.display='block';}}
+function getCK(){const hk=HARDCODED_CLAUDE_KEY;if(hk&&hk!=='YOUR_CLAUDE_KEY_HERE')return hk;return document.getElementById('claudeKey').value.trim();}
+function st(msg){const el=document.getElementById('status');document.getElementById('stTxt').textContent=msg;el.classList.toggle('show',!!msg);}
+function er(msg){const el=document.getElementById('err');el.textContent=msg?'⚠ '+msg:'';el.classList.toggle('show',!!msg);}
+function lock(on){document.getElementById('fetchBtn').disabled=on;document.getElementById('analyzeBtn').disabled=on;}
+async function riot(url){const r=await fetch('/api/riot?url='+encodeURIComponent(url));const d=await r.json();if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);return d;}
 async function fetchPlayer(){
   er('');st('');matchData=[];selected.clear();
-  ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList&&el.classList.remove('show')}});
+  ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList&&el.classList.remove('show');}});
   document.getElementById('cpanel').classList.remove('show');
-  const riotId=document.getElementById('riotId').value.trim();
-  const region=document.getElementById('region').value;
-  const count=parseInt(document.getElementById('matchCount').value);
-  if(!riotId){er('Enter your Riot ID like Bahagabag#NA1');return}
-  if(!document.getElementById('riotKey').value.trim()){er('Enter your Riot API key');return}
-  if(!document.getElementById('claudeKey').value.trim()){er('Enter your Claude API key');return}
+  const riotId=document.getElementById('riotId').value.trim();const region=document.getElementById('region').value;const count=parseInt(document.getElementById('matchCount').value);
+  if(!riotId){er('Enter your Riot ID like Bahagabag#NA1');return;}
+  if(!document.getElementById('riotKey').value.trim()){er('Enter your Riot API key');return;}
   localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
-  const [name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
-  const routing=ROUTING[region]||'americas';
-  lock(true);
+  const [name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];const routing=ROUTING[region]||'americas';lock(true);
   try{
-    st('Looking up account…');
-    const acct=await riot(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
-    const puuid=acct.puuid;
-    st('Fetching summoner…');
-    const summ=await riot(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
-    st('Fetching rank…');
-    let ranked=null;
-    try{const lg=await riot(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);ranked=(lg||[]).find(l=>l.queueType==='RANKED_TFT')||null}catch(e){}
-    st('Loading matches…');
-    const ids=await riot(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=${count}`);
-    const raw=[];
-    for(let i=0;i<ids.length;i++){
-      st(`Loading match ${i+1}/${ids.length}…`);
-      try{
-        const m=await riot(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);
-        const p=m.info.participants.find(p=>p.puuid===puuid);
-        if(p)raw.push({id:ids[i],date:m.info.game_datetime,data:p});
-      }catch(e){}
-    }
-    if(!raw.length)throw new Error('No TFT matches found.');
-    showPlayer(name,tag,ranked,raw);matchData=raw;renderMatches();st('');
-  }catch(e){st('');er(e.message||'Failed. Check Riot ID and API key.')}
-  lock(false);
+    st('Looking up account…');const acct=await riot(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);const puuid=acct.puuid;
+    st('Fetching summoner…');const summ=await riot(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
+    st('Fetching rank…');let ranked=null;try{const lg=await riot(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);ranked=(lg||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
+    st('Loading matches…');const ids=await riot(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=${count}`);
+    const raw=[];for(let i=0;i<ids.length;i++){st(`Loading match ${i+1}/${ids.length}…`);try{const m=await riot(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);const p=m.info.participants.find(p=>p.puuid===puuid);if(p)raw.push({id:ids[i],date:m.info.game_datetime,data:p});}catch(e){}}
+    if(!raw.length)throw new Error('No TFT matches found.');showPlayer(name,tag,ranked,raw);matchData=raw;renderMatches();st('');
+  }catch(e){st('');er(e.message||'Failed. Check Riot ID and API key.');}lock(false);
 }
 function showPlayer(name,tag,ranked,matches){
   document.getElementById('pname').textContent=`${name}#${tag}`;
   if(ranked){document.getElementById('rbadge').textContent=ranked.tier.slice(0,1)+(ranked.rank||'');document.getElementById('pRank').textContent=`${ranked.tier} ${ranked.rank}`;document.getElementById('pLP').textContent=ranked.leaguePoints+' LP';document.getElementById('pWL').textContent=`${ranked.wins}W ${ranked.losses}L`;}
   document.getElementById('pcrd').classList.add('show');
   const pl=matches.map(m=>m.data.placement);
-  const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);
-  const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);
-  const wins=((pl.filter(p=>p===1).length/pl.length)*100).toFixed(0);
-  const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);
-  const dmg=Math.round(matches.map(m=>m.data.total_damage_to_players||0).reduce((a,b)=>a+b,0)/matches.length);
-  const gold=(matches.map(m=>m.data.gold_left||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
+  const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);const wins=((pl.filter(p=>p===1).length/pl.length)*100).toFixed(0);const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);const dmg=Math.round(matches.map(m=>m.data.total_damage_to_players||0).reduce((a,b)=>a+b,0)/matches.length);const gold=(matches.map(m=>m.data.gold_left||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
   document.getElementById('sAvg').textContent=avg;document.getElementById('sAvg').className='stat-val '+(avg<=4.5?'good':avg>=5.5?'bad':'');
   document.getElementById('sTop4').textContent=top4+'%';document.getElementById('sTop4').className='stat-val '+(top4>=50?'good':top4<=35?'bad':'');
-  document.getElementById('sWin').textContent=wins+'%';
-  document.getElementById('sBot').textContent=bot+'%';document.getElementById('sBot').className='stat-val '+(bot>=50?'bad':'');
-  document.getElementById('sDmg').textContent=dmg;document.getElementById('sGold').textContent=gold;
-  document.getElementById('statsRow').style.display='block';
+  document.getElementById('sWin').textContent=wins+'%';document.getElementById('sBot').textContent=bot+'%';document.getElementById('sBot').className='stat-val '+(bot>=50?'bad':'');
+  document.getElementById('sDmg').textContent=dmg;document.getElementById('sGold').textContent=gold;document.getElementById('statsRow').style.display='block';
 }
-function roundToStage(r){
-  if(!r||r<1)return '?';
-  const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];
-  for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}
-  return r+'';
-}
+function roundToStage(r){if(!r||r<1)return '?';const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}return r+'';}
 function cleanAug(a){if(!a)return '';return a.replace(/TFT\w*_Augment_/g,'').replace(/TFT\d*_/g,'').replace(/_/g,' ').trim();}
+function getUnitItems(unit){const ids=unit.items||unit.itemNames||[];if(!ids.length)return [];return ids.map(id=>{if(typeof id==='string'&&!/^\d+$/.test(id))return id.replace(/TFT_Item_/g,'').replace(/_/g,' ').trim();return getItemName(id)||`Item ${id}`;}).filter(Boolean);}
 function renderMatches(){
   const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
   matchData.forEach((m,idx)=>{
-    const p=m.data;
-    const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
-    const augs=(p.augments||p.augment||[]).slice(0,3).map(cleanAug).filter(Boolean);
-    const date=m.date?new Date(m.date).toLocaleDateString():'';
-    const pc=Math.min(p.placement,8);
-    const lastRnd=roundToStage(p.last_round);
+    const p=m.data;const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));const augs=(p.augments||p.augment||[]).slice(0,3).map(cleanAug).filter(Boolean);const date=m.date?new Date(m.date).toLocaleDateString():'';const pc=Math.min(p.placement,8);const lastRnd=roundToStage(p.last_round);
     const row=document.createElement('div');row.className='mrow';
-    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ended ${lastRnd} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep analysis</div></div><div class="chk" id="c${idx}" style="color:#2a4060;padding:4px 8px" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
-    row.addEventListener('click',(e)=>{if(!e.target.closest('.chk'))openMatchModal(idx);});
-    list.appendChild(row);
+    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ended ${lastRnd} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep analysis</div></div><div class="chk" id="c${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
+    row.addEventListener('click',(e)=>{if(!e.target.closest('.chk'))openMatchModal(idx);});list.appendChild(row);
   });
-  document.getElementById('matchSection').style.display='block';
-  document.getElementById('asec').style.display='block';
+  document.getElementById('matchSection').style.display='block';document.getElementById('asec').style.display='block';
 }
-function toggleSel(idx){
-  const row=document.getElementById('c'+idx).closest('.mrow');
-  if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('c'+idx).textContent='○';document.getElementById('c'+idx).style.color='#2a4060'}
-  else{selected.add(idx);row.classList.add('sel');document.getElementById('c'+idx).textContent='✓';document.getElementById('c'+idx).style.color='var(--gold)'}
-  updateCount();
-}
+function toggleSel(idx){const row=document.getElementById('c'+idx).closest('.mrow');if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('c'+idx).textContent='○';document.getElementById('c'+idx).style.color='#2a4060';}else{selected.add(idx);row.classList.add('sel');document.getElementById('c'+idx).textContent='✓';document.getElementById('c'+idx).style.color='var(--gold)';}updateCount();}
 function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches`:`${n} match${n>1?'es':''} selected`;}
-function buildSummary(matches){
-  return matches.map((m,i)=>{
-    const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';
-    const lastRound=roundToStage(p.last_round);
-    const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
-    const augRaw=p.augments||p.augment||[];
-    const augs=Array.isArray(augRaw)&&augRaw.length>0?augRaw.map(cleanAug).filter(Boolean).join(', '):'none found in data';
-    const units=(p.units||[]).sort((a,b)=>b.tier-a.tier).map(u=>{const name=u.character_id.replace(/TFT\d+_/,'').replace(/_/g,' ');const items=(u.items||u.itemNames||[]);return `${name}★${u.tier}${items.length?'['+items.length+'items]':''}`;}).join(', ');
-    return `=== MATCH ${i+1} (${date}) ===\nPlacement: ${p.placement}/8\nLevel: ${p.level||'?'} | Last round: ${lastRound} | Gold left: ${p.gold_left||0}\nDamage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}\nTraits: ${traits||'none'}\nAugments: ${augs}\nFinal board: ${units||'none'}`;
-  }).join('\n\n');
-}
+function buildUnitStr(units){return (units||[]).sort((a,b)=>b.tier-a.tier).map(u=>{const name=resolveChampName(u.character_id);const items=getUnitItems(u);return `${name}★${u.tier}${items.length?' ['+items.join(', ')+']':''}`;}).join(', ');}
+function buildSummary(matches){return matches.map((m,i)=>{const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';const lastRound=roundToStage(p.last_round);const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');const augRaw=p.augments||p.augment||[];const augs=Array.isArray(augRaw)&&augRaw.length>0?augRaw.map(cleanAug).filter(Boolean).join(', '):'none found in data';const units=buildUnitStr(p.units);return `=== MATCH ${i+1} (${date}) ===\nPlacement: ${p.placement}/8\nLevel: ${p.level||'?'} | Last round: ${lastRound} | Gold left: ${p.gold_left||0}\nDamage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}\nTraits: ${traits||'none'}\nAugments: ${augs}\nUnits with items: ${units||'none'}`;}).join('\n\n');}
+async function callClaude(messages,maxTokens){const ck=getCK();if(!ck)throw new Error('No Claude API key configured');const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens,messages})});if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude error ${res.status}`);}const d=await res.json();return d.content.map(c=>c.text||'').join('');}
 async function analyze(){
-  er('');
-  const ck=document.getElementById('claudeKey').value.trim();
-  if(!ck){er('Enter your Claude API key');return}
-  const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;
-  if(!toAnalyze.length){er('No matches to analyze');return}
-  const summary=buildSummary(toAnalyze);
-  const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
-  panel.classList.add('show');
-  body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 20 seconds.</div>`;
-  panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:4000,
-        messages:[{role:'user',content:`You are a Grand Master / Challenger TFT coach whose goal is to get this player to Master tier. Analyze their match data with the depth and precision of a professional coach.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall rating 1-10 vs Master tier standard. Placement distribution. Estimated current skill tier. Biggest gap vs Master play.\n\n## 💰 Economy & Leveling\nGold left patterns, rolling habits, level timing vs Master standard (level 6 by 3-2, level 7 by 4-1, level 8 by 4-5). Specific thresholds to follow.\n\n## 🎯 Comp Building\nEach comp quality, trait breakpoints, unit stars, meta vs off-meta, flexibility. Best 2-3 comps to master.\n\n## 🔮 Augment Choices\nAugment quality per match, synergies, what to prioritize at 2-1, 3-2, 4-2.\n\n## ⚔️ Combat & Positioning\nDamage patterns, elimination rate, positioning principles for their comps.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp run, key mistake, what Master player does differently.\n\n## 🎓 Key Patterns (3 recurring habits)\nWhat patterns reveal about playstyle vs Master-level decisions.\n\n## 🚀 Top 5 Priority Changes to Reach Master\nExtremely specific: not "improve economy" but exact gold thresholds, exact level timings, exact positioning rules. For each: WHY it matters, HOW to do it, RESULT to expect.\n\nUse TFT stage format (3-2, 4-1). Be brutally honest and concrete.`}]
-      })
-    });
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude error ${res.status}`)}
-    const data=await res.json();
-    body.innerHTML=renderCoaching(data.content.map(c=>c.text||'').join(''));
-  }catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown'));}
-  lock(false);
+  er('');const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;if(!toAnalyze.length){er('No matches to analyze');return;}
+  const summary=buildSummary(toAnalyze);const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
+  panel.classList.add('show');body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 20 seconds.</div>`;panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
+  try{const text=await callClaude([{role:'user',content:`You are a Grand Master / Challenger TFT (Set 17: Space Gods) coach helping this player reach Master tier.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nRating 1-10 vs Master standard. Placement distribution. Skill tier estimate. Biggest gap.\n\n## 💰 Economy & Leveling\nGold left patterns. Master standard: 50g interest, level 6 by 3-2, level 7 by 4-1, level 8 by 4-5. Are they over-rolling? Specific fix.\n\n## 🎯 Comp Building & Itemization\nEach comp — meta or off? Trait breakpoints hit? For EVERY unit with items: are those correct items? What are BiS items for that unit in Set 17? Be specific.\n\n## 🔮 Augment Choices\nQuality per match, synergy, what to take at 2-1/3-2/4-2.\n\n## ⚔️ Combat & Positioning\nDamage/elimination patterns, positioning tips per comp.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp, itemization grade, key mistake, Master player fix.\n\n## 🎓 Top 3 Recurring Patterns\n\n## 🚀 Top 5 Changes to Reach Master\nExtremely specific. WHY, HOW, RESULT for each.\n\nUse stage format (3-2, 4-1). Reference Set 17 Space Gods meta.`}],4000);body.innerHTML=renderCoaching(text);}catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown'));}lock(false);
 }
 function closeModal(e){if(e.target===document.getElementById('matchModal'))document.getElementById('matchModal').classList.remove('show');}
 async function openMatchModal(idx){
   const m=matchData[idx];const p=m.data;
-  const ck=document.getElementById('claudeKey').value.trim();
-  if(!ck){er('Enter your Claude API key to get match analysis');return;}
-  const placeColors={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#4ec994'};
-  const placeColor=placeColors[p.placement]||(p.placement<=4?'#4ec994':'#e05050');
-  const date=m.date?new Date(m.date).toLocaleDateString():'?';
-  const lastRnd=roundToStage(p.last_round);
+  const placeColors={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#4ec994'};const placeColor=placeColors[p.placement]||(p.placement<=4?'#4ec994':'#e05050');
+  const date=m.date?new Date(m.date).toLocaleDateString():'?';const lastRnd=roundToStage(p.last_round);
   const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current);
-  const augRaw=p.augments||p.augment||[];
-  const augs=Array.isArray(augRaw)?augRaw.map(cleanAug).filter(Boolean):[];
+  const augRaw=p.augments||p.augment||[];const augs=Array.isArray(augRaw)?augRaw.map(cleanAug).filter(Boolean):[];
   const units=(p.units||[]).sort((a,b)=>b.tier-a.tier);
-  document.getElementById('modalPlace').textContent=p.placement;
-  document.getElementById('modalPlace').style.color=placeColor;
+  document.getElementById('modalPlace').textContent=p.placement;document.getElementById('modalPlace').style.color=placeColor;
   document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'}`;
   document.getElementById('modalSub').textContent=`Ended round ${lastRnd} · ${p.total_damage_to_players||0} damage · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
-  const unitHTML=units.map(u=>{const name=u.character_id.replace(/TFT\d+_/,'').replace(/_/g,' ');const stars='★'.repeat(Math.min(u.tier||1,3));const items=(u.items||u.itemNames||[]).length;return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items?`<div class="unit-it">${items} items</div>`:''}</div>`;}).join('');
+  const unitHTML=units.map(u=>{const name=resolveChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const itemNames=getUnitItems(u);const itemHTML=itemNames.length?`<div class="unit-items">${itemNames.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:'';return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${itemHTML}</div>`;}).join('');
   const traitHTML=traits.map(t=>`<span class="chip">${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} ${t.tier_current}/${t.tier_total||3}</span>`).join('');
-  const augHTML=augs.length?augs.map(a=>`<span class="achip">${a}</span>`).join(''):'<span style="color:var(--dim);font-size:.75rem">No augment data in API</span>';
+  const augHTML=augs.length?augs.map(a=>`<span class="achip">${a}</span>`).join(''):'<span style="color:var(--dim);font-size:.75rem">No augment data available</span>';
   document.getElementById('modalBody').innerHTML=`
     <div class="modal-stats">
       <div class="modal-stat"><div class="modal-stat-lbl">Placement</div><div class="modal-stat-val" style="color:${placeColor}">${p.placement}/8</div></div>
@@ -385,36 +306,23 @@ async function openMatchModal(idx){
       <div class="modal-stat"><div class="modal-stat-lbl">Gold Left</div><div class="modal-stat-val">${p.gold_left||0}</div></div>
       <div class="modal-stat"><div class="modal-stat-lbl">Elims</div><div class="modal-stat-val">${p.players_eliminated||0}</div></div>
     </div>
-    <div style="margin-bottom:8px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">TRAITS</span><div style="margin-top:5px">${traitHTML||'none'}</div></div>
-    <div style="margin:12px 0 8px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">AUGMENTS</span><div style="margin-top:5px">${augHTML}</div></div>
-    <div style="margin-bottom:12px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">FINAL BOARD</span><div class="unit-grid">${unitHTML}</div></div>
+    <div style="margin-bottom:10px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">TRAITS</span><div style="margin-top:5px">${traitHTML||'none'}</div></div>
+    <div style="margin:10px 0"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">AUGMENTS</span><div style="margin-top:5px">${augHTML}</div></div>
+    <div style="margin-bottom:14px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">FINAL BOARD WITH ITEMS</span><div class="unit-grid" style="margin-top:8px">${unitHTML||'<span style="color:var(--dim)">No unit data</span>'}</div></div>
     <div style="border-top:1px solid var(--border);padding-top:16px">
       <div style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em;margin-bottom:10px">AI COACHING ANALYSIS</div>
-      <div id="modalCoaching" style="color:var(--dim);font-family:monospace;font-size:.8rem">Analyzing this match… ~10 seconds</div>
+      <div id="modalCoaching" style="color:var(--dim);font-family:monospace;font-size:.8rem">Analyzing… ~10 seconds</div>
     </div>`;
-  document.getElementById('matchModal').classList.add('show');
-  document.getElementById('matchModal').scrollTop=0;
+  document.getElementById('matchModal').classList.add('show');document.getElementById('matchModal').scrollTop=0;
   const traitsStr=traits.map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
-  const unitsStr=units.map(u=>`${u.character_id.replace(/TFT\d+_/,'').replace(/_/g,' ')}★${u.tier}${(u.items||[]).length?'['+u.items.length+'items]':''}`).join(', ');
-  const matchSummary=`Date: ${date}\nPlacement: ${p.placement}/8\nLevel: ${p.level||'?'} | Last round: ${lastRnd} | Gold left: ${p.gold_left||0}\nDamage: ${p.total_damage_to_players||0} | Elims: ${p.players_eliminated||0}\nTraits: ${traitsStr||'none'}\nAugments: ${augs.join(', ')||'none in API data'}\nFinal board: ${unitsStr||'none'}`;
+  const unitsWithItems=units.map(u=>{const name=resolveChampName(u.character_id);const items=getUnitItems(u);return `${name}★${u.tier}${items.length?' holding: '+items.join(', '):''}`;}).join(' | ');
+  const matchSummary=`Date: ${date} | Placement: ${p.placement}/8\nLevel: ${p.level||'?'} | Last round: ${lastRnd} | Gold left: ${p.gold_left||0}\nDamage: ${p.total_damage_to_players||0} | Elims: ${p.players_eliminated||0}\nTraits: ${traitsStr||'none'}\nAugments: ${augs.join(', ')||'none'}\nUnits with items: ${unitsWithItems||'none'}`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:2000,
-        messages:[{role:'user',content:`You are a Master/Challenger TFT coach. Analyze this single match for a player trying to reach Master. Be focused and specific.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp they ran, how it went, result.\n\n## Economy Assessment\nGold left tells a story. Did they over-roll, under-roll, or manage well? What exactly should they have done?\n\n## Comp Execution\nHow well was this comp built? Right traits? Carries itemized? What was wrong or missing?\n\n## Augment Synergy\nDid augments fit the comp? Good or misaligned picks? (Note if no augment data available)\n\n## The Key Mistake\nOne very specific thing that cost the most LP. Not "bad positioning" — be exact: which unit was misplaced, which decision was wrong, which item was on the wrong carry.\n\n## What a Master Player Does Differently\nExactly what Master tier would do differently in this specific game at the critical moment.\n\n## 2 Quick Wins\nTwo things to implement immediately next time they play this comp.\n\nEvery sentence actionable. Use stage format (3-2, 4-1).`}]
-      })
-    });
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Error ${res.status}`);}
-    const data=await res.json();
-    document.getElementById('modalCoaching').innerHTML=renderCoaching(data.content.map(c=>c.text||'').join(''));
-  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
+    const text=await callClaude([{role:'user',content:`You are a Master/Challenger TFT (Set 17: Space Gods) coach. Analyze this single match. Items are listed for every unit — evaluate each one carefully.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp, execution, result.\n\n## Economy Assessment\nGold left story. Over-rolled, under-rolled, or correct? Exact recommendation.\n\n## Comp Execution\nTrait breakpoints, unit star levels, what was missing.\n\n## Itemization Analysis\nFor EVERY unit with items listed: are those the correct items in Set 17? What are the BiS items? What should be swapped?\nExample format: "Jinx★2 has Rabadon + Archangel — WRONG. Jinx BiS is Giant Slayer + Last Whisper + Runaan's Hurricane for this comp."\n\n## Augment Synergy\nGood or bad picks for this comp?\n\n## The Key Mistake\nOne very specific thing that cost the most LP.\n\n## What a Master Player Does Differently\nExact Master decision at the critical moment.\n\n## 2 Quick Wins\nTwo immediate fixes for next time.\n\nEvery sentence actionable. Stage format (3-2, 4-1). Set 17 meta.`}],2500);
+    document.getElementById('modalCoaching').innerHTML=renderCoaching(text);
+  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Failed: ${e.message}</span>`;}
 }
-function renderCoaching(t){
-  return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-}
+function renderCoaching(t){return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');}
 </script>
 </body>
 </html>
