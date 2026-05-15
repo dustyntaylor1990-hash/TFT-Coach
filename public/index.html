@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TFT Forge Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#060a0f;--bg2:#0b1118;--bg3:#111922;--bg4:#182030;--border:#1e2d40;--gold:#c8a96e;--gdim:#7a6240;--glt:#e8d5a3;--text:#d0dce8;--dim:#4a6880;--accent:#4a9eda;--pur:#9b6fe0;--grn:#4ec994;--red:#e05050}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:repeating-linear-gradient(60deg,transparent,transparent 34px,rgba(200,169,110,.02) 34px,rgba(200,169,110,.02) 35px),repeating-linear-gradient(-60deg,transparent,transparent 34px,rgba(200,169,110,.02) 34px,rgba(200,169,110,.02) 35px)}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 16px 80px}
+header{text-align:center;margin-bottom:32px}
+.logo-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
+.hex{width:46px;height:46px;background:linear-gradient(135deg,var(--gdim),var(--gold));clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;color:var(--bg)}
+h1{font-family:'Rajdhani',sans-serif;font-size:2.3rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,var(--glt),var(--gold),var(--gdim));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tagline{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim);letter-spacing:.2em;text-transform:uppercase}
+.panel{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--gdim);padding:20px 20px 16px;margin-bottom:14px;position:relative}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.plbl{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
+.ig{display:flex;flex-direction:column;gap:5px}
+.ig label{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--dim);letter-spacing:.13em;text-transform:uppercase}
+input,select{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:'Exo 2',sans-serif;font-size:.9rem;outline:none;width:100%;transition:border-color .2s}
+input:focus,select:focus{border-color:var(--gdim)}
+input::placeholder{color:var(--dim)}
+select{cursor:pointer}select option{background:var(--bg3)}
+.g3{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.saved-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--grn);margin-top:4px}
+.btn{background:linear-gradient(135deg,var(--gdim),#5a4020);border:1px solid var(--gold);color:var(--bg);padding:9px 20px;font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;height:40px;white-space:nowrap}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-big{background:linear-gradient(135deg,var(--gdim),var(--gold));border:1px solid var(--glt);color:var(--bg);padding:13px 48px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:block;margin:0 auto}
+.btn-big:disabled{opacity:.35;cursor:not-allowed}
+.status{background:var(--bg3);border:1px solid var(--border);padding:9px 14px;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim);margin-bottom:12px;display:none;align-items:center;gap:10px}
+.status.show{display:flex}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.err{background:rgba(224,80,80,.08);border:1px solid rgba(224,80,80,.3);padding:11px 15px;font-size:.8rem;color:#e08080;margin-bottom:12px;font-family:'Share Tech Mono',monospace;display:none}
+.err.show{display:block}
+.pcrd{background:var(--bg2);border:1px solid var(--border);padding:16px 20px;margin-bottom:14px;display:none;align-items:center;gap:18px}
+.pcrd.show{display:flex}
+.rbadge{width:50px;height:50px;background:var(--bg4);border:2px solid var(--gdim);flex-shrink:0;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.82rem;color:var(--gold)}
+.pname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;color:var(--glt);margin-bottom:4px}
+.pmeta{display:flex;gap:14px;flex-wrap:wrap}
+.mi{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim)}
+.mi span{color:var(--accent)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:14px}
+.stat-box{background:var(--bg2);border:1px solid var(--border);padding:12px;text-align:center}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:5px;letter-spacing:.1em;text-transform:uppercase}
+.stat-val{font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gold)}
+.stat-val.good{color:var(--grn)}.stat-val.bad{color:var(--red)}
+.sec-hdr{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.83rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.sec-hdr::after{content:'';flex:1;height:1px;background:var(--border)}
+.mlist{display:flex;flex-direction:column;gap:4px;margin-bottom:18px}
+.mrow{background:var(--bg2);border:1px solid var(--border);padding:10px 14px;display:grid;grid-template-columns:36px 1fr auto;gap:11px;align-items:center;cursor:pointer;transition:all .14s}
+.mrow:hover{border-color:var(--gdim);background:var(--bg3)}
+.mrow.sel{border-color:var(--gold);background:var(--bg3)}
+.place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.25rem;text-align:center}
+.p1{color:#ffd700}.p2{color:#c0c0c0}.p3{color:#cd7f32}.p4{color:var(--grn)}.p5,.p6,.p7,.p8{color:var(--red)}
+.chip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:var(--bg4);border:1px solid var(--border);color:var(--dim);display:inline-block;margin:1px 2px}
+.achip{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:2px 5px;background:rgba(155,111,224,.1);border:1px solid rgba(155,111,224,.25);color:var(--pur);display:inline-block;margin:1px 2px}
+.mdate{font-family:'Share Tech Mono',monospace;font-size:.61rem;color:#2a4060;margin-top:3px}
+.chk{font-family:'Share Tech Mono',monospace;font-size:.68rem}
+.asec{text-align:center;margin-bottom:20px}
+.scnt{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--gdim);margin-bottom:10px}
+.cpanel{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold);display:none}
+.cpanel.show{display:block}
+.chdr{background:var(--bg3);padding:12px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.97rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.cbadge{font-family:'Share Tech Mono',monospace;font-size:.59rem;padding:3px 7px;background:rgba(200,169,110,.1);border:1px solid var(--gdim);color:var(--gdim);letter-spacing:.13em}
+.cbody{padding:20px 24px;line-height:1.82;font-size:.9rem;color:var(--text)}
+.cbody h2{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--glt);margin:22px 0 6px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:4px}
+.cbody h3{font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;color:var(--accent);margin:14px 0 4px}
+.cbody strong{color:var(--glt)}
+.cbody ul{padding-left:18px}.cbody li{margin-bottom:5px}
+.note{margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim);line-height:1.6}
+.note a{color:var(--gdim)}
+@media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo-row"><div class="hex">TFT</div><h1>Forge Coach</h1></div>
+  <div class="tagline">AI-Powered TFT Match Analysis &amp; Deep Coaching</div>
+</header>
+<div class="panel">
+  <div class="plbl">// API Keys (saved to this device)</div>
+  <div class="g2">
+    <div class="ig">
+      <label>Claude API Key</label>
+      <input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()"/>
+      <div class="saved-tag" id="claudeSaved" style="display:none">✓ Saved</div>
+    </div>
+    <div class="ig">
+      <label>Riot API Key <span style="color:var(--red);font-size:.6rem">(renew every 24h)</span></label>
+      <input type="password" id="riotKey" placeholder="RGAPI-…" oninput="saveKeys()"/>
+      <div class="saved-tag" id="riotSaved" style="display:none">✓ Saved</div>
+    </div>
+  </div>
+  <div class="note">Keys saved in your browser. Riot key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> (free, renew daily).</div>
+</div>
+<div class="panel">
+  <div class="plbl">// Player Lookup</div>
+  <div class="g3">
+    <div class="ig">
+      <label>Riot ID (Name#Tag)</label>
+      <input type="text" id="riotId" placeholder="Bahagabag#NA1" onkeydown="if(event.key==='Enter')fetchPlayer()"/>
+    </div>
+    <div class="ig">
+      <label>Region</label>
+      <select id="region">
+        <option value="na1">NA</option><option value="euw1">EUW</option>
+        <option value="eun1">EUNE</option><option value="kr">KR</option>
+        <option value="jp1">JP</option><option value="br1">BR</option>
+        <option value="la1">LAN</option><option value="la2">LAS</option>
+        <option value="oc1">OCE</option><option value="tr1">TR</option>
+        <option value="ru">RU</option>
+      </select>
+    </div>
+    <button class="btn" id="fetchBtn" onclick="fetchPlayer()">Fetch</button>
+  </div>
+  <div class="g2" style="margin-top:12px">
+    <div class="ig">
+      <label>Matches to load</label>
+      <select id="matchCount">
+        <option value="10">Last 10 matches</option>
+        <option value="15" selected>Last 15 matches</option>
+        <option value="20">Last 20 matches</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="status" id="status"><div class="dot"></div><span id="stTxt"></span></div>
+<div class="err" id="err"></div>
+<div class="pcrd" id="pcrd">
+  <div class="rbadge" id="rbadge">?</div>
+  <div>
+    <div class="pname" id="pname"></div>
+    <div class="pmeta">
+      <div class="mi">Rank: <span id="pRank">—</span></div>
+      <div class="mi">LP: <span id="pLP">—</span></div>
+      <div class="mi">W/L: <span id="pWL">—</span></div>
+    </div>
+  </div>
+</div>
+<div id="statsRow" style="display:none">
+  <div class="stats-grid">
+    <div class="stat-box"><div class="stat-label">Avg Place</div><div class="stat-val" id="sAvg">—</div></div>
+    <div class="stat-box"><div class="stat-label">Top 4 %</div><div class="stat-val" id="sTop4">—</div></div>
+    <div class="stat-box"><div class="stat-label">Win %</div><div class="stat-val" id="sWin">—</div></div>
+    <div class="stat-box"><div class="stat-label">Bot 4 %</div><div class="stat-val" id="sBot">—</div></div>
+    <div class="stat-box"><div class="stat-label">Avg Damage</div><div class="stat-val" id="sDmg">—</div></div>
+    <div class="stat-box"><div class="stat-label">Avg Gold Left</div><div class="stat-val" id="sGold">—</div></div>
+  </div>
+</div>
+<div id="matchSection" style="display:none">
+  <div class="sec-hdr">Recent Matches <small style="font-size:.63rem;font-family:monospace;font-weight:400;color:#2a4060">&nbsp;tap to select specific matches</small></div>
+  <div class="mlist" id="mlist"></div>
+</div>
+<div class="asec" id="asec" style="display:none">
+  <div class="scnt" id="scnt"></div>
+  <button class="btn-big" id="analyzeBtn" onclick="analyze()">⚔ Analyze &amp; Coach Me</button>
+</div>
+<div class="cpanel" id="cpanel">
+  <div class="chdr">
+    <div class="ctitle">Coaching Report</div>
+    <span class="cbadge">CLAUDE AI</span>
+  </div>
+  <div class="cbody" id="cbody"></div>
+</div>
+</div>
+<script>
+const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
+let matchData=[],selected=new Set();
+window.addEventListener('load',()=>{
+  const ck=localStorage.getItem('tft_ck');
+  const rk=localStorage.getItem('tft_rk');
+  if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('claudeSaved').style.display='block'}
+  if(rk){document.getElementById('riotKey').value=rk;document.getElementById('riotSaved').style.display='block'}
+  const rid=localStorage.getItem('tft_rid');
+  const reg=localStorage.getItem('tft_reg');
+  if(rid)document.getElementById('riotId').value=rid;
+  if(reg)document.getElementById('region').value=reg;
+});
+function saveKeys(){
+  const ck=document.getElementById('claudeKey').value;
+  const rk=document.getElementById('riotKey').value;
+  if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('claudeSaved').style.display='block'}
+  if(rk){localStorage.setItem('tft_rk',rk);document.getElementById('riotSaved').style.display='block'}
+}
+function st(msg){const el=document.getElementById('status');document.getElementById('stTxt').textContent=msg;el.classList.toggle('show',!!msg)}
+function er(msg){const el=document.getElementById('err');el.textContent=msg?'⚠ '+msg:'';el.classList.toggle('show',!!msg)}
+function lock(on){document.getElementById('fetchBtn').disabled=on;document.getElementById('analyzeBtn').disabled=on}
+async function riot(url){
+  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
+  const d=await r.json();
+  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
+  return d;
+}
+async function fetchPlayer(){
+  er('');st('');matchData=[];selected.clear();
+  ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList&&el.classList.remove('show')}});
+  document.getElementById('cpanel').classList.remove('show');
+  const riotId=document.getElementById('riotId').value.trim();
+  const region=document.getElementById('region').value;
+  const count=parseInt(document.getElementById('matchCount').value);
+  if(!riotId){er('Enter your Riot ID like Bahagabag#NA1');return}
+  if(!document.getElementById('riotKey').value.trim()){er('Enter your Riot API key');return}
+  if(!document.getElementById('claudeKey').value.trim()){er('Enter your Claude API key');return}
+  localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
+  const [name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
+  const routing=ROUTING[region]||'americas';
+  lock(true);
+  try{
+    st('Looking up account…');
+    const acct=await riot(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
+    const puuid=acct.puuid;
+    st('Fetching summoner…');
+    const summ=await riot(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
+    st('Fetching rank…');
+    let ranked=null;
+    try{const lg=await riot(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);ranked=(lg||[]).find(l=>l.queueType==='RANKED_TFT')||null}catch(e){}
+    st('Loading matches…');
+    const ids=await riot(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=${count}`);
+    const raw=[];
+    for(let i=0;i<ids.length;i++){
+      st(`Loading match ${i+1}/${ids.length}…`);
+      try{
+        const m=await riot(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);
+        const p=m.info.participants.find(p=>p.puuid===puuid);
+        if(p)raw.push({id:ids[i],date:m.info.game_datetime,data:p});
+      }catch(e){}
+    }
+    if(!raw.length)throw new Error('No TFT matches found.');
+    showPlayer(name,tag,ranked,raw);matchData=raw;renderMatches();st('');
+  }catch(e){st('');er(e.message||'Failed. Check Riot ID and API key.')}
+  lock(false);
+}
+function showPlayer(name,tag,ranked,matches){
+  document.getElementById('pname').textContent=`${name}#${tag}`;
+  if(ranked){document.getElementById('rbadge').textContent=ranked.tier.slice(0,1)+(ranked.rank||'');document.getElementById('pRank').textContent=`${ranked.tier} ${ranked.rank}`;document.getElementById('pLP').textContent=ranked.leaguePoints+' LP';document.getElementById('pWL').textContent=`${ranked.wins}W ${ranked.losses}L`;}
+  document.getElementById('pcrd').classList.add('show');
+  const pl=matches.map(m=>m.data.placement);
+  const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);
+  const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);
+  const wins=((pl.filter(p=>p===1).length/pl.length)*100).toFixed(0);
+  const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);
+  const dmg=Math.round(matches.map(m=>m.data.total_damage_to_players||0).reduce((a,b)=>a+b,0)/matches.length);
+  const gold=(matches.map(m=>m.data.gold_left||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
+  document.getElementById('sAvg').textContent=avg;document.getElementById('sAvg').className='stat-val '+(avg<=4.5?'good':avg>=5.5?'bad':'');
+  document.getElementById('sTop4').textContent=top4+'%';document.getElementById('sTop4').className='stat-val '+(top4>=50?'good':top4<=35?'bad':'');
+  document.getElementById('sWin').textContent=wins+'%';
+  document.getElementById('sBot').textContent=bot+'%';document.getElementById('sBot').className='stat-val '+(bot>=50?'bad':'');
+  document.getElementById('sDmg').textContent=dmg;document.getElementById('sGold').textContent=gold;
+  document.getElementById('statsRow').style.display='block';
+}
+function renderMatches(){
+  const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
+  matchData.forEach((m,idx)=>{
+    const p=m.data;
+    const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
+    const augs=(p.augments||[]).slice(0,3).map(a=>a.replace(/TFT\d+_Augment_/,'').replace(/_/g,' ').slice(0,16));
+    const date=m.date?new Date(m.date).toLocaleDateString():'';
+    const pc=Math.min(p.placement,8);
+    const row=document.createElement('div');row.className='mrow';
+    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg · ${p.players_eliminated||0}elim</div></div><div class="chk" id="c${idx}" style="color:#2a4060">○</div>`;
+    row.addEventListener('click',()=>toggle(idx,row));list.appendChild(row);
+  });
+  document.getElementById('matchSection').style.display='block';document.getElementById('asec').style.display='block';
+}
+function toggle(idx,row){
+  if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('c'+idx).textContent='○';document.getElementById('c'+idx).style.color='#2a4060'}
+  else{selected.add(idx);row.classList.add('sel');document.getElementById('c'+idx).textContent='✓';document.getElementById('c'+idx).style.color='var(--gold)'}
+  updateCount();
+}
+function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches`:`${n} match${n>1?'es':''} selected`;}
+function buildSummary(matches){
+  return matches.map((m,i)=>{
+    const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';
+    const traits=(p.traits||[]).filter(t=>t.tier_current>0).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')}(${t.num_units}u tier${t.tier_current})`).join(', ');
+    const augs=(p.augments||[]).map(a=>a.replace(/TFT\d+_Augment_/,'').replace(/_/g,' ')).join(', ');
+    const units=(p.units||[]).map(u=>`${u.character_id.replace(/TFT\d+_/,'')}★${u.tier}${(u.items||[]).length?'['+u.items.length+'items]':''}`).join(', ');
+    return `=== MATCH ${i+1} (${date}) ===\nPlace: ${p.placement}/8 | Level: ${p.level||'?'} | Last round: ${p.last_round||'?'}\nGold left: ${p.gold_left||0} | Damage: ${p.total_damage_to_players||0} | Elims: ${p.players_eliminated||0}\nTraits: ${traits||'none'}\nAugments: ${augs||'none'}\nUnits: ${units||'none'}`;
+  }).join('\n\n');
+}
+async function analyze(){
+  er('');
+  const ck=document.getElementById('claudeKey').value.trim();
+  if(!ck){er('Enter your Claude API key');return}
+  const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;
+  if(!toAnalyze.length){er('No matches to analyze');return}
+  const summary=buildSummary(toAnalyze);
+  const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
+  panel.classList.add('show');
+  body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 15 seconds.</div>`;
+  panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:3000,
+        messages:[{role:'user',content:`You are an expert TFT (Teamfight Tactics) coach. Analyze this player's data and give deep, specific, actionable coaching.\n\n${summary}\n\nWrite a full coaching report:\n\n## Overall Performance\nRate 1-10. Placement consistency, volatility, what rank they're playing like.\n\n## Economy & Leveling\nGold patterns, rolling habits, level timing. Specific numbers they should follow.\n\n## Comp Building\nTrait quality, unit stars, meta vs off-meta, flexibility. What 2-3 comps to focus on.\n\n## Augment Evaluation\nAugment quality each match, synergies missed, what to prioritize.\n\n## Combat Performance\nDamage and elimination patterns, positioning implications, specific tips.\n\n## Match-by-Match Breakdown\nEvery single match: what went right, the key mistake, one specific fix.\n\n## Top 3 Priority Improvements\nHighest-impact changes, very specific.\n\nUse TFT terminology. Be direct, honest, and concrete.`}]
+      })
+    });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude error ${res.status}`)}
+    const data=await res.json();
+    body.innerHTML=renderCoaching(data.content.map(c=>c.text||'').join(''));
+  }catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown error'));}
+  lock(false);
+}
+function renderCoaching(t){
+  return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
+</script>
+</body>
+</html>
