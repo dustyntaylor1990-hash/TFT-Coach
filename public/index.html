@@ -76,6 +76,30 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .cbody ul{padding-left:18px}.cbody li{margin-bottom:5px}
 .note{margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim);line-height:1.6}
 .note a{color:var(--gdim)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 16px}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);width:100%;max-width:820px;margin:auto}
+.modal-hdr{background:var(--bg3);padding:14px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)}
+.modal-place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2.2rem}
+.modal-info{flex:1}
+.modal-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--glt);letter-spacing:.06em}
+.modal-sub{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--dim);margin-top:3px}
+.modal-close{background:none;border:1px solid var(--border);color:var(--dim);padding:7px 14px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.1em;flex-shrink:0}
+.modal-close:hover{border-color:var(--gold);color:var(--gold)}
+.modal-body{padding:20px 24px;line-height:1.8;font-size:.9rem;color:var(--text)}
+.modal-body h2{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--glt);margin:18px 0 5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:3px}
+.modal-body h3{font-family:'Rajdhani',sans-serif;font-size:.92rem;font-weight:700;color:var(--accent);margin:12px 0 3px}
+.modal-body strong{color:var(--glt)}
+.modal-body ul{padding-left:18px}.modal-body li{margin-bottom:5px}
+.modal-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:16px}
+.modal-stat{background:var(--bg3);border:1px solid var(--border);padding:10px;text-align:center}
+.modal-stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-bottom:3px;letter-spacing:.08em;text-transform:uppercase}
+.modal-stat-val{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold)}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;margin:8px 0 16px}
+.unit-card{background:var(--bg3);border:1px solid var(--border);padding:8px 6px;text-align:center}
+.unit-nm{font-family:'Share Tech Mono',monospace;font-size:.59rem;color:var(--text);word-break:break-all;margin-bottom:2px}
+.unit-st{color:#ffd700;font-size:.65rem}
+.unit-it{font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--pur);margin-top:2px}
 @media(max-width:580px){.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}h1{font-size:1.7rem}.stats-grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -156,37 +180,44 @@ select{cursor:pointer}select option{background:var(--bg3)}
   </div>
 </div>
 <div id="matchSection" style="display:none">
-  <div class="sec-hdr">Recent Matches <small style="font-size:.63rem;font-family:monospace;font-weight:400;color:#2a4060">&nbsp;tap to select specific matches</small></div>
+  <div class="sec-hdr">Recent Matches <small style="font-size:.63rem;font-family:monospace;font-weight:400;color:#2a4060">&nbsp;tap a match for deep analysis</small></div>
   <div class="mlist" id="mlist"></div>
 </div>
 <div class="asec" id="asec" style="display:none">
   <div class="scnt" id="scnt"></div>
-  <button class="btn-big" id="analyzeBtn" onclick="analyze()">⚔ Analyze &amp; Coach Me</button>
+  <button class="btn-big" id="analyzeBtn" onclick="analyze()">⚔ Analyze All &amp; Coach Me</button>
 </div>
 <div class="cpanel" id="cpanel">
-  <div class="chdr">
-    <div class="ctitle">Coaching Report</div>
-    <span class="cbadge">CLAUDE AI</span>
-  </div>
+  <div class="chdr"><div class="ctitle">Coaching Report</div><span class="cbadge">CLAUDE AI</span></div>
   <div class="cbody" id="cbody"></div>
 </div>
+</div>
+<div class="modal-overlay" id="matchModal" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-hdr">
+      <div class="modal-place" id="modalPlace">—</div>
+      <div class="modal-info">
+        <div class="modal-title" id="modalTitle">Match Analysis</div>
+        <div class="modal-sub" id="modalSub"></div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('matchModal').classList.remove('show')">✕ Close</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
 </div>
 <script>
 const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
 let matchData=[],selected=new Set();
 window.addEventListener('load',()=>{
-  const ck=localStorage.getItem('tft_ck');
-  const rk=localStorage.getItem('tft_rk');
+  const ck=localStorage.getItem('tft_ck');const rk=localStorage.getItem('tft_rk');
   if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('claudeSaved').style.display='block'}
   if(rk){document.getElementById('riotKey').value=rk;document.getElementById('riotSaved').style.display='block'}
-  const rid=localStorage.getItem('tft_rid');
-  const reg=localStorage.getItem('tft_reg');
+  const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
   if(rid)document.getElementById('riotId').value=rid;
   if(reg)document.getElementById('region').value=reg;
 });
 function saveKeys(){
-  const ck=document.getElementById('claudeKey').value;
-  const rk=document.getElementById('riotKey').value;
+  const ck=document.getElementById('claudeKey').value;const rk=document.getElementById('riotKey').value;
   if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('claudeSaved').style.display='block'}
   if(rk){localStorage.setItem('tft_rk',rk);document.getElementById('riotSaved').style.display='block'}
 }
@@ -256,21 +287,32 @@ function showPlayer(name,tag,ranked,matches){
   document.getElementById('sDmg').textContent=dmg;document.getElementById('sGold').textContent=gold;
   document.getElementById('statsRow').style.display='block';
 }
+function roundToStage(r){
+  if(!r||r<1)return '?';
+  const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];
+  for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}
+  return r+'';
+}
+function cleanAug(a){if(!a)return '';return a.replace(/TFT\w*_Augment_/g,'').replace(/TFT\d*_/g,'').replace(/_/g,' ').trim();}
 function renderMatches(){
   const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
   matchData.forEach((m,idx)=>{
     const p=m.data;
     const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
-    const augs=(p.augments||[]).slice(0,3).map(a=>a.replace(/TFT\d+_Augment_/,'').replace(/_/g,' ').slice(0,16));
+    const augs=(p.augments||p.augment||[]).slice(0,3).map(cleanAug).filter(Boolean);
     const date=m.date?new Date(m.date).toLocaleDateString():'';
     const pc=Math.min(p.placement,8);
+    const lastRnd=roundToStage(p.last_round);
     const row=document.createElement('div');row.className='mrow';
-    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg · ${p.players_eliminated||0}elim</div></div><div class="chk" id="c${idx}" style="color:#2a4060">○</div>`;
-    row.addEventListener('click',()=>toggle(idx,row));list.appendChild(row);
+    row.innerHTML=`<div class="place p${pc}">${p.placement}</div><div><div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div><div class="mdate">${date} · Lv${p.level||'?'} · ended ${lastRnd} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep analysis</div></div><div class="chk" id="c${idx}" style="color:#2a4060;padding:4px 8px" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
+    row.addEventListener('click',(e)=>{if(!e.target.closest('.chk'))openMatchModal(idx);});
+    list.appendChild(row);
   });
-  document.getElementById('matchSection').style.display='block';document.getElementById('asec').style.display='block';
+  document.getElementById('matchSection').style.display='block';
+  document.getElementById('asec').style.display='block';
 }
-function toggle(idx,row){
+function toggleSel(idx){
+  const row=document.getElementById('c'+idx).closest('.mrow');
   if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('c'+idx).textContent='○';document.getElementById('c'+idx).style.color='#2a4060'}
   else{selected.add(idx);row.classList.add('sel');document.getElementById('c'+idx).textContent='✓';document.getElementById('c'+idx).style.color='var(--gold)'}
   updateCount();
@@ -279,10 +321,12 @@ function updateCount(){const n=selected.size;document.getElementById('scnt').tex
 function buildSummary(matches){
   return matches.map((m,i)=>{
     const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';
-    const traits=(p.traits||[]).filter(t=>t.tier_current>0).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')}(${t.num_units}u tier${t.tier_current})`).join(', ');
-    const augs=(p.augments||[]).map(a=>a.replace(/TFT\d+_Augment_/,'').replace(/_/g,' ')).join(', ');
-    const units=(p.units||[]).map(u=>`${u.character_id.replace(/TFT\d+_/,'')}★${u.tier}${(u.items||[]).length?'['+u.items.length+'items]':''}`).join(', ');
-    return `=== MATCH ${i+1} (${date}) ===\nPlace: ${p.placement}/8 | Level: ${p.level||'?'} | Last round: ${p.last_round||'?'}\nGold left: ${p.gold_left||0} | Damage: ${p.total_damage_to_players||0} | Elims: ${p.players_eliminated||0}\nTraits: ${traits||'none'}\nAugments: ${augs||'none'}\nUnits: ${units||'none'}`;
+    const lastRound=roundToStage(p.last_round);
+    const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current).map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
+    const augRaw=p.augments||p.augment||[];
+    const augs=Array.isArray(augRaw)&&augRaw.length>0?augRaw.map(cleanAug).filter(Boolean).join(', '):'none found in data';
+    const units=(p.units||[]).sort((a,b)=>b.tier-a.tier).map(u=>{const name=u.character_id.replace(/TFT\d+_/,'').replace(/_/g,' ');const items=(u.items||u.itemNames||[]);return `${name}★${u.tier}${items.length?'['+items.length+'items]':''}`;}).join(', ');
+    return `=== MATCH ${i+1} (${date}) ===\nPlacement: ${p.placement}/8\nLevel: ${p.level||'?'} | Last round: ${lastRound} | Gold left: ${p.gold_left||0}\nDamage dealt: ${p.total_damage_to_players||0} | Players eliminated: ${p.players_eliminated||0}\nTraits: ${traits||'none'}\nAugments: ${augs}\nFinal board: ${units||'none'}`;
   }).join('\n\n');
 }
 async function analyze(){
@@ -294,7 +338,7 @@ async function analyze(){
   const summary=buildSummary(toAnalyze);
   const panel=document.getElementById('cpanel');const body=document.getElementById('cbody');
   panel.classList.add('show');
-  body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 15 seconds.</div>`;
+  body.innerHTML=`<div style="color:var(--dim);font-family:monospace">Analyzing ${toAnalyze.length} matches… about 20 seconds.</div>`;
   panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
@@ -302,15 +346,71 @@ async function analyze(){
       headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-6',
-        max_tokens:3000,
-        messages:[{role:'user',content:`You are an expert TFT (Teamfight Tactics) coach. Analyze this player's data and give deep, specific, actionable coaching.\n\n${summary}\n\nWrite a full coaching report:\n\n## Overall Performance\nRate 1-10. Placement consistency, volatility, what rank they're playing like.\n\n## Economy & Leveling\nGold patterns, rolling habits, level timing. Specific numbers they should follow.\n\n## Comp Building\nTrait quality, unit stars, meta vs off-meta, flexibility. What 2-3 comps to focus on.\n\n## Augment Evaluation\nAugment quality each match, synergies missed, what to prioritize.\n\n## Combat Performance\nDamage and elimination patterns, positioning implications, specific tips.\n\n## Match-by-Match Breakdown\nEvery single match: what went right, the key mistake, one specific fix.\n\n## Top 3 Priority Improvements\nHighest-impact changes, very specific.\n\nUse TFT terminology. Be direct, honest, and concrete.`}]
+        max_tokens:4000,
+        messages:[{role:'user',content:`You are a Grand Master / Challenger TFT coach whose goal is to get this player to Master tier. Analyze their match data with the depth and precision of a professional coach.\n\nMATCH DATA:\n${summary}\n\n## 🏆 Performance Summary\nOverall rating 1-10 vs Master tier standard. Placement distribution. Estimated current skill tier. Biggest gap vs Master play.\n\n## 💰 Economy & Leveling\nGold left patterns, rolling habits, level timing vs Master standard (level 6 by 3-2, level 7 by 4-1, level 8 by 4-5). Specific thresholds to follow.\n\n## 🎯 Comp Building\nEach comp quality, trait breakpoints, unit stars, meta vs off-meta, flexibility. Best 2-3 comps to master.\n\n## 🔮 Augment Choices\nAugment quality per match, synergies, what to prioritize at 2-1, 3-2, 4-2.\n\n## ⚔️ Combat & Positioning\nDamage patterns, elimination rate, positioning principles for their comps.\n\n## 📊 Match-by-Match Breakdown\nEvery match: comp run, key mistake, what Master player does differently.\n\n## 🎓 Key Patterns (3 recurring habits)\nWhat patterns reveal about playstyle vs Master-level decisions.\n\n## 🚀 Top 5 Priority Changes to Reach Master\nExtremely specific: not "improve economy" but exact gold thresholds, exact level timings, exact positioning rules. For each: WHY it matters, HOW to do it, RESULT to expect.\n\nUse TFT stage format (3-2, 4-1). Be brutally honest and concrete.`}]
       })
     });
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude error ${res.status}`)}
     const data=await res.json();
     body.innerHTML=renderCoaching(data.content.map(c=>c.text||'').join(''));
-  }catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown error'));}
+  }catch(e){body.innerHTML='';panel.classList.remove('show');er('Analysis failed: '+(e.message||'Unknown'));}
   lock(false);
+}
+function closeModal(e){if(e.target===document.getElementById('matchModal'))document.getElementById('matchModal').classList.remove('show');}
+async function openMatchModal(idx){
+  const m=matchData[idx];const p=m.data;
+  const ck=document.getElementById('claudeKey').value.trim();
+  if(!ck){er('Enter your Claude API key to get match analysis');return;}
+  const placeColors={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#4ec994'};
+  const placeColor=placeColors[p.placement]||(p.placement<=4?'#4ec994':'#e05050');
+  const date=m.date?new Date(m.date).toLocaleDateString():'?';
+  const lastRnd=roundToStage(p.last_round);
+  const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current);
+  const augRaw=p.augments||p.augment||[];
+  const augs=Array.isArray(augRaw)?augRaw.map(cleanAug).filter(Boolean):[];
+  const units=(p.units||[]).sort((a,b)=>b.tier-a.tier);
+  document.getElementById('modalPlace').textContent=p.placement;
+  document.getElementById('modalPlace').style.color=placeColor;
+  document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'}`;
+  document.getElementById('modalSub').textContent=`Ended round ${lastRnd} · ${p.total_damage_to_players||0} damage · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
+  const unitHTML=units.map(u=>{const name=u.character_id.replace(/TFT\d+_/,'').replace(/_/g,' ');const stars='★'.repeat(Math.min(u.tier||1,3));const items=(u.items||u.itemNames||[]).length;return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items?`<div class="unit-it">${items} items</div>`:''}</div>`;}).join('');
+  const traitHTML=traits.map(t=>`<span class="chip">${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} ${t.tier_current}/${t.tier_total||3}</span>`).join('');
+  const augHTML=augs.length?augs.map(a=>`<span class="achip">${a}</span>`).join(''):'<span style="color:var(--dim);font-size:.75rem">No augment data in API</span>';
+  document.getElementById('modalBody').innerHTML=`
+    <div class="modal-stats">
+      <div class="modal-stat"><div class="modal-stat-lbl">Placement</div><div class="modal-stat-val" style="color:${placeColor}">${p.placement}/8</div></div>
+      <div class="modal-stat"><div class="modal-stat-lbl">Level</div><div class="modal-stat-val">${p.level||'?'}</div></div>
+      <div class="modal-stat"><div class="modal-stat-lbl">Last Round</div><div class="modal-stat-val">${lastRnd}</div></div>
+      <div class="modal-stat"><div class="modal-stat-lbl">Damage</div><div class="modal-stat-val">${p.total_damage_to_players||0}</div></div>
+      <div class="modal-stat"><div class="modal-stat-lbl">Gold Left</div><div class="modal-stat-val">${p.gold_left||0}</div></div>
+      <div class="modal-stat"><div class="modal-stat-lbl">Elims</div><div class="modal-stat-val">${p.players_eliminated||0}</div></div>
+    </div>
+    <div style="margin-bottom:8px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">TRAITS</span><div style="margin-top:5px">${traitHTML||'none'}</div></div>
+    <div style="margin:12px 0 8px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">AUGMENTS</span><div style="margin-top:5px">${augHTML}</div></div>
+    <div style="margin-bottom:12px"><span style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em">FINAL BOARD</span><div class="unit-grid">${unitHTML}</div></div>
+    <div style="border-top:1px solid var(--border);padding-top:16px">
+      <div style="font-family:monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em;margin-bottom:10px">AI COACHING ANALYSIS</div>
+      <div id="modalCoaching" style="color:var(--dim);font-family:monospace;font-size:.8rem">Analyzing this match… ~10 seconds</div>
+    </div>`;
+  document.getElementById('matchModal').classList.add('show');
+  document.getElementById('matchModal').scrollTop=0;
+  const traitsStr=traits.map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} (${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
+  const unitsStr=units.map(u=>`${u.character_id.replace(/TFT\d+_/,'').replace(/_/g,' ')}★${u.tier}${(u.items||[]).length?'['+u.items.length+'items]':''}`).join(', ');
+  const matchSummary=`Date: ${date}\nPlacement: ${p.placement}/8\nLevel: ${p.level||'?'} | Last round: ${lastRnd} | Gold left: ${p.gold_left||0}\nDamage: ${p.total_damage_to_players||0} | Elims: ${p.players_eliminated||0}\nTraits: ${traitsStr||'none'}\nAugments: ${augs.join(', ')||'none in API data'}\nFinal board: ${unitsStr||'none'}`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:2000,
+        messages:[{role:'user',content:`You are a Master/Challenger TFT coach. Analyze this single match for a player trying to reach Master. Be focused and specific.\n\nMATCH DATA:\n${matchSummary}\n\n## What Happened\n2-3 sentences: comp they ran, how it went, result.\n\n## Economy Assessment\nGold left tells a story. Did they over-roll, under-roll, or manage well? What exactly should they have done?\n\n## Comp Execution\nHow well was this comp built? Right traits? Carries itemized? What was wrong or missing?\n\n## Augment Synergy\nDid augments fit the comp? Good or misaligned picks? (Note if no augment data available)\n\n## The Key Mistake\nOne very specific thing that cost the most LP. Not "bad positioning" — be exact: which unit was misplaced, which decision was wrong, which item was on the wrong carry.\n\n## What a Master Player Does Differently\nExactly what Master tier would do differently in this specific game at the critical moment.\n\n## 2 Quick Wins\nTwo things to implement immediately next time they play this comp.\n\nEvery sentence actionable. Use stage format (3-2, 4-1).`}]
+      })
+    });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Error ${res.status}`);}
+    const data=await res.json();
+    document.getElementById('modalCoaching').innerHTML=renderCoaching(data.content.map(c=>c.text||'').join(''));
+  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
 }
 function renderCoaching(t){
   return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
