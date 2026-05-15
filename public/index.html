@@ -6,21 +6,8 @@
 <title>M.A.D Forge Coach — Challenger Training</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ════════════════════════════════════════════════
-   M.A.D FORGE COACH — ELITE DESIGN SYSTEM v2
-════════════════════════════════════════════════ */
-:root{
-  --bg:#03070d;--bg2:#060d16;--bg3:#0a1520;--bg4:#0f1e2e;--bg5:#152433;
-  --border:#0e1e30;--border2:#182d45;
-  --gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e0a0;--golddim:#6b5525;
-  --text:#ccd8e8;--dim:#2a4560;--dim2:#3d5f7a;
-  --accent:#3a8fd0;--accent2:#5aabf0;
-  --pur:#7a50c0;--pur2:#9a70e0;
-  --grn:#35a875;--grn2:#50cc95;
-  --red:#b03535;--red2:#d55555;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+:root{--bg:#03070d;--bg2:#060d16;--bg3:#0a1520;--bg4:#0f1e2e;--bg5:#152433;--border:#0e1e30;--border2:#182d45;--gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e0a0;--golddim:#6b5525;--text:#ccd8e8;--dim:#2a4560;--dim2:#3d5f7a;--accent:#3a8fd0;--accent2:#5aabf0;--pur:#7a50c0;--pur2:#9a70e0;--grn:#35a875;--grn2:#50cc95;--red:#b03535;--red2:#d55555;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 90% 35% at 50% 0%,rgba(201,168,76,.05) 0%,transparent 65%),radial-gradient(ellipse 50% 50% at 0% 100%,rgba(58,143,208,.03) 0%,transparent 60%),repeating-linear-gradient(60deg,transparent,transparent 42px,rgba(201,168,76,.012) 42px,rgba(201,168,76,.012) 43px),repeating-linear-gradient(-60deg,transparent,transparent 42px,rgba(201,168,76,.012) 42px,rgba(201,168,76,.012) 43px);}
 body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;z-index:200;background:linear-gradient(90deg,transparent 0%,rgba(107,85,37,.8) 15%,var(--gold) 50%,rgba(107,85,37,.8) 85%,transparent 100%);}
@@ -40,58 +27,45 @@ h1{font-family:'Rajdhani',sans-serif;font-size:2.6rem;font-weight:700;letter-spa
 .saved{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--grn2);margin-top:2px;display:none}
 input,select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:9px 12px;font-family:'Exo 2',sans-serif;font-size:.88rem;outline:none;width:100%;transition:border-color .18s,box-shadow .18s;}
 input:focus,select:focus{border-color:var(--golddim);box-shadow:0 0 0 2px rgba(201,168,76,.07)}
-input::placeholder{color:var(--dim)}
-select{cursor:pointer}select option{background:var(--bg3)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.g3{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end}
-.ig{display:flex;flex-direction:column;gap:5px}
-.ig label{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2);letter-spacing:.12em;text-transform:uppercase}
+input::placeholder{color:var(--dim)}select{cursor:pointer}select option{background:var(--bg3)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end}
+.ig{display:flex;flex-direction:column;gap:5px}.ig label{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2);letter-spacing:.12em;text-transform:uppercase}
 .btn{background:linear-gradient(145deg,#1e1000,#2e1a00);border:1px solid var(--gold);color:var(--gold);padding:0 22px;height:40px;font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:all .15s;position:relative;overflow:hidden;}
 .btn::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(201,168,76,.1),transparent);opacity:0;transition:opacity .15s}
-.btn:hover{border-color:var(--gold2);color:var(--gold2);box-shadow:0 0 14px rgba(201,168,76,.14)}.btn:hover::after{opacity:1}
-.btn:disabled{opacity:.28;cursor:not-allowed}
+.btn:hover{border-color:var(--gold2);color:var(--gold2);box-shadow:0 0 14px rgba(201,168,76,.14)}.btn:hover::after{opacity:1}.btn:disabled{opacity:.28;cursor:not-allowed}
 .btn-sm{background:transparent;border:1px solid var(--border2);color:var(--dim2);padding:4px 12px;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .15s;}
 .btn-sm:hover{border-color:var(--gold);color:var(--gold)}
 .btn-big{background:linear-gradient(145deg,var(--golddim),var(--gold));border:1px solid var(--gold2);color:var(--bg);padding:14px 60px;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;display:block;margin:0 auto;transition:all .15s;box-shadow:0 4px 22px rgba(201,168,76,.18);}
-.btn-big:hover{box-shadow:0 6px 30px rgba(201,168,76,.28);transform:translateY(-1px)}
-.btn-big:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.btn-big:hover{box-shadow:0 6px 30px rgba(201,168,76,.28);transform:translateY(-1px)}.btn-big:disabled{opacity:.28;cursor:not-allowed;transform:none}
 .panel{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--golddim);padding:20px 22px 18px;margin-bottom:14px;position:relative;}
 .panel::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent)}
 .plbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .plbl::before{content:'//';color:var(--golddim);font-size:.58rem}
-.mode-tabs{display:flex;gap:3px;margin-bottom:14px;background:var(--bg2);padding:4px;border:1px solid var(--border);}
-.mode-tab{flex:1;background:transparent;border:none;color:var(--dim2);padding:10px 5px;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-align:center;transition:all .14s;position:relative;}
+.mode-tabs{display:flex;gap:3px;margin-bottom:14px;background:var(--bg2);padding:4px;border:1px solid var(--border);flex-wrap:wrap;}
+.mode-tab{flex:1;background:transparent;border:none;color:var(--dim2);padding:10px 5px;font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-align:center;transition:all .14s;position:relative;min-width:0;}
 .mode-tab:hover{color:var(--gold2);background:rgba(201,168,76,.04)}
 .mode-tab.active{background:linear-gradient(145deg,rgba(201,168,76,.09),rgba(201,168,76,.04));color:var(--gold);box-shadow:inset 0 0 0 1px rgba(201,168,76,.18);}
 .mode-tab.active::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .status{background:var(--bg3);border:1px solid var(--border2);border-left:2px solid var(--gold);padding:9px 14px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim2);margin-bottom:12px;display:none;align-items:center;gap:10px;}
-.status.show{display:flex}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 1.2s infinite}
+.status.show{display:flex}.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(201,168,76,.5)}50%{opacity:.35;box-shadow:0 0 0 5px transparent}}
 .err{background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.25);border-left:2px solid var(--red2);padding:10px 14px;font-size:.76rem;color:#d06060;margin-bottom:12px;font-family:'Share Tech Mono',monospace;display:none;}
 .err.show{display:block}
 .pcrd{background:var(--bg2);border:1px solid var(--border);padding:16px 20px;margin-bottom:14px;display:none;align-items:center;gap:20px;position:relative;overflow:hidden;}
-.pcrd::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.28),transparent)}
-.pcrd.show{display:flex}
+.pcrd::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.28),transparent)}.pcrd.show{display:flex}
 .rbadge{width:52px;height:52px;background:linear-gradient(145deg,var(--bg4),var(--bg5));border:2px solid var(--golddim);flex-shrink:0;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.82rem;color:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.1);}
 .pname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.35rem;color:var(--gold3);margin-bottom:5px;letter-spacing:.04em}
-.pmeta{display:flex;gap:16px;flex-wrap:wrap}
-.mi{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2)}
-.mi span{color:var(--accent2)}
+.pmeta{display:flex;gap:16px;flex-wrap:wrap}.mi{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2)}.mi span{color:var(--accent2)}
 .mode-badge{font-family:'Share Tech Mono',monospace;font-size:.57rem;padding:2px 9px;border:1px solid var(--golddim);color:var(--golddim);background:rgba(201,168,76,.04);display:inline-block;margin-top:5px;letter-spacing:.1em}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:8px;margin-bottom:14px}
-.stat-box{background:var(--bg2);border:1px solid var(--border);padding:13px 12px;text-align:center;transition:border-color .14s}
-.stat-box:hover{border-color:var(--border2)}
+.stat-box{background:var(--bg2);border:1px solid var(--border);padding:13px 12px;text-align:center;transition:border-color .14s}.stat-box:hover{border-color:var(--border2)}
 .stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.57rem;color:var(--dim2);margin-bottom:5px;letter-spacing:.1em;text-transform:uppercase}
-.stat-val{font-family:'Rajdhani',sans-serif;font-size:1.55rem;font-weight:700;color:var(--gold)}
-.stat-val.good{color:var(--grn2)}.stat-val.bad{color:var(--red2)}
+.stat-val{font-family:'Rajdhani',sans-serif;font-size:1.55rem;font-weight:700;color:var(--gold)}.stat-val.good{color:var(--grn2)}.stat-val.bad{color:var(--red2)}
 .sec-hdr{font-family:'Share Tech Mono',monospace;font-weight:700;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim2);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
-.sec-hdr::before{content:'//';color:var(--golddim);font-size:.6rem}
-.sec-hdr::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.sec-hdr::before{content:'//';color:var(--golddim);font-size:.6rem}.sec-hdr::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
 .mlist{display:flex;flex-direction:column;gap:3px;margin-bottom:18px}
 .mrow{background:var(--bg2);border:1px solid var(--border);padding:10px 14px;display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;cursor:pointer;transition:all .13s;}
-.mrow:hover{border-color:var(--border2);background:var(--bg3);transform:translateX(2px)}
-.mrow.sel{border-color:var(--gold);background:var(--bg3)}
+.mrow:hover{border-color:var(--border2);background:var(--bg3);transform:translateX(2px)}.mrow.sel{border-color:var(--gold);background:var(--bg3)}
 .place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;text-align:center;line-height:1}
 .p1{color:#ffd700}.p2{color:#c0c0c0}.p3{color:#cd7f32}.p4{color:var(--grn2)}.p5,.p6,.p7,.p8{color:var(--red2)}
 .win-badge{font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;text-align:center;line-height:1}
@@ -99,24 +73,34 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .achip{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 5px;background:rgba(122,80,192,.08);border:1px solid rgba(122,80,192,.2);color:var(--pur2);display:inline-block;margin:1px 2px}
 .mdate{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-top:3px}
 .chk{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:4px 8px;flex-shrink:0;user-select:none;transition:color .1s}
-.asec{text-align:center;margin-bottom:22px;padding:4px 0}
-.scnt{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--golddim);margin-bottom:12px}
-.cpanel{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold);display:none;margin-bottom:22px;}
-.cpanel.show{display:block}
+.asec{text-align:center;margin-bottom:22px;padding:4px 0}.scnt{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--golddim);margin-bottom:12px}
+.cpanel{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold);display:none;margin-bottom:22px;}.cpanel.show{display:block}
 .chdr{background:linear-gradient(90deg,rgba(201,168,76,.07),transparent);padding:13px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border);}
 .ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
 .cbadge{font-family:'Share Tech Mono',monospace;font-size:.55rem;padding:3px 8px;background:rgba(201,168,76,.07);border:1px solid var(--golddim);color:var(--golddim);letter-spacing:.12em}
+.ctabs{display:flex;gap:3px;padding:10px 14px 0;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(201,168,76,.04),transparent);flex-wrap:wrap}
+.ctab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim2);padding:7px 14px 8px;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .14s;white-space:nowrap}
+.ctab:hover{color:var(--gold2)}.ctab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.ctab-panel{display:none;padding:22px 26px;line-height:1.85;font-size:.88rem;color:var(--text);min-height:120px}.ctab-panel.active{display:block}
+.ctab-loading{display:flex;align-items:center;gap:10px;color:var(--golddim);font-family:'Share Tech Mono',monospace;font-size:.7rem;padding:16px 0}
+.ctab-error{color:var(--red2);font-family:'Share Tech Mono',monospace;font-size:.75rem;padding:10px 0;line-height:1.8}
 .cbody{padding:22px 26px;line-height:1.85;font-size:.88rem;color:var(--text)}
-.cbody h2{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--gold2);margin:24px 0 7px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:5px}
-.cbody h3{font-family:'Rajdhani',sans-serif;font-size:.92rem;font-weight:700;color:var(--accent2);margin:14px 0 4px}
-.cbody strong{color:var(--gold3)}.cbody ul{padding-left:18px}.cbody li{margin-bottom:5px}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 16px;backdrop-filter:blur(4px)}
-.overlay.show{display:flex}
+.cbody h2,.ctab-panel h2{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--gold2);margin:24px 0 7px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:5px}
+.cbody h3,.ctab-panel h3{font-family:'Rajdhani',sans-serif;font-size:.92rem;font-weight:700;color:var(--accent2);margin:14px 0 4px}
+.cbody strong,.ctab-panel strong{color:var(--gold3)}.cbody ul,.ctab-panel ul{padding-left:18px}.cbody li,.ctab-panel li{margin-bottom:5px}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.score-card{background:var(--bg3);border:1px solid var(--border2);padding:12px 14px}
+.score-card-lbl{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.score-card-grade{font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:3px}
+.score-card-note{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2);line-height:1.45}
+.grade-sp{color:#ffd700}.grade-s{color:#ffd700}.grade-ap{color:#50cc95}.grade-a{color:#50cc95}.grade-bp{color:#5aabf0}.grade-b{color:#5aabf0}.grade-c{color:#9a70e0}.grade-d{color:#c97830}.grade-f{color:#d55555}
+.item-audit-row{background:var(--bg3);border-left:3px solid var(--border2);padding:9px 12px;margin-bottom:6px;font-size:.82rem;line-height:1.6}
+.item-audit-row.wrong{border-left-color:var(--red2)}.item-audit-row.ok{border-left-color:var(--grn)}.item-audit-row.sub{border-left-color:var(--orange,#c97830)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 16px;backdrop-filter:blur(4px)}.overlay.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--gold);width:100%;max-width:840px;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 40px rgba(201,168,76,.05)}
 .modal-hdr{background:linear-gradient(90deg,rgba(201,168,76,.07),transparent);padding:15px 22px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)}
 .modal-place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2.4rem;line-height:1}
-.modal-info{flex:1}
-.modal-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--gold3);letter-spacing:.06em}
+.modal-info{flex:1}.modal-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--gold3);letter-spacing:.06em}
 .modal-sub{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px}
 .modal-body{padding:20px 24px;line-height:1.8;font-size:.88rem;color:var(--text)}
 .modal-body h2{font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;color:var(--gold2);margin:18px 0 5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:3px}
@@ -133,8 +117,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .item-tag{font-family:'Share Tech Mono',monospace;font-size:.52rem;padding:2px 4px;background:rgba(58,143,208,.08);border:1px solid rgba(58,143,208,.2);color:var(--accent2);display:block;margin:1px 0;word-break:break-word;text-align:left}
 .section-lbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.12em;margin-bottom:7px;display:block}
 .admin-msg{font-family:'Share Tech Mono',monospace;font-size:.7rem;margin-top:10px;display:none;padding:6px 0}
-.note{margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--dim2);line-height:1.6}
-.note a{color:var(--golddim);text-decoration:none}.note a:hover{color:var(--gold)}
+.note{margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--dim2);line-height:1.6}.note a{color:var(--golddim);text-decoration:none}.note a:hover{color:var(--gold)}
 .aram-champ{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent2)}
 .podium-stage{display:flex;align-items:flex-end;justify-content:center;gap:12px;padding:0 4px;margin-bottom:20px}
 .pod-col{display:flex;flex-direction:column;align-items:center;flex:1;max-width:220px}
@@ -150,23 +133,19 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .pod-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--gold3);margin-bottom:5px}
 .pod-rank{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);margin-bottom:4px}
 .pod-lp{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2)}
-.pod-trend{font-size:1rem;margin-bottom:4px}
-.pod-trend.up{color:var(--grn2)}.pod-trend.down{color:var(--red2)}.pod-trend.flat{color:var(--golddim)}
+.pod-trend{font-size:1rem;margin-bottom:4px}.pod-trend.up{color:var(--grn2)}.pod-trend.down{color:var(--red2)}.pod-trend.flat{color:var(--golddim)}
 .pod-dots{display:flex;gap:3px;justify-content:center;margin-top:6px;flex-wrap:wrap}
-.pd{width:10px;height:10px;border-radius:2px}
-.pd.t{background:var(--grn)}.pd.b{background:var(--red)}
+.pd{width:10px;height:10px;border-radius:2px}.pd.t{background:var(--grn)}.pd.b{background:var(--red)}
 .mc-card{background:var(--bg2);border:1px solid var(--border);margin-bottom:5px}
 .mc-card.s-tier{border-left:3px solid var(--gold)}.mc-card.a-tier{border-left:3px solid var(--pur2)}
-.mc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;transition:background .12s;gap:12px}
-.mc-head:hover{background:var(--bg3)}
+.mc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;transition:background .12s;gap:12px}.mc-head:hover{background:var(--bg3)}
 .mc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--gold3)}
 .mc-badges{display:flex;gap:6px;align-items:center;flex-shrink:0}
 .mc-tier{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 7px;border:1px solid}
 .mc-tier.s{border-color:var(--gold);color:var(--gold)}.mc-tier.a{border-color:var(--pur2);color:var(--pur2)}
 .mc-style{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 7px;border:1px solid var(--border2);color:var(--dim2)}
 .mc-body{display:none;padding:14px;border-top:1px solid var(--border)}.mc-body.open{display:block}
-.mc-section{margin-bottom:13px}
-.mc-slbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.mc-section{margin-bottom:13px}.mc-slbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
 .lv-table{width:100%;border-collapse:collapse;font-family:'Share Tech Mono',monospace;font-size:.58rem}
 .lv-table th{background:var(--bg3);border:1px solid var(--border);padding:4px 6px;color:var(--dim2);text-align:center}
 .lv-table td{border:1px solid var(--border);padding:4px 6px;text-align:center;color:var(--text)}
@@ -192,25 +171,23 @@ select{cursor:pointer}select option{background:var(--bg3)}
 .ask-bubble.ai h3{font-family:'Rajdhani',sans-serif;font-size:.86rem;font-weight:700;color:var(--accent2);margin:10px 0 3px}
 .ask-bubble.ai strong{color:var(--gold3)}.ask-bubble.ai ul{padding-left:16px}.ask-bubble.ai li{margin-bottom:4px}
 .ask-typing{color:var(--golddim);font-family:'Share Tech Mono',monospace;font-size:.67rem;animation:pulse 1.2s infinite}
-@media(max-width:600px){h1{font-size:1.9rem}.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(3,1fr)}.mode-tabs{flex-wrap:wrap}.mode-tab{font-size:.72rem;padding:8px 3px}.pod-name{font-size:.85rem}.podium-stage{gap:6px}.cbody{padding:14px 16px}.modal-body{padding:14px 16px}}
+.tab-ask.active{color:var(--pur2);box-shadow:inset 0 0 0 1px rgba(122,80,192,.3)}.tab-ask.active::after{background:linear-gradient(90deg,transparent,var(--pur),transparent)}
+@media(max-width:600px){h1{font-size:1.9rem}.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(3,1fr)}.mode-tabs{flex-wrap:wrap}.mode-tab{font-size:.68rem;padding:8px 2px;min-width:0;flex-basis:calc(33% - 4px)}.pod-name{font-size:.85rem}.podium-stage{gap:6px}.cbody{padding:14px 16px}.modal-body{padding:14px 16px}.ctab-panel{padding:14px 16px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <div class="logo-row">
-    <div class="hex">M.A.D</div>
-    <h1>Forge Coach</h1>
-  </div>
-  <div class="tagline">Challenger-Level TFT &amp; ARAM Training System</div>
-  <div class="patch-badge" id="patchBadge">TFT · Set 17 · Patch 17.3</div>
+  <div class="logo-row"><div class="hex">M.A.D</div><h1>Forge Coach</h1></div>
+  <div class="tagline">Professional TFT &amp; ARAM Coaching System</div>
+  <div class="patch-badge" id="patchBadge">TFT · Set 17 · Patch 14.11</div>
 </header>
 <div class="keys-row">
   <span class="key-lbl">// API Keys</span>
   <div class="key-field"><span>Claude</span><input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()" style="height:32px;padding:4px 10px;font-size:.75rem"/><span class="saved" id="ckSaved">✓</span></div>
   <div class="key-field"><span>Riot</span><input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()" style="height:32px;padding:4px 10px;font-size:.75rem"/><span class="saved" id="rkSaved">✓</span></div>
 </div>
-<div class="key-links" style="padding:0 0 8px">Claude: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> &nbsp;·&nbsp; Riot (24h): <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> &nbsp;·&nbsp; Keys in browser only</div>
+<div class="key-links" style="padding:0 0 8px">Claude: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> &nbsp;·&nbsp; Riot (24h): <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> &nbsp;·&nbsp; Keys saved in browser only</div>
 <div id="miniPodium"></div>
 <div class="mode-tabs">
   <div class="mode-tab active" id="tab-tft" onclick="setMode('tft')">⚔ TFT</div>
@@ -218,7 +195,9 @@ select{cursor:pointer}select option{background:var(--bg3)}
   <div class="mode-tab" id="tab-aram" onclick="setMode('aram')">⚡ ARAM</div>
   <div class="mode-tab" id="tab-meta" onclick="setMode('meta')">📊 Meta</div>
   <div class="mode-tab" id="tab-squad" onclick="setMode('squad')">🏆 Squad</div>
-  <div class="mode-tab" id="tab-ask" onclick="setMode('ask')">🤖 Ask AI</div>
+  <div class="mode-tab" id="tab-progress" onclick="setMode('progress')">📈 Progress</div>
+  <div class="mode-tab" id="tab-prep" onclick="setMode('prep')">🎯 Prep</div>
+  <div class="mode-tab" id="tab-ask" onclick="setMode('ask')" style="border-color:var(--pur2);color:var(--pur2)">🤖 Ask AI</div>
 </div>
 <div class="panel" id="lookupPanel">
   <div class="plbl" id="lookupLabel">TFT Ranked — Player Lookup</div>
@@ -232,11 +211,7 @@ select{cursor:pointer}select option{background:var(--bg3)}
 <div class="err" id="err"></div>
 <div class="pcrd" id="pcrd">
   <div class="rbadge" id="rbadge">?</div>
-  <div>
-    <div class="pname" id="pname"></div>
-    <div class="pmeta"><div class="mi">Rank: <span id="pRank">—</span></div><div class="mi">LP: <span id="pLP">—</span></div><div class="mi">W/L: <span id="pWL">—</span></div></div>
-    <div class="mode-badge" id="modeBadge">TFT RANKED</div>
-  </div>
+  <div><div class="pname" id="pname"></div><div class="pmeta"><div class="mi">Rank: <span id="pRank">—</span></div><div class="mi">LP: <span id="pLP">—</span></div><div class="mi">W/L: <span id="pWL">—</span></div></div><div class="mode-badge" id="modeBadge">TFT RANKED</div></div>
 </div>
 <div id="statsRow" style="display:none"><div class="stats-grid" id="statsGrid"></div></div>
 <div id="matchSection" style="display:none">
@@ -248,13 +223,24 @@ select{cursor:pointer}select option{background:var(--bg3)}
   <button class="btn-big" id="analyzeBtn" onclick="analyzeAll()">⚔ Analyze &amp; Coach Me</button>
 </div>
 <div class="cpanel" id="cpanel">
-  <div class="chdr"><div class="ctitle">Coaching Report</div><span class="cbadge" id="cpanelBadge">CLAUDE AI · CHALLENGER ANALYSIS</span></div>
-  <div class="cbody" id="cbody"></div>
+  <div class="chdr"><div class="ctitle">Coaching Report — <span id="cpanelPlayer" style="color:var(--gold2)"></span></div><span class="cbadge" id="cpanelBadge">PROFESSIONAL ANALYSIS</span></div>
+  <div class="ctabs" id="ctabs">
+    <button class="ctab active" id="ctab-overview" onclick="switchCoachTab('overview')">📋 Overview</button>
+    <button class="ctab" id="ctab-economy" onclick="switchCoachTab('economy')">💰 Economy</button>
+    <button class="ctab" id="ctab-items" onclick="switchCoachTab('items')">⚙️ Items</button>
+    <button class="ctab" id="ctab-augments" onclick="switchCoachTab('augments')">🔮 Augments</button>
+    <button class="ctab" id="ctab-training" onclick="switchCoachTab('training')">🏆 Training</button>
+  </div>
+  <div class="ctab-panel active" id="cpanel-overview"></div>
+  <div class="ctab-panel" id="cpanel-economy"></div>
+  <div class="ctab-panel" id="cpanel-items"></div>
+  <div class="ctab-panel" id="cpanel-augments"></div>
+  <div class="ctab-panel" id="cpanel-training"></div>
 </div>
 <div id="metaTab" style="display:none">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
-    <div><div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold3)">S &amp; A Tier Comps</div><div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px">Tap to expand · BunnyMuffins verified · Set 17 Patch 17.3</div></div>
-    <div style="display:flex;gap:8px;align-items:center"><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--golddim);padding:3px 8px;border:1px solid var(--border2)">Set 17 · Patch 17.3</span><button class="btn-sm" onclick="updateMetaTab()">↺ Refresh</button></div>
+    <div><div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold3)">S &amp; A Tier Comps</div><div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px">Tap to expand · BunnyMuffins verified · Set 17 Patch 14.11</div></div>
+    <div style="display:flex;gap:8px;align-items:center"><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--golddim);padding:3px 8px;border:1px solid var(--border2)">Set 17 · Patch 14.11</span><button class="btn-sm" onclick="updateMetaTab()">↺ Refresh</button></div>
   </div>
   <div id="metaTabContent"></div>
 </div>
@@ -280,34 +266,34 @@ select{cursor:pointer}select option{background:var(--bg3)}
     </div>
   </div>
 </div>
+<div id="progressTab" style="display:none"><div id="progressContent"></div></div>
+<div id="prepTab" style="display:none"><div id="prepContent"></div></div>
 <div id="askTab" style="display:none">
   <div style="margin-bottom:14px">
     <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--golddim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px">// Quick questions</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px">
-      <button class="ask-chip" onclick="askQuick('Best Corki Riven comp Set 17 Patch 17.3 — full board, exact items, augments, leveling guide')">Corki Riven guide</button>
-      <button class="ask-chip" onclick="askQuick('Best Vex Fast 9 build Set 17 Patch 17.3 — full board, Graves build path, economy, when to go 9')">Vex Fast 9 guide</button>
-      <button class="ask-chip" onclick="askQuick('Best augments to pick at 2-1 in TFT Set 17 Patch 17.3 — ranked by value, when to take econ vs combat')">Best 2-1 augments</button>
+      <button class="ask-chip" onclick="askQuick('Best Corki Riven comp Set 17 Patch 14.11 — full board, exact items, augments, leveling guide')">Corki Riven guide</button>
+      <button class="ask-chip" onclick="askQuick('Best Vex Fast 9 build Set 17 — full board, Graves build path, economy, when to go 9')">Vex Fast 9 guide</button>
+      <button class="ask-chip" onclick="askQuick('Best augments to pick at 2-1 in TFT Set 17 — ranked by value, when to take econ vs combat')">Best 2-1 augments</button>
       <button class="ask-chip" onclick="askQuick('Full economy guide TFT Set 17 — exact interest breakpoints, leveling rounds, roll thresholds by level')">Economy guide</button>
-      <button class="ask-chip" onclick="askQuick('Best 6 Dark Stars comp Set 17 Patch 17.3 — Riven vs Xayah variant, when to play each, exact items')">Dark Stars guide</button>
-      <button class="ask-chip" onclick="askQuick('What is the best comp right now in TFT Set 17 Patch 17.3? Full S tier breakdown')">S tier right now</button>
-      <button class="ask-chip" onclick="askQuick('Best Brawler Yi build Set 17 Patch 17.3 — exact items for Yi and Kindred, emblem priority, augments')">Brawler Yi guide</button>
-      <button class="ask-chip" onclick="askQuick('Vanguard LeBlanc guide Set 17 — full board, LeBlanc and Karma items, how to pick the right Arbiter')">Vanguard LeBlanc</button>
-      <button class="ask-chip" onclick="askQuick('Asol AP Flex guide Set 17 — when to play it, items, best duo carry, front line options')">Asol AP Flex</button>
-      <button class="ask-chip" onclick="askQuick('Best Meeple Veigar build Set 17 Patch 17.3 — full board, items, augments, how to clone Veigar')">Meeple Veigar</button>
-      <button class="ask-chip" onclick="askQuick('How do I climb to Challenger in TFT Set 17? What are the 3 most important things to focus on?')">How to reach Challenger</button>
-      <button class="ask-chip" onclick="askQuick('What items should I never build together in TFT Set 17? Biggest item mistakes to avoid?')">Item mistakes</button>
-      <button class="ask-chip" onclick="askQuick('How do I play from a loss streak in TFT Set 17? What comps work best and exact level timings?')">Loss streak guide</button>
-      <button class="ask-chip" onclick="askQuick('Best Samira Reroll build Set 17 — exact items, when to roll, board composition')">Samira Reroll</button>
+      <button class="ask-chip" onclick="askQuick('Best 6 Dark Stars comp Set 17 — Riven vs Xayah variant, when to play each, exact items')">Dark Stars guide</button>
+      <button class="ask-chip" onclick="askQuick('What is the best comp right now in TFT Set 17? Full S tier breakdown')">S tier right now</button>
+      <button class="ask-chip" onclick="askQuick('Best Brawler Yi build Set 17 — exact items for Yi and Kindred, emblem priority, augments')">Brawler Yi guide</button>
+      <button class="ask-chip" onclick="askQuick('Vanguard LeBlanc guide Set 17 — full board, LeBlanc and Karma items, Arbiter selection')">Vanguard LeBlanc</button>
+      <button class="ask-chip" onclick="askQuick('Asol AP Flex guide Set 17 — when to play it, items, NO mana items rule explained')">Asol AP Flex</button>
+      <button class="ask-chip" onclick="askQuick('Best Meeple Veigar build Set 17 — full board, items, augments, how to clone Veigar')">Meeple Veigar</button>
+      <button class="ask-chip" onclick="askQuick('How do I climb to Challenger in TFT Set 17? Top 3 most important habits')">How to reach Challenger</button>
+      <button class="ask-chip" onclick="askQuick('What items should I never build together in TFT Set 17? Biggest item mistakes')">Item mistakes</button>
+      <button class="ask-chip" onclick="askQuick('How do I play from a loss streak in TFT Set 17? Exact level timings and comps')">Loss streak guide</button>
+      <button class="ask-chip" onclick="askQuick('Lulu Reroll guide Set 17 — economy, roll timing, items, when to play')">Lulu Reroll guide</button>
     </div>
   </div>
   <div id="askChat" style="background:var(--bg2);border:1px solid var(--border);min-height:220px;max-height:540px;overflow-y:auto;padding:16px;margin-bottom:10px;display:flex;flex-direction:column;gap:8px">
-    <div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2);text-align:center;padding:24px 0;border:1px dashed var(--border)">Ask anything about TFT, ARAM, builds, items, comps, strategy…<br><span style="font-size:.58rem;color:var(--dim)">Powered by Claude · BunnyMuffins verified Set 17 Patch 17.3</span></div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2);text-align:center;padding:24px 0;border:1px dashed var(--border)">Ask anything about TFT, ARAM, builds, items, comps, strategy…<br><span style="font-size:.58rem;color:var(--dim)">Professional coaching · BunnyMuffins verified Set 17 data</span></div>
   </div>
   <div style="display:flex;gap:8px;align-items:flex-end">
-    <div style="flex:1">
-      <textarea id="askInput" placeholder="e.g. Best items for Graves? How to play from loss streak?" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAsk()}" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 13px;font-family:'Exo 2',sans-serif;font-size:.85rem;outline:none;resize:none;height:68px;line-height:1.45;transition:border-color .2s" onfocus="this.style.borderColor='var(--pur2)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim);margin-top:3px">Enter to send · Shift+Enter for new line</div>
-    </div>
+    <div style="flex:1"><textarea id="askInput" placeholder="e.g. Best items for Graves? How to play from loss streak?" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAsk()}" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 13px;font-family:'Exo 2',sans-serif;font-size:.85rem;outline:none;resize:none;height:68px;line-height:1.45;transition:border-color .2s" onfocus="this.style.borderColor='var(--pur2)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim);margin-top:3px">Enter to send · Shift+Enter for new line</div></div>
     <button class="btn" id="askBtn" onclick="sendAsk()" style="height:68px;border-color:var(--pur2);color:var(--pur2);min-width:80px">Ask →</button>
   </div>
   <div style="text-align:right;margin-top:6px"><button class="btn-sm" onclick="clearAskChat()">✕ Clear chat</button></div>
@@ -315,304 +301,318 @@ select{cursor:pointer}select option{background:var(--bg3)}
 </div>
 <div class="overlay" id="matchModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-place" id="modalPlace">—</div>
-      <div class="modal-info"><div class="modal-title" id="modalTitle">Match Analysis</div><div class="modal-sub" id="modalSub"></div></div>
-      <button class="btn-sm" onclick="closeModal()" style="align-self:flex-start">✕ Close</button>
-    </div>
+    <div class="modal-hdr"><div class="modal-place" id="modalPlace">—</div><div class="modal-info"><div class="modal-title" id="modalTitle">Match Analysis</div><div class="modal-sub" id="modalSub"></div></div><button class="btn-sm" onclick="closeModal()" style="align-self:flex-start">✕ Close</button></div>
     <div class="modal-body" id="modalBody"></div>
   </div>
-</div><script>
-const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
-const QUEUE_TFT_RANKED=[1100,1090];
-const QUEUE_DOUBLE=[1130,1160];
-let matchData=[],selected=new Set(),ddItems={},ddChamps={},currentMode='tft';
-let DD_PATCH='16.10.1';
-const DD_CHAMP=id=>`https://ddragon.leagueoflegends.com/cdn/${DD_PATCH}/img/tft-champion/${id}.TFT_Set17.png`;
-const DD_ITEM=id=>`https://ddragon.leagueoflegends.com/cdn/${DD_PATCH}/img/tft-item/${id}.png`;
-const ITEM_IDS={"Last Whisper":"TFT_Item_LastWhisper","Striker's":"TFT_Item_StrikersFlail","Striker's Flail":"TFT_Item_StrikersFlail","Blue Buff":"TFT_Item_BlueBuff","Bloodthirster":"TFT_Item_Bloodthirster","Titan's":"TFT_Item_TitansResolve","Titan's Resolve":"TFT_Item_TitansResolve","Sterak's":"TFT_Item_SterakGage","Sterak's Gage":"TFT_Item_SterakGage","Guinsoo's":"TFT_Item_GuinsoosRageblade","Guinsoo's Rageblade":"TFT_Item_GuinsoosRageblade","Red Buff":"TFT_Item_RedBuff","Infinity Edge":"TFT_Item_InfinityEdge","Giant Slayer":"TFT_Item_GiantSlayer","Gunblade":"TFT_Item_HextechGunblade","Edge of Night":"TFT_Item_EdgeOfNight","Malware Matrix":"TFT_Item_MalwareMatrix","Kraken Slayer":"TFT_Item_KrakenSlayer","Jeweled Gauntlet":"TFT_Item_JeweledGauntlet","Nashor's":"TFT_Item_NashorsToothFlail","Archangel's":"TFT_Item_ArchangelsStaff","Deathcap":"TFT_Item_RabadonsDeathcap","Rabadon's":"TFT_Item_RabadonsDeathcap","Shojin":"TFT_Item_SpearOfShojin","Hand of Justice":"TFT_Item_HandOfJustice","QSS":"TFT_Item_QuicksilverSash","Deathblade":"TFT_Item_Deathblade","Dawncore":"TFT_Item_Dawncore","Sunfire Cape":"TFT_Item_SunfireCape"};
-
-function getCK(){return localStorage.getItem('tft_ck')||'';}
-function saveKeys(){
-  const ck=document.getElementById('claudeKey').value.trim();
-  const rk=document.getElementById('riotKeyInput').value.trim();
-  if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('ckSaved').style.display='block';}
-  if(rk){localStorage.setItem('tft_rk',rk);document.getElementById('rkSaved').style.display='block';}
-}
-window.addEventListener('load',()=>{
-  const ck=getCK();const rk=localStorage.getItem('tft_rk')||'';
-  if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('ckSaved').style.display='block';}
-  if(rk){document.getElementById('riotKeyInput').value=rk;document.getElementById('rkSaved').style.display='block';}
-  const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
-  if(rid)document.getElementById('riotId').value=rid;
-  if(reg)document.getElementById('region').value=reg;
-  loadDDragon();loadSquadSetup();renderMetaTab();renderMiniPodium();
-});
-async function loadDDragon(){
-  try{const r=await fetch('/api/ddragon');if(!r.ok)return;const d=await r.json();ddItems=d.items||{};ddChamps=d.champions||{};if(d.patch)DD_PATCH=d.patch;}catch(e){}
-}
-function getItemName(id){if(id==null)return null;const s=String(id);return ddItems[s]||ddItems[s.replace(/^0+/,'')]||null;}
-function getChampName(cid){if(!cid)return '?';const k=Object.keys(ddChamps).find(k=>cid.toLowerCase().includes(k.toLowerCase()));return k?ddChamps[k].name:cid.replace(/TFT\d+_/,'').replace(/_/g,' ').trim();}
-function getUnitItems(u){
-  return(u.items||u.itemNames||[]).map(id=>{
-    if(typeof id==='string'&&!/^\d+$/.test(id))return id.replace(/TFT_Item_/g,'').replace(/_/g,' ').trim();
-    return getItemName(id)||('Item '+id);
-  }).filter(Boolean);
-}
-function setMode(mode){
-  currentMode=mode;
-  ['tft','double','aram','meta','squad','ask'].forEach(m=>{const el=document.getElementById('tab-'+m);if(el)el.classList.toggle('active',m===mode);});
-  const isGame=['tft','double','aram'].includes(mode);
-  ['lookupPanel','status','err','pcrd','statsRow','matchSection','asec','cpanel'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
-  const tabs={metaTab:'meta',squadTab:'squad',askTab:'ask'};
-  Object.entries(tabs).forEach(([id,m])=>{const el=document.getElementById(id);if(el)el.style.display=mode===m?'block':'none';});
-  if(isGame){
-    document.getElementById('lookupPanel').style.display='block';
-    const labels={tft:'TFT Ranked — Player Lookup',double:'Double Up — Player Lookup',aram:'ARAM — Player Lookup'};
-    const badges={tft:'TFT RANKED',double:'DOUBLE UP',aram:'ARAM'};
-    document.getElementById('lookupLabel').textContent=labels[mode];
-    document.getElementById('modeBadge').textContent=badges[mode];
-    matchData=[];selected.clear();
-    document.getElementById('mlist').innerHTML='';
-    document.getElementById('statsGrid').innerHTML='';
-    er('');st('');
-  }
-  if(mode==='ask')setTimeout(()=>{const i=document.getElementById('askInput');if(i)i.focus();},80);
-}
-function st(msg){const el=document.getElementById('status');if(!el)return;document.getElementById('stTxt').textContent=msg;el.classList.toggle('show',!!msg);}
-function er(msg){const el=document.getElementById('err');if(!el)return;el.textContent=msg?'⚠ '+msg:'';el.classList.toggle('show',!!msg);}
-function lock(on){const fb=document.getElementById('fetchBtn');const ab=document.getElementById('analyzeBtn');if(fb)fb.disabled=on;if(ab)ab.disabled=on;}
-async function riotGet(url){
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
-  const d=await r.json();
-  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
-  return d;
-}
-async function lolGet(url){
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
-  const d=await r.json();
-  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
-  return d;
-}
-async function riotGetWithPersonalKey(url){
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
-  if(r.ok)return await r.json();
-  const personalKey=localStorage.getItem('tft_rk')||'';
-  if(!personalKey)throw new Error('No Riot API key — add one in the Admin section of the Squad tab.');
-  const r2=await fetch(url,{headers:{'X-Riot-Token':personalKey}});
-  const d=await r2.json();
-  if(!r2.ok)throw new Error(d?.status?.message||'Riot API error '+r2.status);
-  return d;
-}
-async function fetchPlayer(){
-  er('');st('');matchData=[];selected.clear();
-  ['pcrd','statsRow','matchSection','asec'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}});
-  const cp=document.getElementById('cpanel');if(cp)cp.classList.remove('show');
-  document.getElementById('mlist').innerHTML='';
-  document.getElementById('statsGrid').innerHTML='';
-  const riotId=document.getElementById('riotId').value.trim();
-  const region=document.getElementById('region').value;
-  if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
-  if(!getCK()){er('No Claude API key — paste your sk-ant-… key in the Keys bar at the top');return;}
-  localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
-  const[name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
-  const routing=ROUTING[region]||'americas';
-  lock(true);
-  try{
-    st('Looking up account…');
-    const acct=await riotGet(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
-    const puuid=acct.puuid;
-    if(currentMode==='aram'){await fetchARAM(puuid,routing,region,name,tag);}
-    else{await fetchTFT(puuid,routing,region,name,tag,currentMode);}
-    st('');
-  }catch(e){st('');er(e.message||'Failed. Check your Riot ID and that a key is set.');}
-  lock(false);
-}
-async function fetchTFT(puuid,routing,region,name,tag,mode){
-  st('Fetching summoner…');
-  const summ=await riotGet(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
-  st('Fetching rank…');
-  let ranked=null;
-  try{const lg=await riotGet(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);const qType=mode==='double'?'RANKED_TFT_DOUBLE_UP':'RANKED_TFT';ranked=(lg||[]).find(l=>l.queueType===qType)||null;}catch(e){}
-  st('Loading matches…');
-  const ids=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=30`);
-  const raw=[];
-  for(let i=0;i<ids.length&&raw.length<15;i++){
-    st(`Loading match ${i+1}/${ids.length}…`);
-    try{
-      const m=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);
-      const queueId=m.info?.queue_id||m.info?.queueId||0;
-      const validQueues=mode==='double'?QUEUE_DOUBLE:QUEUE_TFT_RANKED;
-      if(validQueues.includes(queueId)||queueId===0){
-        const p=m.info.participants.find(p=>p.puuid===puuid);
-        if(p)raw.push({id:ids[i],date:m.info.game_datetime,queueId,data:p});
-      }
-    }catch(e){}
-  }
-  if(!raw.length)throw new Error(`No ${mode==='double'?'Double Up':'TFT Ranked'} matches found.`);
-  showPlayerCardTFT(name,tag,ranked,raw,mode);
-  matchData=raw;renderTFTMatches(mode);
-}
-function showPlayerCardTFT(name,tag,ranked,matches,mode){
-  document.getElementById('pname').textContent=`${name}#${tag}`;
-  if(ranked){document.getElementById('rbadge').textContent=ranked.tier.slice(0,1)+(ranked.rank||'');document.getElementById('pRank').textContent=`${ranked.tier} ${ranked.rank}`;document.getElementById('pLP').textContent=ranked.leaguePoints+' LP';document.getElementById('pWL').textContent=`${ranked.wins}W ${ranked.losses}L`;}
-  document.getElementById('modeBadge').textContent=mode==='double'?'DOUBLE UP':'TFT RANKED';
-  document.getElementById('pcrd').classList.add('show');
-  const pl=matches.map(m=>m.data.placement);
-  const avg=(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(2);
-  const top4=((pl.filter(p=>p<=4).length/pl.length)*100).toFixed(0);
-  const wins=((pl.filter(p=>p===1).length/pl.length)*100).toFixed(0);
-  const bot=((pl.filter(p=>p>4).length/pl.length)*100).toFixed(0);
-  const dmg=Math.round(matches.map(m=>m.data.total_damage_to_players||0).reduce((a,b)=>a+b,0)/matches.length);
-  const gold=(matches.map(m=>m.data.gold_left||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
-  document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-box"><div class="stat-lbl">Avg Place</div><div class="stat-val ${avg<=4.5?'good':avg>=5.5?'bad':''}">${avg}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Top 4 %</div><div class="stat-val ${top4>=50?'good':top4<=35?'bad':''}">${top4}%</div></div>
-    <div class="stat-box"><div class="stat-lbl">Win %</div><div class="stat-val">${wins}%</div></div>
-    <div class="stat-box"><div class="stat-lbl">Bot 4 %</div><div class="stat-val ${bot>=50?'bad':''}">${bot}%</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${dmg}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Gold Left</div><div class="stat-val">${gold}</div></div>`;
-  document.getElementById('statsRow').style.display='block';
-}
-function roundToStage(r){if(!r||r<1)return '?';const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}return String(r);}
-function cleanAug(a){if(!a)return '';return a.replace(/TFT\w*_Augment_/g,'').replace(/TFT\d*_/g,'').replace(/_/g,' ').trim();}
-function getTFTGrade(p){
-  const place=p.placement,dmg=p.total_damage_to_players||0,gold=p.gold_left||0,elims=p.players_eliminated||0,level=p.level||7;
-  let score=place===1?100:place===2?88:place===3?76:place===4?64:place===5?50:place===6?36:place===7?22:10;
-  const lastRound=p.last_round||0;
-  if(lastRound>=35&&place<=4)score+=5;if(lastRound>=28&&place<=2)score+=3;
-  if(dmg>=35&&place>=5)score+=8;if(dmg>=25&&place>=5)score+=4;if(dmg>=30&&place<=4)score+=5;
-  if(gold<=5&&place<=4)score+=3;if(gold>=20&&place>=5)score-=5;
-  if(level>=9&&place<=3)score+=4;if(level<=6&&place>=6)score-=4;
-  if(elims>=3)score+=4;else if(elims>=2)score+=2;
-  score=Math.max(0,Math.min(score,100));
-  if(score>=95)return{g:'S+',c:'#ffd700',bg:'rgba(255,215,0,.12)'};
-  if(score>=85)return{g:'S',c:'#ffd700',bg:'rgba(255,215,0,.08)'};
-  if(score>=75)return{g:'A+',c:'#3dbb87',bg:'rgba(61,187,135,.1)'};
-  if(score>=65)return{g:'A',c:'#3dbb87',bg:'rgba(61,187,135,.08)'};
-  if(score>=54)return{g:'B+',c:'#3d8fd4',bg:'rgba(61,143,212,.1)'};
-  if(score>=44)return{g:'B',c:'#3d8fd4',bg:'rgba(61,143,212,.08)'};
-  if(score>=34)return{g:'C',c:'#8a5fd4',bg:'rgba(138,95,212,.08)'};
-  if(score>=22)return{g:'D',c:'#c97830',bg:'rgba(201,120,48,.08)'};
-  return{g:'F',c:'#c94040',bg:'rgba(201,64,64,.08)'};
-}
-function getARAMGrade(p){
-  const kda=(p.kills+p.assists)/Math.max(1,p.deaths),dmg=p.totalDamageDealtToChampions||0,dmgTaken=p.totalDamageTaken||0,win=p.win;
-  let score=win?55:30;
-  if(kda>=6)score+=22;else if(kda>=4)score+=16;else if(kda>=3)score+=10;else if(kda>=2)score+=5;else if(kda<1)score-=10;
-  if(dmg>=30000)score+=18;else if(dmg>=22000)score+=12;else if(dmg>=14000)score+=6;else if(dmg>=8000)score+=2;else if(dmg<5000)score-=10;
-  const ratio=dmgTaken>0?dmg/dmgTaken:1;if(ratio>=2.0)score+=5;else if(ratio<0.5)score-=5;
-  if(p.pentaKills>0)score+=10;else if(p.tripleKills>0)score+=5;else if(p.doubleKills>=2)score+=3;
-  score=Math.max(0,Math.min(score,100));
-  if(score>=95)return{g:'S+',c:'#ffd700',bg:'rgba(255,215,0,.12)'};
-  if(score>=84)return{g:'S',c:'#ffd700',bg:'rgba(255,215,0,.08)'};
-  if(score>=73)return{g:'A+',c:'#3dbb87',bg:'rgba(61,187,135,.1)'};
-  if(score>=63)return{g:'A',c:'#3dbb87',bg:'rgba(61,187,135,.08)'};
-  if(score>=52)return{g:'B+',c:'#3d8fd4',bg:'rgba(61,143,212,.1)'};
-  if(score>=42)return{g:'B',c:'#3d8fd4',bg:'rgba(61,143,212,.08)'};
-  if(score>=32)return{g:'C',c:'#8a5fd4',bg:'rgba(138,95,212,.08)'};
-  if(score>=20)return{g:'D',c:'#c97830',bg:'rgba(201,120,48,.08)'};
-  return{g:'F',c:'#c94040',bg:'rgba(201,64,64,.08)'};
-}
-function renderTFTMatches(mode){
-  const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
-  matchData.forEach((m,idx)=>{
-    const p=m.data;
-    const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
-    const augs=(p.augments||p.augment||[]).slice(0,3).map(cleanAug).filter(Boolean);
-    const date=m.date?new Date(m.date).toLocaleDateString():'';
-    const pc=Math.min(p.placement,8);const stage=roundToStage(p.last_round);
-    const grade=getTFTGrade(p);
-    const row=document.createElement('div');row.className='mrow';
-    row.style.borderLeft=`3px solid ${grade.c}`;
-    row.innerHTML=`
-      <div class="place p${pc}">${p.placement}</div>
-      <div style="flex:1;min-width:0">
-        <div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
-        <div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div>
-        <div class="mdate">${date} · Lv${p.level||'?'} · ${stage} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div>
-        <div style="font-family:monospace;font-size:.56rem;color:var(--golddim);margin-top:2px">→ tap for deep coaching</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0">
-        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;color:${grade.c};background:${grade.bg};border:1px solid ${grade.c}44;padding:2px 8px;min-width:36px;text-align:center;letter-spacing:.05em">${grade.g}</div>
-        <div class="chk" id="chk${idx}" style="color:var(--dim)" onclick="event.stopPropagation();toggleSel(${idx})">○</div>
-      </div>`;
-    row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
-    list.appendChild(row);
-  });
-  document.getElementById('matchSection').style.display='block';
-  document.getElementById('asec').style.display='block';
-}
-async function fetchARAM(puuid,routing,region,name,tag){
-  st('Loading ARAM matches…');
-  const ids=await lolGet(`https://${routing}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=450&count=15`);
-  if(!ids||!ids.length)throw new Error('No ARAM matches found.');
-  const raw=[];
-  for(let i=0;i<ids.length;i++){
-    st(`Loading match ${i+1}/${ids.length}…`);
-    try{const m=await lolGet(`https://${routing}.api.riotgames.com/lol/match/v5/matches/${ids[i]}`);const p=m.info.participants.find(p=>p.puuid===puuid);if(p)raw.push({id:ids[i],date:m.info.gameCreation,data:p,gameMode:'ARAM',gameDuration:m.info.gameDuration});}catch(e){}
-  }
-  if(!raw.length)throw new Error('No ARAM matches found.');
-  showPlayerCardARAM(name,tag,raw);matchData=raw;renderARAMMatches();
-}
-function showPlayerCardARAM(name,tag,matches){
-  document.getElementById('pname').textContent=`${name}#${tag}`;
-  document.getElementById('rbadge').textContent='AR';document.getElementById('pRank').textContent='ARAM';document.getElementById('pLP').textContent='—';document.getElementById('modeBadge').textContent='ARAM';document.getElementById('pcrd').classList.add('show');
-  const wins=matches.filter(m=>m.data.win).length,losses=matches.length-wins;
-  document.getElementById('pWL').textContent=`${wins}W ${losses}L`;
-  const kda=matches.map(m=>(m.data.kills+m.data.assists)/Math.max(1,m.data.deaths));
-  const avgKda=(kda.reduce((a,b)=>a+b,0)/kda.length).toFixed(2);
-  const avgDmg=Math.round(matches.map(m=>m.data.totalDamageDealtToChampions||0).reduce((a,b)=>a+b,0)/matches.length);
-  const avgKills=(matches.map(m=>m.data.kills||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
-  const avgDeaths=(matches.map(m=>m.data.deaths||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
-  const winPct=((wins/matches.length)*100).toFixed(0);
-  document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-box"><div class="stat-lbl">Win %</div><div class="stat-val ${winPct>=55?'good':winPct<=40?'bad':''}">${winPct}%</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg KDA</div><div class="stat-val ${avgKda>=3?'good':avgKda<1.5?'bad':''}">${avgKda}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Kills</div><div class="stat-val">${avgKills}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Deaths</div><div class="stat-val ${avgDeaths>=8?'bad':''}">${avgDeaths}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${avgDmg.toLocaleString()}</div></div>
-    <div class="stat-box"><div class="stat-lbl">W/L</div><div class="stat-val">${wins}/${losses}</div></div>`;
-  document.getElementById('statsRow').style.display='block';
-}
-function renderARAMMatches(){
-  const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
-  matchData.forEach((m,idx)=>{
-    const p=m.data,win=p.win,champ=p.championName||'Unknown';
-    const kda=`${p.kills}/${p.deaths}/${p.assists}`;
-    const dmg=(p.totalDamageDealtToChampions||0).toLocaleString();
-    const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
-    const date=m.date?new Date(m.date).toLocaleDateString():'';
-    const grade=getARAMGrade(p);
-    const wcolor=win?'var(--grn2)':'var(--red2)';
-    const row=document.createElement('div');row.className='mrow';row.style.borderLeft=`3px solid ${grade.c}`;
-    row.innerHTML=`
-      <div class="win-badge" style="color:${wcolor}">${win?'WIN':'LOSS'}</div>
-      <div style="flex:1;min-width:0">
-        <div class="aram-champ">${champ}</div>
-        <div class="mdate">${date} · KDA ${kda} · ${dmg} dmg · ${dur}</div>
-        <div style="font-family:monospace;font-size:.56rem;color:var(--golddim);margin-top:2px">→ tap for deep coaching</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0">
-        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;color:${grade.c};background:${grade.bg};border:1px solid ${grade.c}44;padding:2px 8px;min-width:36px;text-align:center;letter-spacing:.05em">${grade.g}</div>
-        <div class="chk" id="chk${idx}" style="color:var(--dim)" onclick="event.stopPropagation();toggleSel(${idx})">○</div>
-      </div>`;
-    row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
-    list.appendChild(row);
-  });
-  document.getElementById('matchSection').style.display='block';
-  document.getElementById('asec').style.display='block';
-}
-function toggleSel(idx){
-  const row=document.getElementById('chk'+idx).closest('.mrow');
-  if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('chk'+idx).textContent='○';document.getElementById('chk'+idx).style.color='var(--dim)';}
-  else{selected.add(idx);row.classList.add('sel');document.getElementById('chk'+idx).textContent='✓';document.getElementById('chk'+idx).style.color='var(--gold)';}
-  updateCount();
-}
-function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches — tap ○ to select specific ones`:`${n} match${n>1?'es':''} selected`;}
-function buildTFTSummary(matches,mode){
-  const ITEM_ID_MAP={'44':"Warmog's Armor",'45':"Gargoyle's Stoneplate",'36':'Redemption','33':'Sunfire Cape','34':"Titan's Resolve",'13':'Infinity Edge','14':'Last Whisper','24':'Hand of Justice','26':"Guinsoo's Rageblade",'28':"Runaan's Hurricane",'29':'Giant Slayer','11':'Deathblade','12':'Bloodthirster','15':"Sterak's Gage",'16':'Edge of Night','17':"Archangel's Staff",'18':'Morellonomicon','22':'Blue Buff','23':'Jeweled Gauntlet','25':"Rabadon's Deathcap",'27':'Kraken Slayer','31':'Red Buff','32':'Bramble Vest','35':"Protector's Vow",'38':'Ionic Spark','39':"Dragon's Claw",'41':'Spear of Shojin','42':'Rapid Fire Cannon','111':'Malware Matrix','113':'Dawncore','115':'Biomatter Preserver','117':"Striker's Flail",'119':"Nashor's Tooth Flail",'120':'Gunblade'};
-  function resolveItem(id){const s=String(id);if(ITEM_ID_MAP[s])return ITEM_ID_MAP[s];const byName=ddItems[s];if(byName)return byName;return `Item_${s}`;}
+</div><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>M.A.D Forge Coach — Challenger Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#03070d;--bg2:#060d16;--bg3:#0a1520;--bg4:#0f1e2e;--bg5:#152433;--border:#0e1e30;--border2:#182d45;--gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e0a0;--golddim:#6b5525;--text:#ccd8e8;--dim:#2a4560;--dim2:#3d5f7a;--accent:#3a8fd0;--accent2:#5aabf0;--pur:#7a50c0;--pur2:#9a70e0;--grn:#35a875;--grn2:#50cc95;--red:#b03535;--red2:#d55555;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 90% 35% at 50% 0%,rgba(201,168,76,.05) 0%,transparent 65%),radial-gradient(ellipse 50% 50% at 0% 100%,rgba(58,143,208,.03) 0%,transparent 60%),repeating-linear-gradient(60deg,transparent,transparent 42px,rgba(201,168,76,.012) 42px,rgba(201,168,76,.012) 43px),repeating-linear-gradient(-60deg,transparent,transparent 42px,rgba(201,168,76,.012) 42px,rgba(201,168,76,.012) 43px);}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;z-index:200;background:linear-gradient(90deg,transparent 0%,rgba(107,85,37,.8) 15%,var(--gold) 50%,rgba(107,85,37,.8) 85%,transparent 100%);}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:28px 16px 100px}
+header{text-align:center;margin-bottom:30px;padding-bottom:22px;border-bottom:1px solid var(--border2)}
+.logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:10px}
+.hex{width:52px;height:52px;background:linear-gradient(145deg,#1c1100,#332200);border:1px solid var(--gold);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.04em;box-shadow:0 0 18px rgba(201,168,76,.18),inset 0 0 12px rgba(201,168,76,.06);}
+h1{font-family:'Rajdhani',sans-serif;font-size:2.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(145deg,var(--gold3) 0%,var(--gold) 45%,var(--golddim) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 22px rgba(201,168,76,.18));}
+.tagline{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--dim2);letter-spacing:.28em;text-transform:uppercase;margin-top:4px}
+.patch-badge{display:inline-block;margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--golddim);letter-spacing:.14em;border:1px solid rgba(107,85,37,.6);padding:2px 12px;background:rgba(201,168,76,.03);}
+.keys-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--golddim);padding:9px 14px;margin-bottom:10px;}
+.key-lbl{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
+.key-field{display:flex;align-items:center;gap:6px;flex:1;min-width:130px}
+.key-field span{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);white-space:nowrap}
+.key-links{font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim);margin-top:4px}
+.key-links a{color:var(--golddim);text-decoration:none}.key-links a:hover{color:var(--gold)}
+.saved{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--grn2);margin-top:2px;display:none}
+input,select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:9px 12px;font-family:'Exo 2',sans-serif;font-size:.88rem;outline:none;width:100%;transition:border-color .18s,box-shadow .18s;}
+input:focus,select:focus{border-color:var(--golddim);box-shadow:0 0 0 2px rgba(201,168,76,.07)}
+input::placeholder{color:var(--dim)}select{cursor:pointer}select option{background:var(--bg3)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end}
+.ig{display:flex;flex-direction:column;gap:5px}.ig label{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2);letter-spacing:.12em;text-transform:uppercase}
+.btn{background:linear-gradient(145deg,#1e1000,#2e1a00);border:1px solid var(--gold);color:var(--gold);padding:0 22px;height:40px;font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:all .15s;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(201,168,76,.1),transparent);opacity:0;transition:opacity .15s}
+.btn:hover{border-color:var(--gold2);color:var(--gold2);box-shadow:0 0 14px rgba(201,168,76,.14)}.btn:hover::after{opacity:1}.btn:disabled{opacity:.28;cursor:not-allowed}
+.btn-sm{background:transparent;border:1px solid var(--border2);color:var(--dim2);padding:4px 12px;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.08em;cursor:pointer;transition:all .15s;}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold)}
+.btn-big{background:linear-gradient(145deg,var(--golddim),var(--gold));border:1px solid var(--gold2);color:var(--bg);padding:14px 60px;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;display:block;margin:0 auto;transition:all .15s;box-shadow:0 4px 22px rgba(201,168,76,.18);}
+.btn-big:hover{box-shadow:0 6px 30px rgba(201,168,76,.28);transform:translateY(-1px)}.btn-big:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.panel{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--golddim);padding:20px 22px 18px;margin-bottom:14px;position:relative;}
+.panel::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent)}
+.plbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.plbl::before{content:'//';color:var(--golddim);font-size:.58rem}
+.mode-tabs{display:flex;gap:3px;margin-bottom:14px;background:var(--bg2);padding:4px;border:1px solid var(--border);flex-wrap:wrap;}
+.mode-tab{flex:1;background:transparent;border:none;color:var(--dim2);padding:10px 5px;font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-align:center;transition:all .14s;position:relative;min-width:0;}
+.mode-tab:hover{color:var(--gold2);background:rgba(201,168,76,.04)}
+.mode-tab.active{background:linear-gradient(145deg,rgba(201,168,76,.09),rgba(201,168,76,.04));color:var(--gold);box-shadow:inset 0 0 0 1px rgba(201,168,76,.18);}
+.mode-tab.active::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.status{background:var(--bg3);border:1px solid var(--border2);border-left:2px solid var(--gold);padding:9px 14px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim2);margin-bottom:12px;display:none;align-items:center;gap:10px;}
+.status.show{display:flex}.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(201,168,76,.5)}50%{opacity:.35;box-shadow:0 0 0 5px transparent}}
+.err{background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.25);border-left:2px solid var(--red2);padding:10px 14px;font-size:.76rem;color:#d06060;margin-bottom:12px;font-family:'Share Tech Mono',monospace;display:none;}
+.err.show{display:block}
+.pcrd{background:var(--bg2);border:1px solid var(--border);padding:16px 20px;margin-bottom:14px;display:none;align-items:center;gap:20px;position:relative;overflow:hidden;}
+.pcrd::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.28),transparent)}.pcrd.show{display:flex}
+.rbadge{width:52px;height:52px;background:linear-gradient(145deg,var(--bg4),var(--bg5));border:2px solid var(--golddim);flex-shrink:0;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.82rem;color:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.1);}
+.pname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.35rem;color:var(--gold3);margin-bottom:5px;letter-spacing:.04em}
+.pmeta{display:flex;gap:16px;flex-wrap:wrap}.mi{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2)}.mi span{color:var(--accent2)}
+.mode-badge{font-family:'Share Tech Mono',monospace;font-size:.57rem;padding:2px 9px;border:1px solid var(--golddim);color:var(--golddim);background:rgba(201,168,76,.04);display:inline-block;margin-top:5px;letter-spacing:.1em}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:8px;margin-bottom:14px}
+.stat-box{background:var(--bg2);border:1px solid var(--border);padding:13px 12px;text-align:center;transition:border-color .14s}.stat-box:hover{border-color:var(--border2)}
+.stat-lbl{font-family:'Share Tech Mono',monospace;font-size:.57rem;color:var(--dim2);margin-bottom:5px;letter-spacing:.1em;text-transform:uppercase}
+.stat-val{font-family:'Rajdhani',sans-serif;font-size:1.55rem;font-weight:700;color:var(--gold)}.stat-val.good{color:var(--grn2)}.stat-val.bad{color:var(--red2)}
+.sec-hdr{font-family:'Share Tech Mono',monospace;font-weight:700;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim2);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.sec-hdr::before{content:'//';color:var(--golddim);font-size:.6rem}.sec-hdr::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.mlist{display:flex;flex-direction:column;gap:3px;margin-bottom:18px}
+.mrow{background:var(--bg2);border:1px solid var(--border);padding:10px 14px;display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;cursor:pointer;transition:all .13s;}
+.mrow:hover{border-color:var(--border2);background:var(--bg3);transform:translateX(2px)}.mrow.sel{border-color:var(--gold);background:var(--bg3)}
+.place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;text-align:center;line-height:1}
+.p1{color:#ffd700}.p2{color:#c0c0c0}.p3{color:#cd7f32}.p4{color:var(--grn2)}.p5,.p6,.p7,.p8{color:var(--red2)}
+.win-badge{font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;text-align:center;line-height:1}
+.chip{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 5px;background:var(--bg4);border:1px solid var(--border2);color:var(--dim2);display:inline-block;margin:1px 2px}
+.achip{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 5px;background:rgba(122,80,192,.08);border:1px solid rgba(122,80,192,.2);color:var(--pur2);display:inline-block;margin:1px 2px}
+.mdate{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim);margin-top:3px}
+.chk{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:4px 8px;flex-shrink:0;user-select:none;transition:color .1s}
+.asec{text-align:center;margin-bottom:22px;padding:4px 0}.scnt{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--golddim);margin-bottom:12px}
+.cpanel{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold);display:none;margin-bottom:22px;}.cpanel.show{display:block}
+.chdr{background:linear-gradient(90deg,rgba(201,168,76,.07),transparent);padding:13px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border);}
+.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.cbadge{font-family:'Share Tech Mono',monospace;font-size:.55rem;padding:3px 8px;background:rgba(201,168,76,.07);border:1px solid var(--golddim);color:var(--golddim);letter-spacing:.12em}
+.ctabs{display:flex;gap:3px;padding:10px 14px 0;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(201,168,76,.04),transparent);flex-wrap:wrap}
+.ctab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim2);padding:7px 14px 8px;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .14s;white-space:nowrap}
+.ctab:hover{color:var(--gold2)}.ctab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.ctab-panel{display:none;padding:22px 26px;line-height:1.85;font-size:.88rem;color:var(--text);min-height:120px}.ctab-panel.active{display:block}
+.ctab-loading{display:flex;align-items:center;gap:10px;color:var(--golddim);font-family:'Share Tech Mono',monospace;font-size:.7rem;padding:16px 0}
+.ctab-error{color:var(--red2);font-family:'Share Tech Mono',monospace;font-size:.75rem;padding:10px 0;line-height:1.8}
+.cbody{padding:22px 26px;line-height:1.85;font-size:.88rem;color:var(--text)}
+.cbody h2,.ctab-panel h2{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--gold2);margin:24px 0 7px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:5px}
+.cbody h3,.ctab-panel h3{font-family:'Rajdhani',sans-serif;font-size:.92rem;font-weight:700;color:var(--accent2);margin:14px 0 4px}
+.cbody strong,.ctab-panel strong{color:var(--gold3)}.cbody ul,.ctab-panel ul{padding-left:18px}.cbody li,.ctab-panel li{margin-bottom:5px}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.score-card{background:var(--bg3);border:1px solid var(--border2);padding:12px 14px}
+.score-card-lbl{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.score-card-grade{font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:3px}
+.score-card-note{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2);line-height:1.45}
+.grade-sp{color:#ffd700}.grade-s{color:#ffd700}.grade-ap{color:#50cc95}.grade-a{color:#50cc95}.grade-bp{color:#5aabf0}.grade-b{color:#5aabf0}.grade-c{color:#9a70e0}.grade-d{color:#c97830}.grade-f{color:#d55555}
+.item-audit-row{background:var(--bg3);border-left:3px solid var(--border2);padding:9px 12px;margin-bottom:6px;font-size:.82rem;line-height:1.6}
+.item-audit-row.wrong{border-left-color:var(--red2)}.item-audit-row.ok{border-left-color:var(--grn)}.item-audit-row.sub{border-left-color:var(--orange,#c97830)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 16px;backdrop-filter:blur(4px)}.overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--gold);width:100%;max-width:840px;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 40px rgba(201,168,76,.05)}
+.modal-hdr{background:linear-gradient(90deg,rgba(201,168,76,.07),transparent);padding:15px 22px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)}
+.modal-place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2.4rem;line-height:1}
+.modal-info{flex:1}.modal-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--gold3);letter-spacing:.06em}
+.modal-sub{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px}
+.modal-body{padding:20px 24px;line-height:1.8;font-size:.88rem;color:var(--text)}
+.modal-body h2{font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;color:var(--gold2);margin:18px 0 5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:3px}
+.modal-body h3{font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;color:var(--accent2);margin:12px 0 3px}
+.modal-body strong{color:var(--gold3)}.modal-body ul{padding-left:18px}.modal-body li{margin-bottom:5px}
+.modal-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:16px}
+.mstat{background:var(--bg3);border:1px solid var(--border);padding:10px;text-align:center}
+.mstat-lbl{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--dim2);margin-bottom:3px;letter-spacing:.08em;text-transform:uppercase}
+.mstat-val{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold)}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px;margin:8px 0 16px}
+.unit-card{background:var(--bg3);border:1px solid var(--border);padding:10px 8px;text-align:center}
+.unit-nm{font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;color:var(--gold3);margin-bottom:2px}
+.unit-st{color:#ffd700;font-size:.7rem;margin-bottom:4px}
+.item-tag{font-family:'Share Tech Mono',monospace;font-size:.52rem;padding:2px 4px;background:rgba(58,143,208,.08);border:1px solid rgba(58,143,208,.2);color:var(--accent2);display:block;margin:1px 0;word-break:break-word;text-align:left}
+.section-lbl{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.12em;margin-bottom:7px;display:block}
+.admin-msg{font-family:'Share Tech Mono',monospace;font-size:.7rem;margin-top:10px;display:none;padding:6px 0}
+.note{margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--dim2);line-height:1.6}.note a{color:var(--golddim);text-decoration:none}.note a:hover{color:var(--gold)}
+.aram-champ{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent2)}
+.podium-stage{display:flex;align-items:flex-end;justify-content:center;gap:12px;padding:0 4px;margin-bottom:20px}
+.pod-col{display:flex;flex-direction:column;align-items:center;flex:1;max-width:220px}
+.pod-card{width:100%;border:1px solid var(--border);border-bottom:none;padding:16px 12px 12px;text-align:center;position:relative}
+.pod-1 .pod-card{background:linear-gradient(180deg,rgba(201,168,76,.09),transparent);border-color:var(--gold)}
+.pod-2 .pod-card{background:linear-gradient(180deg,rgba(140,140,140,.07),transparent);border-color:#666}
+.pod-3 .pod-card{background:linear-gradient(180deg,rgba(160,90,30,.07),transparent);border-color:#8a5020}
+.pod-base{width:100%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-top:none}
+.pod-1 .pod-base{height:64px;background:linear-gradient(180deg,var(--gold),var(--golddim));border-color:var(--gold)}
+.pod-2 .pod-base{height:46px;background:linear-gradient(180deg,#888,#555);border-color:#777}
+.pod-3 .pod-base{height:30px;background:linear-gradient(180deg,#8a5020,#5a3010);border-color:#7a4010}
+.pod-place{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.5rem;color:var(--bg)}
+.pod-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;color:var(--gold3);margin-bottom:5px}
+.pod-rank{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);margin-bottom:4px}
+.pod-lp{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2)}
+.pod-trend{font-size:1rem;margin-bottom:4px}.pod-trend.up{color:var(--grn2)}.pod-trend.down{color:var(--red2)}.pod-trend.flat{color:var(--golddim)}
+.pod-dots{display:flex;gap:3px;justify-content:center;margin-top:6px;flex-wrap:wrap}
+.pd{width:10px;height:10px;border-radius:2px}.pd.t{background:var(--grn)}.pd.b{background:var(--red)}
+.mc-card{background:var(--bg2);border:1px solid var(--border);margin-bottom:5px}
+.mc-card.s-tier{border-left:3px solid var(--gold)}.mc-card.a-tier{border-left:3px solid var(--pur2)}
+.mc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;transition:background .12s;gap:12px}.mc-head:hover{background:var(--bg3)}
+.mc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--gold3)}
+.mc-badges{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.mc-tier{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 7px;border:1px solid}
+.mc-tier.s{border-color:var(--gold);color:var(--gold)}.mc-tier.a{border-color:var(--pur2);color:var(--pur2)}
+.mc-style{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 7px;border:1px solid var(--border2);color:var(--dim2)}
+.mc-body{display:none;padding:14px;border-top:1px solid var(--border)}.mc-body.open{display:block}
+.mc-section{margin-bottom:13px}.mc-slbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.lv-table{width:100%;border-collapse:collapse;font-family:'Share Tech Mono',monospace;font-size:.58rem}
+.lv-table th{background:var(--bg3);border:1px solid var(--border);padding:4px 6px;color:var(--dim2);text-align:center}
+.lv-table td{border:1px solid var(--border);padding:4px 6px;text-align:center;color:var(--text)}
+.tip-item{display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;font-size:.77rem;line-height:1.55}
+.tip-icon{font-size:.9rem;flex-shrink:0;margin-top:1px}
+.aug-row{display:flex;gap:7px;align-items:baseline;margin-bottom:4px;font-size:.75rem}
+.aug-lbl{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--dim2);min-width:54px}
+.aug-val{color:var(--text)}.aug-val.bis{color:var(--gold);font-weight:700}
+.itm-row{display:flex;gap:7px;align-items:flex-start;margin-bottom:5px;font-size:.75rem}
+.itm-unit{font-family:'Share Tech Mono',monospace;font-size:.57rem;color:var(--dim2);min-width:62px;padding-top:2px}
+.itm-tags{display:flex;flex-wrap:wrap;gap:3px}
+.itag{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 5px;background:var(--bg3);border:1px solid var(--border2);color:var(--text)}
+.itag.key{border-color:var(--golddim);color:var(--gold);background:rgba(201,168,76,.06)}
+.cond-notice{font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:7px 11px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.cond-notice.warn{background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.2);color:#d06060}
+.cond-notice.ok{background:rgba(53,168,117,.06);border:1px solid rgba(53,168,117,.2);color:var(--grn2)}
+.ask-chip{background:var(--bg3);border:1px solid rgba(122,80,192,.22);color:var(--pur2);padding:5px 12px;font-family:'Share Tech Mono',monospace;font-size:.58rem;cursor:pointer;border-radius:12px;transition:all .14s;white-space:nowrap;}
+.ask-chip:hover{background:rgba(122,80,192,.1);border-color:var(--pur);color:var(--pur2)}
+.ask-bubble{padding:11px 15px;font-size:.84rem;line-height:1.65;max-width:100%;word-break:break-word;margin-bottom:2px}
+.ask-bubble.user{background:rgba(122,80,192,.09);border:1px solid rgba(122,80,192,.18);color:var(--text);font-style:italic}
+.ask-bubble.ai{background:var(--bg3);border:1px solid var(--border2);color:var(--text)}
+.ask-bubble.ai h2{font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;color:var(--gold2);margin:14px 0 5px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:3px}
+.ask-bubble.ai h3{font-family:'Rajdhani',sans-serif;font-size:.86rem;font-weight:700;color:var(--accent2);margin:10px 0 3px}
+.ask-bubble.ai strong{color:var(--gold3)}.ask-bubble.ai ul{padding-left:16px}.ask-bubble.ai li{margin-bottom:4px}
+.ask-typing{color:var(--golddim);font-family:'Share Tech Mono',monospace;font-size:.67rem;animation:pulse 1.2s infinite}
+.tab-ask.active{color:var(--pur2);box-shadow:inset 0 0 0 1px rgba(122,80,192,.3)}.tab-ask.active::after{background:linear-gradient(90deg,transparent,var(--pur),transparent)}
+@media(max-width:600px){h1{font-size:1.9rem}.g3{grid-template-columns:1fr auto}.g2{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(3,1fr)}.mode-tabs{flex-wrap:wrap}.mode-tab{font-size:.68rem;padding:8px 2px;min-width:0;flex-basis:calc(33% - 4px)}.pod-name{font-size:.85rem}.podium-stage{gap:6px}.cbody{padding:14px 16px}.modal-body{padding:14px 16px}.ctab-panel{padding:14px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo-row"><div class="hex">M.A.D</div><h1>Forge Coach</h1></div>
+  <div class="tagline">Professional TFT &amp; ARAM Coaching System</div>
+  <div class="patch-badge" id="patchBadge">TFT · Set 17 · Patch 14.11</div>
+</header>
+<div class="keys-row">
+  <span class="key-lbl">// API Keys</span>
+  <div class="key-field"><span>Claude</span><input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()" style="height:32px;padding:4px 10px;font-size:.75rem"/><span class="saved" id="ckSaved">✓</span></div>
+  <div class="key-field"><span>Riot</span><input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()" style="height:32px;padding:4px 10px;font-size:.75rem"/><span class="saved" id="rkSaved">✓</span></div>
+</div>
+<div class="key-links" style="padding:0 0 8px">Claude: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> &nbsp;·&nbsp; Riot (24h): <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> &nbsp;·&nbsp; Keys saved in browser only</div>
+<div id="miniPodium"></div>
+<div class="mode-tabs">
+  <div class="mode-tab active" id="tab-tft" onclick="setMode('tft')">⚔ TFT</div>
+  <div class="mode-tab" id="tab-double" onclick="setMode('double')">👥 Double Up</div>
+  <div class="mode-tab" id="tab-aram" onclick="setMode('aram')">⚡ ARAM</div>
+  <div class="mode-tab" id="tab-meta" onclick="setMode('meta')">📊 Meta</div>
+  <div class="mode-tab" id="tab-squad" onclick="setMode('squad')">🏆 Squad</div>
+  <div class="mode-tab" id="tab-progress" onclick="setMode('progress')">📈 Progress</div>
+  <div class="mode-tab" id="tab-prep" onclick="setMode('prep')">🎯 Prep</div>
+  <div class="mode-tab" id="tab-ask" onclick="setMode('ask')" style="border-color:var(--pur2);color:var(--pur2)">🤖 Ask AI</div>
+</div>
+<div class="panel" id="lookupPanel">
+  <div class="plbl" id="lookupLabel">TFT Ranked — Player Lookup</div>
+  <div class="g3">
+    <div class="ig"><label>Riot ID (Name#Tag)</label><input type="text" id="riotId" placeholder="Bahagabag#NA1" onkeydown="if(event.key==='Enter')fetchPlayer()"/></div>
+    <div class="ig"><label>Region</label><select id="region"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option><option value="br1">BR</option><option value="la1">LAN</option><option value="la2">LAS</option><option value="oc1">OCE</option><option value="tr1">TR</option><option value="ru">RU</option></select></div>
+    <button class="btn" id="fetchBtn" onclick="fetchPlayer()">Fetch →</button>
+  </div>
+</div>
+<div class="status" id="status"><div class="dot"></div><span id="stTxt"></span></div>
+<div class="err" id="err"></div>
+<div class="pcrd" id="pcrd">
+  <div class="rbadge" id="rbadge">?</div>
+  <div><div class="pname" id="pname"></div><div class="pmeta"><div class="mi">Rank: <span id="pRank">—</span></div><div class="mi">LP: <span id="pLP">—</span></div><div class="mi">W/L: <span id="pWL">—</span></div></div><div class="mode-badge" id="modeBadge">TFT RANKED</div></div>
+</div>
+<div id="statsRow" style="display:none"><div class="stats-grid" id="statsGrid"></div></div>
+<div id="matchSection" style="display:none">
+  <div class="sec-hdr">Recent Matches <small style="font-size:.56rem;font-family:monospace;font-weight:400;color:var(--dim)">&nbsp;tap for deep analysis · ○ to select</small></div>
+  <div class="mlist" id="mlist"></div>
+</div>
+<div class="asec" id="asec" style="display:none">
+  <div class="scnt" id="scnt"></div>
+  <button class="btn-big" id="analyzeBtn" onclick="analyzeAll()">⚔ Analyze &amp; Coach Me</button>
+</div>
+<div class="cpanel" id="cpanel">
+  <div class="chdr"><div class="ctitle">Coaching Report — <span id="cpanelPlayer" style="color:var(--gold2)"></span></div><span class="cbadge" id="cpanelBadge">PROFESSIONAL ANALYSIS</span></div>
+  <div class="ctabs" id="ctabs">
+    <button class="ctab active" id="ctab-overview" onclick="switchCoachTab('overview')">📋 Overview</button>
+    <button class="ctab" id="ctab-economy" onclick="switchCoachTab('economy')">💰 Economy</button>
+    <button class="ctab" id="ctab-items" onclick="switchCoachTab('items')">⚙️ Items</button>
+    <button class="ctab" id="ctab-augments" onclick="switchCoachTab('augments')">🔮 Augments</button>
+    <button class="ctab" id="ctab-training" onclick="switchCoachTab('training')">🏆 Training</button>
+  </div>
+  <div class="ctab-panel active" id="cpanel-overview"></div>
+  <div class="ctab-panel" id="cpanel-economy"></div>
+  <div class="ctab-panel" id="cpanel-items"></div>
+  <div class="ctab-panel" id="cpanel-augments"></div>
+  <div class="ctab-panel" id="cpanel-training"></div>
+</div>
+<div id="metaTab" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+    <div><div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold3)">S &amp; A Tier Comps</div><div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px">Tap to expand · BunnyMuffins verified · Set 17 Patch 14.11</div></div>
+    <div style="display:flex;gap:8px;align-items:center"><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--golddim);padding:3px 8px;border:1px solid var(--border2)">Set 17 · Patch 14.11</span><button class="btn-sm" onclick="updateMetaTab()">↺ Refresh</button></div>
+  </div>
+  <div id="metaTabContent"></div>
+</div>
+<div id="squadTab" style="display:none">
+  <div id="podiumArea" style="margin-bottom:20px"></div>
+  <div id="squadFormArea" style="margin-bottom:20px"></div>
+  <div class="panel">
+    <div class="plbl">Squad Setup &amp; Admin</div>
+    <div style="margin-bottom:16px">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-bottom:10px;letter-spacing:.1em;text-transform:uppercase">Player Riot IDs</div>
+      <div class="g3" style="margin-bottom:8px"><div class="ig"><label>Player 1</label><input type="text" id="sq1" placeholder="Bahagabag#NA1"/></div><div class="ig"><label>Region</label><select id="sq1r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div><div></div></div>
+      <div class="g3" style="margin-bottom:8px"><div class="ig"><label>Player 2</label><input type="text" id="sq2" placeholder="Tooljets#NA1"/></div><div class="ig"><label>Region</label><select id="sq2r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div><div></div></div>
+      <div class="g3" style="margin-bottom:12px"><div class="ig"><label>Player 3</label><input type="text" id="sq3" placeholder="Discipleoftj#NA1"/></div><div class="ig"><label>Region</label><select id="sq3r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div><div></div></div>
+      <button class="btn" onclick="saveSquadAndRefresh()">Save &amp; Refresh</button>
+      <div class="saved" id="squadSaved" style="margin-top:6px">✓ Saved</div>
+    </div>
+    <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:6px">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-bottom:10px;letter-spacing:.1em;text-transform:uppercase">Admin — Update Shared Riot Key</div>
+      <div class="g2" style="margin-bottom:10px"><div class="ig"><label>New Riot API Key</label><input type="password" id="adminRiotKey" placeholder="RGAPI-…"/></div><div class="ig"><label>Admin Password</label><input type="password" id="adminPass" placeholder="password" onkeydown="if(event.key==='Enter')updateRiotKey()"/></div></div>
+      <button class="btn" onclick="updateRiotKey()">Update Key for Everyone</button>
+      <div class="admin-msg" id="adminMsg"></div>
+      <div class="note">Free Riot key: <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a> — expires every 24h</div>
+    </div>
+  </div>
+</div>
+<div id="progressTab" style="display:none"><div id="progressContent"></div></div>
+<div id="prepTab" style="display:none"><div id="prepContent"></div></div>
+<div id="askTab" style="display:none">
+  <div style="margin-bottom:14px">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--golddim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px">// Quick questions</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <button class="ask-chip" onclick="askQuick('Best Corki Riven comp Set 17 Patch 14.11 — full board, exact items, augments, leveling guide')">Corki Riven guide</button>
+      <button class="ask-chip" onclick="askQuick('Best Vex Fast 9 build Set 17 — full board, Graves build path, economy, when to go 9')">Vex Fast 9 guide</button>
+      <button class="ask-chip" onclick="askQuick('Best augments to pick at 2-1 in TFT Set 17 — ranked by value, when to take econ vs combat')">Best 2-1 augments</button>
+      <button class="ask-chip" onclick="askQuick('Full economy guide TFT Set 17 — exact interest breakpoints, leveling rounds, roll thresholds by level')">Economy guide</button>
+      <button class="ask-chip" onclick="askQuick('Best 6 Dark Stars comp Set 17 — Riven vs Xayah variant, when to play each, exact items')">Dark Stars guide</button>
+      <button class="ask-chip" onclick="askQuick('What is the best comp right now in TFT Set 17? Full S tier breakdown')">S tier right now</button>
+      <button class="ask-chip" onclick="askQuick('Best Brawler Yi build Set 17 — exact items for Yi and Kindred, emblem priority, augments')">Brawler Yi guide</button>
+      <button class="ask-chip" onclick="askQuick('Vanguard LeBlanc guide Set 17 — full board, LeBlanc and Karma items, Arbiter selection')">Vanguard LeBlanc</button>
+      <button class="ask-chip" onclick="askQuick('Asol AP Flex guide Set 17 — when to play it, items, NO mana items rule explained')">Asol AP Flex</button>
+      <button class="ask-chip" onclick="askQuick('Best Meeple Veigar build Set 17 — full board, items, augments, how to clone Veigar')">Meeple Veigar</button>
+      <button class="ask-chip" onclick="askQuick('How do I climb to Challenger in TFT Set 17? Top 3 most important habits')">How to reach Challenger</button>
+      <button class="ask-chip" onclick="askQuick('What items should I never build together in TFT Set 17? Biggest item mistakes')">Item mistakes</button>
+      <button class="ask-chip" onclick="askQuick('How do I play from a loss streak in TFT Set 17? Exact level timings and comps')">Loss streak guide</button>
+      <button class="ask-chip" onclick="askQuick('Lulu Reroll guide Set 17 — economy, roll timing, items, when to play')">Lulu Reroll guide</button>
+    </div>
+  </div>
+  <div id="askChat" style="background:var(--bg2);border:1px solid var(--border);min-height:220px;max-height:540px;overflow-y:auto;padding:16px;margin-bottom:10px;display:flex;flex-direction:column;gap:8px">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2);text-align:center;padding:24px 0;border:1px dashed var(--border)">Ask anything about TFT, ARAM, builds, items, comps, strategy…<br><span style="font-size:.58rem;color:var(--dim)">Professional coaching · BunnyMuffins verified Set 17 data</span></div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:flex-end">
+    <div style="flex:1"><textarea id="askInput" placeholder="e.g. Best items for Graves? How to play from loss streak?" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAsk()}" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 13px;font-family:'Exo 2',sans-serif;font-size:.85rem;outline:none;resize:none;height:68px;line-height:1.45;transition:border-color .2s" onfocus="this.style.borderColor='var(--pur2)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim);margin-top:3px">Enter to send · Shift+Enter for new line</div></div>
+    <button class="btn" id="askBtn" onclick="sendAsk()" style="height:68px;border-color:var(--pur2);color:var(--pur2);min-width:80px">Ask →</button>
+  </div>
+  <div style="text-align:right;margin-top:6px"><button class="btn-sm" onclick="clearAskChat()">✕ Clear chat</button></div>
+</div>
+</div>
+<div class="overlay" id="matchModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-place" id="modalPlace">—</div><div class="modal-info"><div class="modal-title" id="modalTitle">Match Analysis</div><div class="modal-sub" id="modalSub"></div></div><button class="btn-sm" onclick="closeModal()" style="align-self:flex-start">✕ Close</button></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>function buildTFTSummary(matches,mode){
+  const ITEM_ID_MAP={'1':'B.F. Sword','2':'Chain Vest','3':'Needlessly Large Rod','4':'Tear of the Goddess','5':'Negatron Cloak','6':"Giant's Belt",'7':'Sparring Gloves','8':'Spatula','11':'Deathblade','12':'Bloodthirster','13':'Infinity Edge','14':'Last Whisper','15':"Sterak's Gage",'16':'Edge of Night','17':"Archangel's Staff",'18':'Morellonomicon','22':'Blue Buff','23':'Jeweled Gauntlet','24':'Hand of Justice','25':"Rabadon's Deathcap",'26':"Guinsoo's Rageblade",'27':'Kraken Slayer','28':"Runaan's Hurricane",'29':'Giant Slayer','31':'Red Buff','32':'Bramble Vest','33':'Sunfire Cape','34':"Titan's Resolve",'35':"Protector's Vow",'36':'Redemption','37':'Zenith Blade','38':'Ionic Spark','39':"Dragon's Claw",'41':'Spear of Shojin','42':'Rapid Fire Cannon','43':'Statikk Shiv','44':"Warmog's Armor",'45':"Gargoyle's Stoneplate",'46':'Adaptive Helm','111':'Malware Matrix','113':'Dawncore','115':'Biomatter Preserver','117':"Striker's Flail",'119':"Nashor's Tooth Flail",'120':'Gunblade','121':'Void Staff','122':'Quicksilver Sash'};
+  function resolveItem(id){const s=String(id);if(ITEM_ID_MAP[s])return ITEM_ID_MAP[s];const byName=ddItems[s];if(byName)return byName;return`Item_${s}`;}
   return matches.map((m,i)=>{
     const p=m.data;const date=m.date?new Date(m.date).toLocaleDateString():'?';const stage=roundToStage(p.last_round);const lastRound=p.last_round||0;
     const compLevel=lastRound>=38?'VERY HEAVY (stage 6+)':lastRound>=32?'HEAVY (stage 5+)':lastRound>=25?'STANDARD (stage 4)':lastRound>=18?'LIGHT (stage 3)':'VERY LIGHT (stage 2)';
@@ -630,20 +630,20 @@ function buildTFTSummary(matches,mode){
       const itemStr=itemList.filter(Boolean).length?itemList.filter(Boolean).join(' + '):'no items';
       const idNote=(name==='?'||name.includes('Unknown'))?` [raw:${rawId}]`:'';
       const starWarn=stars===1&&(u.rarity>=3)?'⚠1★CARRY ':'';
-      return `  • ${name}${idNote} ★${stars} ${starWarn}| ${itemStr}`;
+      return`  • ${name}${idNote} ★${stars} ${starWarn}| ${itemStr}`;
     }).join('\n');
     const traitNames=(p.traits||[]).filter(t=>t.tier_current>0).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' ').toLowerCase());
     let compGuess='Unknown';
     if(traitNames.some(t=>t.includes('dark star')||t.includes('darkstar')))compGuess='Dark Stars';
-    else if(traitNames.some(t=>t.includes('meeple')))compGuess='Meeple / Corki-Riven';
-    else if(traitNames.some(t=>t.includes('vanguard')))compGuess='Vanguard LeBlanc / Asol';
+    else if(traitNames.some(t=>t.includes('meeple')))compGuess='Corki Riven (Meeple)';
+    else if(traitNames.some(t=>t.includes('vanguard')))compGuess='Vanguard LeBlanc';
     else if(traitNames.some(t=>t.includes('nova')))compGuess='NOVA Marauders';
     else if(traitNames.some(t=>t.includes('brawler')))compGuess='Brawler Yi';
-    else if(traitNames.some(t=>t.includes('shepherd')))compGuess='7 Shepherd / Vanguard';
-    else if(traitNames.some(t=>t.includes('primordian')))compGuess='Primordian Reroll';
-    else if(traitNames.some(t=>t.includes('rogue')))compGuess='Rogue Reroll / Dark Stars';
-    else if(traitNames.some(t=>t.includes('stargazer')))compGuess='Stargazer Xayah / TF Reroll';
-    else if(traitNames.some(t=>t.includes('marauder')))compGuess='Marauder / NOVA';
+    else if(traitNames.some(t=>t.includes('shepherd')))compGuess='7 Shepherd';
+    else if(traitNames.some(t=>t.includes('primordian')))compGuess='Primordian';
+    else if(traitNames.some(t=>t.includes('rogue')))compGuess='Rogue Reroll';
+    else if(traitNames.some(t=>t.includes('stargazer')))compGuess='Stargazer Xayah';
+    else if(traitNames.some(t=>t.includes('marauder')))compGuess='NOVA Marauders';
     else if(traitNames.some(t=>t.includes('mecha')))compGuess='6 Mecha';
     else if(traitNames.some(t=>t.includes('space groove')))compGuess='Space Groove Riven';
     return[`╔══ ${mode==='double'?'[DOUBLE UP] ':''}GAME ${i+1} — ${date} ══╗`,`PLACEMENT: ${p.placement}/8 | LEVEL: ${level} | LAST ROUND: ${stage} | COMPETITION: ${compLevel}`,`DAMAGE: ${dmg} (${dmgSignal}) | ELIMINATIONS: ${p.players_eliminated||0}`,`GOLD LEFT: ${goldLeft}g (${econSignal})`,`LIKELY COMP: ${compGuess}`,``,`ACTIVE TRAITS: ${activeTraits||'none'}`,`INACTIVE (partial): ${inactiveTraits||'none'}`,``,`AUGMENTS: ${augs.length?augs.join(' | '):'none recorded in API'}`,``,`FULL BOARD:`,units||'  no unit data'].join('\n');
@@ -673,145 +673,117 @@ async function callClaude(prompt,maxTokens){
 async function analyzeAll(){
   const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;
   if(!toAnalyze.length){alert('No matches loaded. Fetch a player first.');return;}
-  if(!getCK()){alert('No Claude API key found.');return;}
-  const panel=document.getElementById('cpanel'),body=document.getElementById('cbody');
+  if(!getCK()){alert('No Claude API key — paste your sk-ant key in the Keys bar.');return;}
+  const panel=document.getElementById('cpanel');if(!panel){alert('UI error — refresh page.');return;}
   panel.classList.add('show');panel.style.display='block';
-  body.innerHTML=`<div style="display:flex;align-items:center;gap:12px;color:var(--golddim);font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:12px 0"><div class="dot"></div>Analyzing ${toAnalyze.length} match${toAnalyze.length>1?'es':''}… ~20 seconds</div>`;
-  panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
-  let prompt='';
-  if(currentMode==='aram'){
-    const summary=buildARAMSummary(toAnalyze);
-    prompt=`You are an elite League of Legends ARAM coach — Challenger-level athletic trainer. Analyze with surgical precision, identify every weakness, prescribe exact training.
-
-ATHLETES: Bahagabag, Tooljets, Discipleoftj | GOAL: Challenger ARAM | GAMES: ${toAnalyze.length}
-
-MATCH DATA:
-${summary}
-
-## 🏆 ATHLETIC ASSESSMENT
-Rate 1-10 vs Challenger ARAM (ADC 25k+ dmg, Mage 20k+, Tank 10k+ mitigation, KDA 4.0+, Win rate 55%+). Single biggest skill gap?
-
-## 🔬 CHAMPION & ITEM AUDIT — Every Game
-For EVERY game: champion name, ARAM tier (S/A/B/C), every item graded CORRECT/WRONG/SUBOPTIMAL, BiS ARAM build, corrections with % improvement.
-
-## ⚔️ COMPETITION CONTEXT
-Grade each game contextually. Long game (20m+) = strong lobby. Short loss ≠ long competitive loss.
-
-## 💀 DEATH & POSITIONING AUDIT
-Deaths vs Challenger standard (under 5/game). Death type classification. Positioning rules per champion type.
-
-## 🎯 DAMAGE EFFICIENCY
-D:T ratio targets. Physical/magic split. Multikill frequency.
-
-## 📋 MATCH-BY-MATCH TRAINING LOG
-Each game: **Game X | [Champion] | [W/L] | Grade [S+→F]** — stat line, items audit, competition, best moment, coachable mistake, exact fix.
-
-## 🏋️ 4 SKILLS TO DEVELOP
-Each: current level from data, Challenger standard, LP/win rate impact, how to train.
-
-## 🎮 3 PRACTICE ROUTINES
-Each: specific drill, frequency, tracking metric, expected improvement.`;
-  }else{
-    const summary=buildTFTSummary(toAnalyze,currentMode);
-    const modeStr=currentMode==='double'?'TFT Double Up':'TFT Ranked';
-    const doubleExtra=currentMode==='double'?'\n\nDOUBLE UP LENS: Evaluate partner comp synergy, coordinated economy, item sharing, coordination score 1-10.':'';
-    prompt=`You are the best TFT coach in the world. Take Bahagabag, Tooljets, and Discipleoftj to Challenger. Professional sports coach reviewing game film — ruthless, precise, zero fluff.${doubleExtra}
-
-VERIFIED SET 17 PATCH 17.3 META (BunnyMuffins, May 2026):
-S tier: Corki Riven, 6 Dark Stars (emblem req), Vex Fast 9
+  document.getElementById('cpanelPlayer').textContent=currentPlayerName;
+  const tabIds=['overview','economy','items','augments','training'];
+  tabIds.forEach(t=>{const el=document.getElementById('cpanel-'+t);if(el)el.innerHTML=`<div class="ctab-loading"><div class="dot"></div><span>Preparing analysis…</span></div>`;});
+  switchCoachTab('overview');panel.scrollIntoView({behavior:'smooth',block:'start'});lock(true);
+  if(currentMode==='aram'){await runARAMAnalysis(toAnalyze);lock(false);return;}
+  const patterns=computePatterns(toAnalyze);
+  const opponents=analyzeOpponents(toAnalyze);
+  const historyCtx=buildHistoryContext(currentPlayerName);
+  const compGuides=getRelevantCompGuides(patterns);
+  const summary=buildTFTSummary(toAnalyze,currentMode);
+  const modeStr=currentMode==='double'?'TFT Double Up':'TFT Ranked';
+  const n=toAnalyze.length;
+  const COMPUTED=`PRE-COMPUTED PATTERN ANALYSIS (verified facts — use these directly):
+Avg placement: ${patterns.avgPlacement} | Top-4 rate: ${patterns.top4Rate}% | Bot-4 rate: ${patterns.bot4Rate}%
+Economy: avg gold left ${patterns.avgGoldLeft}g | ${patterns.gamesOverRolled}/${n} games over-rolled (>15g) | ${patterns.gamesPerfectEcon}/${n} perfect econ (≤5g)
+Economy grade (computed): ${patterns.econGrade} | Economy score: ${patterns.econScore}/100
+Levels: avg ${patterns.avgLevel} | hit lv8+: ${patterns.gamesHitLevel8}/${n} | stuck at lv6: ${patterns.gamesStuckLevel6}/${n}
+Damage: avg ${patterns.avgDmg} dmg | high-dmg bot-4: ${patterns.highDmgBot4} games
+1-star carries across all games: ${patterns.oneStarCarries} total
+Item error rate (pre-checked): ${patterns.itemErrorRate}% | Item grade: ${patterns.itemGrade}
+Comp frequency: ${(patterns.compFrequency||[]).map(([c,n2])=>`${c}(${n2}x)`).join(', ')}
+Comp diversity: ${patterns.compDiversity} different comps | Lobby strength: ${opponents.strongLobbies}/${n} strong/elite
+Top issues detected: ${patterns.topIssues.join(', ')||'none'}`;
+  const META=`VERIFIED TFT SET 17 PATCH 14.11 (BunnyMuffins May 2026):
+S tier: Corki Riven (Meeple), 6 Dark Stars (emblem required), Vex Fast 9
 A tier: Asol AP Flex, Brawler Yi, Lulu Reroll, Vanguard LeBlanc
-B tier: Urgot, TF Reroll, 7 Shepherd, MF Reroll, Meeple Veigar, Stargazer Xayah, Rogue Reroll, 6 Mecha, NOVA Marauders, Space Groove, Jhin Fast 9, Samira Reroll, Cho Ezreal
-
-VERIFIED ITEMS:
-Corki: Last Whisper + Striker's + Blue Buff | Riven: Bloodthirster + Titan's + Sterak's
-Yi: Edge of Night (REQUIRED) + Malware Matrix + Giant Slayer
-LeBlanc: Guinsoo's (REQUIRED) + Archangel's + Gunblade
-Vex: Guinsoo's + Giant Slayer + Gunblade | Graves: Edge of Night + Giant Slayer + Striker's
-Dark Star Riven: Sterak's + HoJ | Dark Star Xayah: Guinsoo's + Red Buff
-Jhin: IE (required) + LW + Striker's | Asol: JG + Striker's + Deathcap (NO mana items)
-Samira: IE + Shojin + Deathblade | Urgot: QSS required + always Mecha
-Fizz: Nashor's required + JG + HoJ | Xayah: 2x Kraken + Guinsoo's
-Veigar: JG + 2x Nashor's | TF: Nashor's + Striker's + Archangel's
-
-ECONOMY RULES:
-Level 6: round 3-2 ALWAYS | Level 7: 4-1 (3-5 with econ aug) | Level 8: 4-2 for fast-8
-Roll thresholds: lv6 leave 20g | lv7 leave 30g | lv8 leave 40g
-Gold left: 0-5g = perfect | 6-15g = minor error | 15g+ = LP loss
-
-MODE: ${modeStr} | GAMES: ${toAnalyze.length}
-
+B tier: Urgot Reroll, TF Reroll, 7 Shepherd, MF Reroll, Meeple Veigar, Stargazer Xayah, Rogue Reroll, 6 Mecha, NOVA Marauders, Space Groove Riven, Jhin Fast 9, Samira Reroll, Cho Ezreal
+BiS CARRY ITEMS (any deviation = WRONG):
+Corki: Last Whisper+Striker Flail+Blue Buff | Riven: Bloodthirster+Titan Resolve+Sterak Gage
+Yi: Edge of Night(REQUIRED)+Malware Matrix+Giant Slayer
+LeBlanc: Guinsoo(REQUIRED)+Archangel+Gunblade | Vex: Guinsoo+Giant Slayer+Gunblade
+Graves: Edge of Night+Giant Slayer+Striker | Dark Star Riven: Sterak+Hand of Justice
+Dark Star Xayah: Guinsoo+Red Buff | Jhin: IE(required)+LW+Striker
+Asol: JG+Striker+Rabadon — ZERO mana items | Samira: IE+Shojin+Deathblade
+Urgot: QSS(required)+IE+Giant Slayer (always Mecha) | Fizz: Nashor(required)+JG+HoJ
+Xayah(Stargazer): 2x Kraken+Guinsoo | Veigar: JG+2x Nashor | TF: Nashor+Striker+Archangel
+Kindred: Kraken+Guinsoo+Giant Slayer | Lulu: Nashor+Guinsoo+Blue Buff
+ECONOMY: Lv6=3-2 ALWAYS | Lv7=4-1 (3-5 econ aug) | Lv8=4-2 fast-8 | Lv9=5-2 exodia
+Roll thresholds: lv6→20g | lv7→30g | lv8→40g
+Gold left: 0-5g=PERFECT | 6-15g=minor | 16-30g=error | 30g+=major LP loss
+${compGuides?'COMP GUIDES FOR COMPS PLAYED:\n'+compGuides:''}`;
+  const DATA=`PLAYER: ${currentPlayerName} | MODE: ${modeStr} | GAMES: ${n}
+${historyCtx?historyCtx+'\n\n':''}${COMPUTED}
 MATCH DATA:
-${summary}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CHALLENGER FILM ROOM
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-## 🎯 EXECUTIVE SUMMARY
-2-3 sentences: most expensive habit, what tier they're actually playing at, LP per game bleeding from fixable mistakes. Be honest.
-
-## 📊 PERFORMANCE SCORECARD
-Grade each S/A/B/C/D/F with one sentence of evidence:
-- **Economy execution:** | **Comp selection:** | **Itemization:** | **Augment decisions:** | **Board management:** | **Competition read:** | **Overall Challenger gap:**
-
-## 🎬 GAME-BY-GAME FILM REVIEW
-For EVERY game — no skipping:
-**GAME [X] | [placement]/8 | Grade [S+→F] | Competition: [VERY LIGHT/LIGHT/STANDARD/HEAVY/VERY HEAVY]**
-*Comp:* [identify] *Meta tier:* [S/A/B/C]
-*Board:* [every unit with stars and items]
-*Economy:* [gold left + verdict]
-*Augments:* [name each, grade for comp]
-*Traits:* [active, what was one away from next breakpoint]
-*Damage:* [benchmark vs comp type]
-*The mistake:* [single most LP-costly — name unit/item/round]
-*Fix:* [exactly what Challenger does]
-
-## 💰 ECONOMY DEEP DIVE
-Per game: gold left verdict. Correct level-up rounds? Rolling pattern. Economy grade [S/A/B/C/D/F]. Specific habit to change.
-
-## ⚙️ ITEMIZATION CLINIC
-Every WRONG or SUBOPTIMAL item:
-> **[Champion]★X Game [Y]: [item]. WRONG/SUBOPTIMAL.**
-> BiS: [correct]. Why: [reason]. LP cost: ~[X] placements/game.
-Correct items confirmed with ✓.
-
-## 🔮 AUGMENT INTELLIGENCE
-Per game: augment name, tier for comp, correct or better. Biggest augment mistake named exactly.
-
-## 🧭 META AWARENESS
-On-meta or forcing? Contested detection. Adaptability score [1-10].
-
-## 🏆 CHALLENGER TRAINING PLAN
-
-### 4 Skills to Build (ranked by LP impact)
-**Skill 1 — [Name]** | +[X] LP/game
-- Data evidence: | Challenger standard: | Training method: | Test:
-[repeat skills 2, 3, 4]
-
-### 3 Practice Routines
-**Routine 1: [Name]** — [frequency]
-[Detailed drill with steps, tracking metric, improvement target]
-[Routines 2 and 3 same format]
-
-## ⚡ NEXT SESSION — DO THESE 3 THINGS
-1. [Specific, measurable, immediately actionable]
-2. [Specific, measurable, immediately actionable]
-3. [Specific, measurable, immediately actionable]`;
-  }
+${summary}`;
+  setTabLoading('overview',`Building overview for ${n} games…`);
   try{
-    const text=await callClaude(prompt,6000);
-    body.innerHTML=renderCoaching(text);
-  }catch(e){
-    const msg=e.message||'Unknown error';
-    body.innerHTML=`<div style="color:var(--red2);font-family:'Share Tech Mono',monospace;font-size:.78rem;padding:10px 0;line-height:1.8">⚠ Analysis failed: ${msg}<br><br>${msg.includes('rate')||msg.includes('limit')?'Rate limit — wait 60 seconds, or select fewer matches with ○.':''}${msg.includes('auth')||msg.includes('API key')?'Check your Claude API key in the Keys bar.':''}</div>`;
-  }
+    const t=await callClaude(`${META}\n\n${DATA}\n\nYou are the world's best TFT coach. Use the pre-computed facts above as ground truth.\n\n## VERDICT\nOne precise sentence: estimated rank from decision patterns + single most expensive fixable habit. Reference computed avg placement (${patterns.avgPlacement}) and top-4 rate (${patterns.top4Rate}%).\n\n## SCORECARD\nFormat exactly — one line per category:\nECONOMY | ${patterns.econGrade} | [specific evidence: avg ${patterns.avgGoldLeft}g left, ${patterns.gamesOverRolled}/${n} games over-rolled]\nCOMP SELECTION | [grade] | [specific evidence: name exact comps played vs tier list]\nITEMIZATION | ${patterns.itemGrade} | [${patterns.itemErrorRate}% error rate — name specific wrong items from data]\nAUGMENTS | [grade] | [specific evidence from augment choices in match data]\nBOARD MANAGEMENT | [grade] | [${patterns.oneStarCarries} 1-star carries, ${patterns.gamesStuckLevel6} games stuck lv6]\nMETA AWARENESS | [grade] | [${patterns.compDiversity} comps played — contested comp evidence]\n\n## GAME LOG\nEvery game, no skipping:\nGame [N] | [place]/8 | [grade] | [LIGHT/STANDARD/HEAVY/VERY HEAVY]\nComp: [name+tier] | Econ: [gold left verdict] | Key error: [exact unit/item/round + fix]\n\n## TOP 3 LP LEAKS\n1. [Issue from: ${patterns.topIssues.join(', ')||'analyze data'}] — ~[X] LP/game — [exact fix]\n2. [Issue] — ~[X] LP/game — [exact fix]\n3. [Issue] — ~[X] LP/game — [exact fix]`,3000);
+    const el=document.getElementById('cpanel-overview');if(el)el.innerHTML=renderCoachingTabbed(t,'overview');
+  }catch(e){setTabError('overview',e.message);}
+  setTabLoading('economy','Deep economy audit…');
+  try{
+    const t=await callClaude(`${META}\n\n${DATA}\n\nPROFESSIONAL ECONOMY AUDIT for ${currentPlayerName}.\nVERIFIED FACTS: avg gold left ${patterns.avgGoldLeft}g | ${patterns.gamesOverRolled}/${n} over-rolled | ${patterns.gamesPerfectEcon}/${n} perfect | avg level ${patterns.avgLevel} | stuck lv6: ${patterns.gamesStuckLevel6}/${n}\n\n## ECONOMY GRADE: ${patterns.econGrade}\nOne precise sentence.\n\n## GAME-BY-GAME ECONOMY AUDIT\nEvery game:\n**Game [N] — [place]/8**\nGold left: [Xg] → [PERFECT ≤5g | MINOR 6-15g | ERROR 16-30g | MAJOR 30g+]\nLevel [X]: [correct for comp? Should have been lv[Y] by round [Z]]\nRolling: [over-rolled? under-rolled? correct?]\nVerdict: [one specific sentence]\n\n## PATTERNS\nInterest management. Level timing (lv6 3-2? lv7 4-1? lv8 4-2?). Roll discipline. Streak play.\n\n## THE ONE HABIT TO CHANGE\nMost impactful single fix with measurable target.\n\n## ECONOMY DRILL\nOne specific practice for next 20 games. Exact checkpoint instructions.`,2500);
+    const el=document.getElementById('cpanel-economy');if(el)el.innerHTML=renderCoachingTabbed(t,'economy');
+  }catch(e){setTabError('economy',e.message);}
+  setTabLoading('items','Professional item audit…');
+  try{
+    const t=await callClaude(`${META}\n\n${DATA}\n\nPROFESSIONAL ITEM AUDIT for ${currentPlayerName}.\nVERIFIED: ${patterns.itemErrorRate}% error rate | ${patterns.oneStarCarries} 1-star carries | Item grade: ${patterns.itemGrade}\nRULES: Any item not in BiS = WRONG or SUBOPTIMAL. Item_XXX = identify from component knowledge. ⚠1★CARRY = wasted investment. Empty carry = slam error.\n\n## ITEM GRADE: ${patterns.itemGrade} (${patterns.itemErrorRate}% error rate)\n\n## COMPLETE ITEM AUDIT — EVERY UNIT, EVERY GAME\nFor every game, every unit with items:\n**Game [N] — [Comp] — [place]/8**\n[Champion]★[stars]: [item1+item2+item3]\n→ CORRECT ✓ / WRONG ✗ / SUBOPTIMAL △ — [reason. If wrong: BiS=[correct]. Why=[reason]. LP cost=~[X] placements/game]\n\n## COMPONENT SLAM AUDIT\nReverse-engineer stage 2 slams from final items.\n\n## WORST MISTAKE\nGame #, champion, item built, correct item, LP cost.\n\n## ITEM CHEAT SHEET\nExact BiS for every carry seen in these ${n} games.`,3000);
+    const el=document.getElementById('cpanel-items');if(el)el.innerHTML=renderCoachingTabbed(t,'items');
+  }catch(e){setTabError('items',e.message);}
+  setTabLoading('augments','Augment intelligence report…');
+  try{
+    const t=await callClaude(`${META}\n\n${DATA}\n\nPROFESSIONAL AUGMENT AUDIT for ${currentPlayerName}.\n\n## AUGMENT GRADE: [S/A/B/C/D/F]\n\n## GAME-BY-GAME AUGMENT AUDIT\nEvery game with augment data:\n**Game [N] — [Comp] — [place]/8**\nAugments: [list all]\n- [Aug 1]: [S/A/B/C for this comp] — [correct? Better option?]\n- [Aug 2]: [grade] — [analysis]\n- [Aug 3]: [grade] — [analysis]\nSynergy: [Strong/Moderate/Weak — one sentence]\n\n## PATTERNS\n2-1 tendency. Best picks. Worst pick. Missed synergies.\n\n## AUGMENT IQ: [X/10]\nThe one rule that improves LP most.`,2000);
+    const el=document.getElementById('cpanel-augments');if(el)el.innerHTML=renderCoachingTabbed(t,'augments');
+  }catch(e){setTabError('augments',e.message);}
+  setTabLoading('training','Building personalized Challenger training plan…');
+  try{
+    const historyInsight=historyCtx?`\nSESSION HISTORY:\n${historyCtx}`:'';
+    const t=await callClaude(`${META}\n\n${DATA}\n\nPERSONALIZED CHALLENGER TRAINING PLAN for ${currentPlayerName}.${historyInsight}\nBASELINE: avg placement ${patterns.avgPlacement} | top-4 ${patterns.top4Rate}% | econ grade ${patterns.econGrade} | item error ${patterns.itemErrorRate}% | most played: ${patterns.mostPlayedComp} | top issues: ${patterns.topIssues.join(', ')||'see data'}\n\n## CHALLENGER GAP\nEstimated rank from patterns. 3 specific habits (with game data evidence) between them and Challenger.\n\n## 4 SKILLS TO BUILD (ranked by LP impact)\n**Skill 1 — [Name]** | +[X] LP/game\nEvidence: [specific game data] | Challenger standard: [exact] | Training: [specific drill] | Test: [measurable target]\n\n**Skill 2 — [Name]** | +[X] LP/game\n[same format]\n\n**Skill 3 — [Name]** | +[X] LP/game\n[same format]\n\n**Skill 4 — [Name]** | +[X] LP/game\n[same format]\n\n## 3 PRACTICE ROUTINES\n**Routine 1: [Name]** — [frequency]\n[4+ sentences. Exact steps. What to track. What improvement looks like.]\n**Routine 2: [Name]** — [frequency]\n[4+ sentences. Different skill.]\n**Routine 3: [Name]** — [frequency]\n[4+ sentences. Can include off-game work.]\n\n## NEXT SESSION — 3 NON-NEGOTIABLES\n1. [Exact action + exact metric]\n2. [Exact action + exact metric]\n3. [Exact action + exact metric]\n\n## LP ROADMAP\nExecuting this plan: LP gain over 50 games, target rank.`,3000);
+    const el=document.getElementById('cpanel-training');if(el)el.innerHTML=renderCoachingTabbed(t,'training');
+    saveSessionResult(currentPlayerName,{econGrade:patterns.econGrade,itemGrade:patterns.itemGrade,avgPlacement:patterns.avgPlacement,topIssues:patterns.topIssues,gamesAnalyzed:n,mode:modeStr});
+  }catch(e){setTabError('training',e.message);}
   lock(false);
 }
-function closeModal(){document.getElementById('matchModal').classList.remove('show');}
+async function runARAMAnalysis(toAnalyze){
+  const summary=buildARAMSummary(toAnalyze);const n=toAnalyze.length;
+  document.getElementById('cpanelPlayer').textContent=currentPlayerName;
+  setTabLoading('overview',`Analyzing ${n} ARAM games…`);
+  try{const t=await callClaude(`You are an elite ARAM coach. Analyze ${currentPlayerName}'s ${n} games.\nMATCH DATA:\n${summary}\n\n## VERDICT\nOne sentence: performance level and biggest weakness.\n\n## SCORECARD\nDAMAGE OUTPUT | [S/A/B/C/D/F] | [evidence vs ADC 25k+/Mage 20k+/Tank 10k+]\nKDA | [grade] | [vs Challenger 4.0+ standard]\nWIN RATE | [grade] | [vs 55%+ standard]\nITEMIZATION | [grade] | [specific items named]\nPOSITIONING | [grade] | [death count and dmg taken evidence]\n\n## GAME LOG\nEvery game: **Game [N] | [Champion] | [W/L] | [grade]**\nKDA, damage, D:T ratio, items (grade each CORRECT/WRONG/SUBOPTIMAL), biggest mistake, exact fix.\n\n## TOP 3 LP LEAKS\n1. [Issue] — ~[X]% impact — [exact fix]\n2. [Issue] — [impact] — [fix]\n3. [Issue] — [impact] — [fix]`,3000);const el=document.getElementById('cpanel-overview');if(el)el.innerHTML=renderCoachingTabbed(t,'overview');}catch(e){setTabError('overview',e.message);}
+  setTabLoading('items','Auditing ARAM items…');
+  try{const t=await callClaude(`ARAM item auditor for ${currentPlayerName}. Audit every item across ${n} games.\nKey ARAM items: Ability Overpower, Warmog's, Rabadon's, Kraken Slayer, Galeforce, Archangel's.\nMATCH DATA:\n${summary}\n\n## ITEM GRADE: [S/A/B/C/D/F]\n## FULL AUDIT\nEvery game: champion, every item CORRECT/WRONG/SUBOPTIMAL, BiS ARAM build listed.\nFor every wrong item: replacement, reason, % improvement.\n## WORST MISTAKE\n## ARAM CHEAT SHEET\nBiS for each champion played.`,2500);const el=document.getElementById('cpanel-items');if(el)el.innerHTML=renderCoachingTabbed(t,'items');}catch(e){setTabError('items',e.message);}
+  setTabLoading('training','Building ARAM training plan…');
+  try{const t=await callClaude(`Challenger ARAM training plan for ${currentPlayerName} from ${n} games.\nMATCH DATA:\n${summary}\n\n## 4 SKILLS TO BUILD\nEach: evidence, Challenger standard, training method, measurable test.\n## 3 PRACTICE ROUTINES\nSpecific drills, exact steps, frequency, tracking.\n## NEXT SESSION — 3 CHANGES\nExact, specific, immediately actionable.`,2000);const el=document.getElementById('cpanel-training');if(el)el.innerHTML=renderCoachingTabbed(t,'training');}catch(e){setTabError('training',e.message);}
+  ['economy','augments'].forEach(t=>{const el=document.getElementById('cpanel-'+t);if(el)el.innerHTML='<div style="padding:20px;font-family:monospace;font-size:.72rem;color:var(--dim2)">Not applicable for ARAM.</div>';});
+}
+function switchCoachTab(tab){
+  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.ctab-panel').forEach(p=>p.classList.remove('active'));
+  const btn=document.getElementById('ctab-'+tab);const panel=document.getElementById('cpanel-'+tab);
+  if(btn)btn.classList.add('active');if(panel)panel.classList.add('active');
+}
+function setTabLoading(tab,msg){const el=document.getElementById('cpanel-'+tab);if(el)el.innerHTML=`<div class="ctab-loading"><div class="dot"></div><span>${msg}</span></div>`;}
+function setTabError(tab,msg){const el=document.getElementById('cpanel-'+tab);if(el)el.innerHTML=`<div class="ctab-error">⚠ ${msg}${msg.includes('rate')||msg.includes('limit')?'<br>Rate limit — wait 60s and try again.':''}${msg.includes('key')||msg.includes('auth')?'<br>Check your Claude API key in the Keys bar.':''}</div>`;}
+function renderCoachingTabbed(t,tab){
+  let html=t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•] (.+)$/gm,'<li>$1</li>').replace(/(<li>[^<]*<\/li>)+/g,s=>'<ul>'+s+'</ul>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+  if(tab==='overview'){
+    html=html.replace(/(ECONOMY|COMP SELECTION|ITEMIZATION|AUGMENTS|BOARD MANAGEMENT|META AWARENESS)\s*\|\s*([A-F][+]?)\s*\|([^<\n]+)/g,(m,label,grade,note)=>{
+      const gc={'S+':'sp','S':'s','A+':'ap','A':'a','B+':'bp','B':'b','C':'c','D':'d','F':'f'}[grade]||'f';
+      return`<div class="score-card"><div class="score-card-lbl">${label}</div><div class="score-card-grade grade-${gc}">${grade}</div><div class="score-card-note">${note.trim()}</div></div>`;
+    });
+    const cards=html.match(/<div class="score-card">[\s\S]*?<\/div>\s*<\/div>/g)||[];
+    if(cards.length>=2)html=html.replace(cards[0],`<div class="score-grid">${cards[0]}`).replace(cards[cards.length-1],cards[cards.length-1]+'</div>');
+  }
+  return html;
+}function closeModal(){document.getElementById('matchModal').classList.remove('show');}
 async function openModal(idx){const m=matchData[idx];if(currentMode==='aram'){openARAMModal(idx,m);}else{openTFTModal(idx,m,currentMode);}}
 async function openTFTModal(idx,m,mode){
-  const p=m.data;
-  const PC={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#3dbb87'};
+  const p=m.data;const PC={1:'#ffd700',2:'#c0c0c0',3:'#cd7f32',4:'#3dbb87'};
   const color=PC[p.placement]||(p.placement<=4?'#3dbb87':'#c94040');
   const date=m.date?new Date(m.date).toLocaleDateString():'?';const stage=roundToStage(p.last_round);
   const traits=(p.traits||[]).filter(t=>t.tier_current>0).sort((a,b)=>b.tier_current-a.tier_current);
@@ -820,7 +792,7 @@ async function openTFTModal(idx,m,mode){
   document.getElementById('modalPlace').textContent=p.placement;document.getElementById('modalPlace').style.color=color;
   document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'}${mode==='double'?' · DOUBLE UP':''}`;
   document.getElementById('modalSub').textContent=`Round ${stage} · ${p.total_damage_to_players||0} dmg · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
-  const unitCards=units.map(u=>{const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;}).join('');
+  const unitCards=units.map(u=>{const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);return`<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;}).join('');
   const traitTags=traits.map(t=>`<span class="chip">${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')} ${t.tier_current}/${t.tier_total||3}</span>`).join('');
   const augTags=augs.length?augs.map(a=>`<span class="achip">${a}</span>`).join(''):'<span style="color:var(--dim2);font-size:.8rem">No augment data</span>';
   document.getElementById('modalBody').innerHTML=`
@@ -841,59 +813,39 @@ async function openTFTModal(idx,m,mode){
     </div>`;
   document.getElementById('matchModal').classList.add('show');document.getElementById('matchModal').scrollTop=0;
   const traitsStr=traits.map(t=>`${t.name.replace(/TFT\d+_/,'').replace(/_/g,' ')}(${t.num_units}u tier${t.tier_current}/${t.tier_total||3})`).join(', ');
-  const unitsStr=units.map(u=>{const name=getChampName(u.character_id);const items=getUnitItems(u);const rawId=u.character_id||'';const idNote=(name==='?'||name.includes('Unknown'))?` [raw:${rawId}]`:'';return `${name}${idNote}★${u.tier} — items: ${items.length?items.join(' + '):'none'}`;}).join('\n  ');
-  const lastRound=p.last_round||0;
-  const compLevel=lastRound>=35?'HEAVY (stage 5+)':lastRound>=28?'STANDARD (stage 4)':'LIGHT';
+  const unitsStr=units.map(u=>{const name=getChampName(u.character_id);const items=getUnitItems(u);const rawId=u.character_id||'';const idNote=(name==='?'||name.includes('Unknown'))?` [raw:${rawId}]`:'';return`${name}${idNote}★${u.tier} — items: ${items.length?items.join(' + '):'none'}`;}).join('\n  ');
+  const lastRound=p.last_round||0;const compLevel=lastRound>=35?'HEAVY (stage 5+)':lastRound>=28?'STANDARD (stage 4)':'LIGHT';
   const matchSummary=[`Date: ${date} | Placement: ${p.placement}/8 | Competition: ${compLevel}`,`Level: ${p.level||'?'} | Last round: ${stage} | Gold left: ${p.gold_left||0}g`,`Damage: ${p.total_damage_to_players||0} | Eliminations: ${p.players_eliminated||0}`,`Active traits: ${traitsStr||'none'}`,`Augments: ${augs.join(' | ')||'none'}`,`Full board:\n  ${unitsStr||'no data'}`].join('\n');
-  const doubleNote=mode==='double'?'\n\nDOUBLE UP: Also evaluate partner synergy — could comps/items have been coordinated better?':'';
+  const doubleNote=mode==='double'?'\n\nDOUBLE UP: Also evaluate partner synergy.':'';
   try{
-    const text=await callClaude(`You are the best TFT coach in the world. Analyze this single game with surgical precision. Every sentence actionable.${doubleNote}
-
-VERIFIED ITEMS (Set 17 Patch 17.3):
-Corki: Last Whisper + Striker's + Blue Buff | Riven: Bloodthirster + Titan's + Sterak's
-Yi: Edge of Night (req) + Malware Matrix + Giant Slayer
-LeBlanc: Guinsoo's (req) + Archangel's + Gunblade
-Vex: Guinsoo's + Giant Slayer + Gunblade | Graves: Edge of Night + Giant Slayer + Striker's
-Jhin: IE (req) + LW + Striker's | Asol: JG + Striker's + Deathcap — NO mana items
-Dark Star Riven: Sterak's + HoJ | Dark Star Xayah: Guinsoo's + Red Buff
-No Shred/Sunder in NOVA/Aatrox comps. No Spell Crit in NOVA comps.
-
+    const text=await callClaude(`You are the best TFT coach alive. Analyze ${currentPlayerName}'s game with surgical precision.${doubleNote}
+BiS ITEMS (Set 17 Patch 14.11): Corki: LW+Striker+BB | Riven: BT+Titan+Sterak | Yi: EoN(req)+Malware+GS | LeBlanc: Guinsoo(req)+Arch+GB | Vex: Guinsoo+GS+GB | Graves: EoN+GS+Striker | Dark Star Riven: Sterak+HoJ | Xayah: Guinsoo+Red Buff | Jhin: IE(req)+LW+Striker | Asol: JG+Striker+Rabadon(NO mana) | No Shred/Sunder in NOVA comps. No Spell Crit in NOVA.
 MATCH DATA:
 ${matchSummary}
-
 ## ⚡ VERDICT
 One sentence: placement, deserved vs competition, grade [S+/S/A+/A/B+/B/C/D/F].
-
-## 🏆 COMPETITION ASSESSMENT
-Last round → VERY LIGHT/LIGHT/STANDARD/HEAVY/VERY HEAVY. Placement = skill or variance? Adjusted score [X/10].
-
-## 🔬 COMPLETE BOARD AUDIT
-Every unit. No skipping:
-**[Champion] ★[stars]** | Built: [items] | CORRECT✓ / WRONG✗ / SUBOPTIMAL△
-If wrong: "BiS: [correct]. Why: [reason]. LP cost: ~[X] placements."
-After units: Component slam evaluation.
-
-## 💰 ECONOMY VERDICT
-Gold left (${p.gold_left||0}g) → exact verdict. Level ${p.level||'?'} → correct? Economy grade [S/A/B/C/D/F]. If broke: name exact round.
-
-## 🎯 COMP EXECUTION: [S/A/B/C/D/F]
-Comp name + meta tier. Trait breakpoints. 1-star carries named. Win condition — executed?
-
-## 🔮 AUGMENT QUALITY: [X/10]
+## 🏆 COMPETITION
+Last round → VERY LIGHT/LIGHT/STANDARD/HEAVY/VERY HEAVY. Placement = skill or variance? Score [X/10].
+## 🔬 BOARD AUDIT
+Every unit with items — no skipping:
+**[Champion] ★[stars]** | [items] | CORRECT✓ / WRONG✗ / SUBOPTIMAL△
+If wrong: BiS=[correct]. Why=[reason]. LP cost=~[X] placements.
+Component slam evaluation.
+## 💰 ECONOMY
+Gold left (${p.gold_left||0}g) → exact verdict. Level ${p.level||'?'} → correct? Economy grade [S-F]. If broke: name exact round.
+## 🎯 COMP EXECUTION: [S-F]
+Comp name + meta tier. Trait breakpoints. 1-star carries. Win condition executed?
+## 🔮 AUGMENTS: [X/10]
 Each augment: tier for comp + correct or better.
-
-## 🎬 THE TURNING POINT
-Exact round. What happened. What Challenger does instead.
-
+## 🎬 TURNING POINT
+Exact round. What happened. Challenger alternative.
 ## 💀 THE ONE MISTAKE
 Round, gold, unit, item, decision. Surgical.
-
 ## ✅ CHALLENGER GAME PLAN
-Stage 2: [slam + opener] | Stage 3: [level/roll] | Stage 4: [level round + threshold] | Stage 5+: [cap]
-
+Stage 2: | Stage 3: | Stage 4: | Stage 5+:
 ## 🏋️ 3 TRAINING POINTS
-Ranked by LP value. Specific, measurable, practice next 5 games.`,3500);
-    document.getElementById('modalCoaching').innerHTML=renderCoaching(text);
+Ranked by LP value. Practice in next 5 games.`,3500);
+    document.getElementById('modalCoaching').innerHTML=renderCoachingTabbed(text,'modal');
   }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:var(--red2)">Analysis failed: ${e.message}</span>`;}
 }
 async function openARAMModal(idx,m){
@@ -927,36 +879,9 @@ async function openARAMModal(idx,m){
   const compLevel=gameDurMin>=22?'HIGH':gameDurMin>=16?'MEDIUM':'LIGHT';
   const matchSummary=[`Date: ${date} | ${win?'WIN':'LOSS'} | Duration: ${dur} | Competition: ${compLevel}`,`Champion: ${p.championName||'Unknown'} (Level ${p.champLevel||'?'})`,`KDA: ${p.kills}/${p.deaths}/${p.assists} | Ratio: ${((p.kills+p.assists)/Math.max(1,p.deaths)).toFixed(2)}`,`Damage: ${dmgDealt.toLocaleString()} (Phys:${physDmg.toLocaleString()} Mag:${magicDmg.toLocaleString()})`,`Dmg Taken: ${dmgTaken.toLocaleString()} | D:T = ${ratio}:1`,`Healing: ${(p.totalHeal||0).toLocaleString()} | CC: ${p.timeCCingOthers||0}s`,`Multikills: ${p.doubleKills||0}x2 ${p.tripleKills||0}x3 ${p.pentaKills||0}x5`,`Items: ${itemNames.join(' → ')||'none'}`].join('\n');
   try{
-    const text=await callClaude(`You are an elite ARAM performance coach. Analyze this game with precision — identify every item, factor competition, give training-grade feedback.
-
-MATCH DATA:
-${matchSummary}
-
-## ⚡ VERDICT
-Grade [S+→F]. Factor in competition.
-
-## 🔬 FULL ITEM AUDIT
-Every item: CORRECT/WRONG/SUBOPTIMAL. Corrections with % improvement. Full BiS ARAM build.
-
-## 📊 VS CHALLENGER BENCHMARK
-Damage vs expected for champion. Deaths vs standard (under 5). KDA vs 3.0 minimum. D:T ratio vs target.
-
-## 💀 DEATH BREAKDOWN
-Classify likely causes. Positioning rule for this champion on Howling Abyss.
-
-## 🧠 CHAMPION-SPECIFIC COACHING
-Top habit Challenger players have. Wave positioning. Ability priority. Power spike timing.
-
-## 🔑 SINGLE BIGGEST MISTAKE
-Precise and surgical.
-
-## 🏋️ 3 TRAINING HABITS
-Immediately applicable, ranked by impact.`,2500);
-    document.getElementById('modalCoaching').innerHTML=renderCoaching(text);
+    const text=await callClaude(`Elite ARAM coach analyzing ${currentPlayerName}'s game.\nMATCH DATA:\n${matchSummary}\n## ⚡ VERDICT\nGrade [S+→F]. Competition context.\n## 🔬 ITEM AUDIT\nEvery item: CORRECT/WRONG/SUBOPTIMAL. Exact BiS ARAM build. Corrections with % improvement.\n## 📊 VS CHALLENGER\nDamage vs expected. Deaths vs <5 standard. KDA vs 3.0+ standard. D:T ratio vs target.\n## 💀 DEATHS\nClassify causes. Positioning rule for this champion.\n## 🧠 CHAMPION COACHING\nTop Challenger habit for this champion. Wave positioning. Ability priority.\n## 🔑 BIGGEST MISTAKE\nPrecise and surgical.\n## 🏋️ 3 TRAINING HABITS\nRanked by impact. Immediately applicable.`,2500);
+    document.getElementById('modalCoaching').innerHTML=renderCoachingTabbed(text,'modal');
   }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:var(--red2)">Analysis failed: ${e.message}</span>`;}
-}
-function renderCoaching(t){
-  return t.replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^[-•*] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,s=>'<ul>'+s+'</ul>').replace(/^> (.+)$/gm,'<blockquote style="border-left:2px solid var(--golddim);padding-left:12px;color:var(--dim2);font-family:monospace;font-size:.78rem;margin:8px 0">$1</blockquote>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
 }
 async function updateRiotKey(){
   const key=document.getElementById('adminRiotKey').value.trim();const pass=document.getElementById('adminPass').value.trim();const msg=document.getElementById('adminMsg');
@@ -991,75 +916,44 @@ async function refreshSquad(){
       let ranked=null;
       try{const lr=await riotGetWithPersonalKey(`https://${p.region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${sr.id}`);ranked=(lr||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
       let recentPl=[];
-      try{
-        const idr=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${ar.puuid}/ids?count=8`);
-        for(const id of idr.slice(0,5)){try{const mr=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${id}`);const pp=mr.info.participants.find(pp=>pp.puuid===ar.puuid);if(pp)recentPl.push(pp.placement);}catch(e){}}
-      }catch(e){}
+      try{const idr=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${ar.puuid}/ids?count=8`);for(const id of idr.slice(0,5)){try{const mr=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${id}`);const pp=mr.info.participants.find(pp=>pp.puuid===ar.puuid);if(pp)recentPl.push(pp.placement);}catch(e){}}}catch(e){}
       return{name,tag,ranked,recentPl};
     }catch(e){console.warn('Squad fetch failed',i,p.id,e.message);return null;}
   }));
   squadData=results;localStorage.setItem('squad_data_fixed',JSON.stringify(squadData));renderPodium();renderMiniPodium();
-  if(results.every(r=>r===null)){const pa2=document.getElementById('podiumArea');if(pa2)pa2.innerHTML=`<div style="background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.2);padding:14px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--red2)">⚠ Could not load ranks — paste a fresh Riot key in Admin below. Get one free at <a href="https://developer.riotgames.com" target="_blank" style="color:var(--gold)">developer.riotgames.com</a></div>`;}
+  if(results.every(r=>r===null)){const pa2=document.getElementById('podiumArea');if(pa2)pa2.innerHTML=`<div style="background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.2);padding:14px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--red2)">⚠ Could not load ranks — paste a fresh Riot key in Admin. Get one at <a href="https://developer.riotgames.com" target="_blank" style="color:var(--gold)">developer.riotgames.com</a></div>`;}
 }
 function getTrend(idx){const d=squadData[idx];if(!d||!d.ranked)return'flat';const cur=getTotalLP(d.ranked),prev=squadSnapshotLP[idx];if(prev===null||prev===undefined)return'flat';if(cur-prev>10)return'up';if(prev-cur>10)return'down';return'flat';}
 function renderMiniPodium(){
   const el=document.getElementById('miniPodium');if(!el)return;
   const playerNames=FIXED_SQUAD.map(p=>p.id.split('#')[0]);
-  const indices=[0,1,2];
-  const sorted=[...indices].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
-  const podOrder=[sorted[1],sorted[0],sorted[2]];
-  const crowns=['🥈','🥇','🥉'];
+  const sorted=[0,1,2].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
+  const podOrder=[sorted[1],sorted[0],sorted[2]];const crowns=['🥈','🥇','🥉'];
   let html=`<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--golddim);padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
     <span style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--golddim);letter-spacing:.15em;text-transform:uppercase">// M.A.D Squad</span>
     <div style="display:flex;gap:18px;flex-wrap:wrap">`;
   podOrder.forEach((dataIdx,podPos)=>{
-    const d=squadData[dataIdx]||null;
-    const name=d?.name||playerNames[dataIdx]||'—';
-    const trend=d?getTrend(dataIdx):'flat';
-    const tIcon=trend==='up'?'▲':trend==='down'?'▼':'—';
+    const d=squadData[dataIdx]||null;const name=d?.name||playerNames[dataIdx]||'—';
+    const trend=d?getTrend(dataIdx):'flat';const tIcon=trend==='up'?'▲':trend==='down'?'▼':'—';
     const tColor=trend==='up'?'var(--grn2)':trend==='down'?'var(--red2)':'var(--golddim)';
-    let rankStr=`<span style="color:var(--dim2)">Unranked</span>`;
-    let lpStr='';
+    let rankStr=`<span style="color:var(--dim2)">Unranked</span>`;let lpStr='';
     if(d?.ranked){const r=d.ranked;const isApex=['MASTER','GRANDMASTER','CHALLENGER'].includes(r.tier);rankStr=`<span style="color:var(--gold)">${isApex?r.tier:r.tier+' '+r.rank}</span>`;lpStr=`<div style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim)">${r.leaguePoints} LP</div>`;}
-    html+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1px">
-      <div style="font-size:.8rem">${crowns[podPos]}</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.88rem;color:var(--gold3)">${name}</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem">${rankStr}</div>
-      ${lpStr}
-      <div style="font-size:.72rem;color:${tColor}">${tIcon}</div>
-    </div>`;
+    html+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1px"><div style="font-size:.8rem">${crowns[podPos]}</div><div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.88rem;color:var(--gold3)">${name}</div><div style="font-family:'Share Tech Mono',monospace;font-size:.6rem">${rankStr}</div>${lpStr}<div style="font-size:.72rem;color:${tColor}">${tIcon}</div></div>`;
   });
   html+=`</div><div style="display:flex;gap:6px"><button class="btn-sm" onclick="refreshSquad()">↺</button><button class="btn-sm" onclick="setMode('squad')">Squad →</button></div></div>`;
   el.innerHTML=html;
 }
 function renderPodium(){
-  const indices=[0,1,2];
-  const sorted=[...indices].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
-  const podOrder=[sorted[1],sorted[0],sorted[2]];
-  const podClasses=['pod-2','pod-1','pod-3'];
-  const podPlaces=['2','1','3'];
-  const crowns=['🥈','🥇','🥉'];
+  const sorted=[0,1,2].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
+  const podOrder=[sorted[1],sorted[0],sorted[2]];const podClasses=['pod-2','pod-1','pod-3'];const podPlaces=['2','1','3'];const crowns=['🥈','🥇','🥉'];
   let html='<div class="podium-stage">';
   podOrder.forEach((dataIdx,podPos)=>{
     if(dataIdx===undefined){html+=`<div class="pod-col ${podClasses[podPos]}"><div class="pod-card"><div class="pod-name" style="color:var(--dim2)">—</div></div><div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div></div>`;return;}
-    const d=squadData[dataIdx];
-    const trend=getTrend(dataIdx);const trendIcon=trend==='up'?'▲':trend==='down'?'▼':'—';const trendClass=trend==='up'?'up':trend==='down'?'down':'flat';
-    const name=d?.name||'Unknown';
-    let rankStr='Unranked',lpStr='',icon='❓';
+    const d=squadData[dataIdx];const trend=getTrend(dataIdx);const trendIcon=trend==='up'?'▲':trend==='down'?'▼':'—';const trendClass=trend==='up'?'up':trend==='down'?'down':'flat';
+    const name=d?.name||'Unknown';let rankStr='Unranked',lpStr='',icon='❓';
     if(d?.ranked){const r=d.ranked;icon=TIER_ICONS[r.tier]||'❓';const isApex=['MASTER','GRANDMASTER','CHALLENGER'].includes(r.tier);rankStr=isApex?r.tier:`${r.tier} ${r.rank}`;lpStr=`${r.leaguePoints} LP · ${r.wins}W ${r.losses}L`;}
     const dots=(d?.recentPl||[]).map(p=>`<div class="pd ${p<=4?'t':'b'}" title="Place ${p}"></div>`).join('');
-    html+=`<div class="pod-col ${podClasses[podPos]}">
-      <div class="pod-card">
-        <div style="font-size:1.4rem;margin-bottom:5px">${crowns[podPos]}</div>
-        <div class="pod-name">${name}</div>
-        <div class="pod-trend ${trendClass}">${trendIcon}</div>
-        <div style="font-size:1.5rem;margin-bottom:3px">${icon}</div>
-        <div class="pod-rank">${rankStr}</div>
-        <div class="pod-lp">${lpStr}</div>
-        ${dots?`<div class="pod-dots">${dots}</div>`:''}
-      </div>
-      <div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div>
-    </div>`;
+    html+=`<div class="pod-col ${podClasses[podPos]}"><div class="pod-card"><div style="font-size:1.4rem;margin-bottom:5px">${crowns[podPos]}</div><div class="pod-name">${name}</div><div class="pod-trend ${trendClass}">${trendIcon}</div><div style="font-size:1.5rem;margin-bottom:3px">${icon}</div><div class="pod-rank">${rankStr}</div><div class="pod-lp">${lpStr}</div>${dots?`<div class="pod-dots">${dots}</div>`:''}</div><div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div></div>`;
   });
   html+='</div>';
   html+=`<div style="margin-top:16px"><div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">Recent Form (last 5 games)</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">`;
@@ -1067,110 +961,74 @@ function renderPodium(){
     const d=squadData[idx];const name=d?.name||FIXED_SQUAD[idx]?.id.split('#')[0]||'—';
     const pl=d?.recentPl||[];const top4=pl.filter(p=>p<=4).length;const avg=pl.length?(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(1):'—';
     const dots=pl.map(p=>`<div class="pd ${p<=4?'t':'b'}" title="Place ${p}"></div>`).join('');
-    html+=`<div style="background:var(--bg2);border:1px solid var(--border);padding:11px;text-align:center">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.88rem;color:var(--gold3);margin-bottom:6px">${name}</div>
-      <div class="pod-dots" style="justify-content:center;margin-bottom:5px">${dots||'<span style="font-size:.6rem;color:var(--dim)">No games</span>'}</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2)">Avg <span style="color:var(--text)">${avg}</span> · Top4 <span style="color:var(--grn2)">${pl.length?top4+'/'+pl.length:'—'}</span></div>
-    </div>`;
+    html+=`<div style="background:var(--bg2);border:1px solid var(--border);padding:11px;text-align:center"><div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.88rem;color:var(--gold3);margin-bottom:6px">${name}</div><div class="pod-dots" style="justify-content:center;margin-bottom:5px">${dots||'<span style="font-size:.6rem;color:var(--dim)">No games</span>'}</div><div style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--dim2)">Avg <span style="color:var(--text)">${avg}</span> · Top4 <span style="color:var(--grn2)">${pl.length?top4+'/'+pl.length:'—'}</span></div></div>`;
   });
   html+='</div></div>';
-  const podArea=document.getElementById('podiumArea');if(podArea)podArea.innerHTML=html;
-  renderMiniPodium();
-}
-const META_COMPS=[
+  const podArea=document.getElementById('podiumArea');if(podArea)podArea.innerHTML=html;renderMiniPodium();
+}const META_COMPS=[
   {name:"Corki Riven",tier:"S",style:"Fast 8/9",warn:false,condition:"Items for Corki, Riven, Rammus by stage 4",gods:"Ahri, Kayle",
    board:[{n:"Rammus",id:"TFT17_Rammus",r:"tank",s:2,items:[],c:0,row:0},{n:"Meepsie",id:"TFT17_Meepsie",r:"support",s:2,items:[],c:1,row:0},{n:"Poppy",id:"TFT17_Poppy",r:"tank",s:2,items:[],c:2,row:0},{n:"Veigar",id:"TFT17_Veigar",r:"support",s:2,items:[],c:3,row:0},{n:"Milio",id:"TFT17_Milio",r:"support",s:2,items:[],c:4,row:0},{n:"Corki",id:"TFT17_Corki",r:"carry",s:2,items:["Last Whisper","Striker's","Blue Buff"],c:5,row:1},{n:"Riven",id:"TFT17_Riven",r:"carry",s:2,items:["Bloodthirster","Titan's","Sterak's"],c:6,row:1}],
-   items:[{u:"Corki",tags:["Last Whisper","Striker's","Blue Buff"],key:true},{u:"Riven",tags:["Bloodthirster","Titan's","Sterak's"],key:true},{u:"Rammus",tags:["Generic tank items"],key:false}],
+   items:[{u:"Corki",tags:["Last Whisper","Striker's","Blue Buff"],key:true},{u:"Riven",tags:["Bloodthirster","Titan's","Sterak's"],key:true},{u:"Rammus",tags:["Generic tank"],key:false}],
    augments:{bis:"Meeple Emblem",order:"Item > Econ > Combat",picks:"Trait Tree · Pandora's Bench · Living Forge"},
-   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5-2",l:"9"}],
-   tips:["💰 Win streak preferred. 50g interest before leveling. Don't roll before level 8 unless stabilizing.","⚔️ Level 8 on 4-2 — roll for Corki 2, Riven 2, Rammus 2.","🎯 Corki crits as Fateweaver — prioritize crit items. Last Whisper Sunder hits both AD carries.","🔝 Level 9 for Bard. Meeple Riven is max cap."]},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-2",l:"6↑"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5-2",l:"9"}],
+   tips:["💰 Win streak preferred. 50g before leveling. Don't roll before level 8.","⚔️ Level 8 on 4-2 — roll for Corki2+Riven2+Rammus2.","🎯 Corki crits as Fateweaver — Last Whisper Sunder hits both AD carries.","🔝 Level 9 for Bard. Meeple Riven emblem = max cap."]},
   {name:"6 Dark Stars",tier:"S",style:"Fast 8/9",warn:true,condition:"Dark Star Emblem REQUIRED — B tier without it",gods:"Kayle, Ahri",
    board:[{n:"Nunu",id:"TFT17_Nunu",r:"tank",s:2,items:[],c:0,row:0},{n:"Talon",id:"TFT17_Talon",r:"tank",s:2,items:[],c:1,row:0},{n:"Gwen",id:"TFT17_Gwen",r:"tank",s:2,items:[],c:2,row:0},{n:"Briar",id:"TFT17_Briar",r:"tank",s:2,items:[],c:3,row:0},{n:"Xayah",id:"TFT17_Xayah",r:"carry",s:2,items:["Guinsoo's","Red Buff"],c:4,row:1},{n:"Riven",id:"TFT17_Riven",r:"carry",s:2,items:["Sterak's","Hand of Justice"],c:5,row:1},{n:"Jhin",id:"TFT17_Jhin",r:"carry",s:1,items:["Infinity Edge","Last Whisper","Striker's"],c:6,row:1}],
    items:[{u:"Riven (Emblem)",tags:["Sterak's","Hand of Justice"],key:true},{u:"Xayah (Emblem)",tags:["Guinsoo's","Red Buff"],key:true},{u:"Jhin",tags:["Infinity Edge","Last Whisper","Striker's"],key:true}],
-   augments:{bis:"Dark Star Emblems",order:"Trait > Items > Econ > Combat",picks:"Aura Farming Jhin · Trait Tree · Living Forge"},
-   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5-2",l:"9"}],
-   tips:["🌟 Dark Star gives high AD/AP — build multipliers not raw stats.","💰 4 Dark Star ASAP. Level 8 on 4-2.","⚔️ Riven wants survivability (Sterak's + HoJ). Xayah wants attack speed.","🔝 Jhin is highest cap — level 9 ASAP."]},
+   augments:{bis:"Dark Star Emblems",order:"Trait > Items > Econ",picks:"Aura Farming Jhin · Trait Tree · Living Forge"},
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-2",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5-2",l:"9"}],
+   tips:["🌟 Dark Star: build multipliers not raw stats. Avoid scaling items.","💰 Level 8 on 4-2. Find Xayah2+Riven2 first.","⚔️ Riven = survivability (Sterak+HoJ). Xayah = attack speed (Guinsoo+Red Buff).","🔝 Jhin cap at level 9 = highest ceiling in this comp."]},
   {name:"Vex Fast 9",tier:"S",style:"Fast 9 — Exodia",warn:true,condition:"Win streak mandatory. Level 9 by 4-5 required.",gods:"Ahri, Kayle",
    board:[{n:"Nunu",id:"TFT17_Nunu",r:"tank",s:2,items:[],c:0,row:0},{n:"Fiora",id:"TFT17_Fiora",r:"tank",s:2,items:["Sterak's","Titan's","Bloodthirster"],c:1,row:0},{n:"Gwen",id:"TFT17_Gwen",r:"tank",s:2,items:[],c:2,row:0},{n:"Talon",id:"TFT17_Talon",r:"support",s:1,items:[],c:3,row:0},{n:"Akali",id:"TFT17_Akali",r:"support",s:2,items:[],c:4,row:0},{n:"Graves",id:"TFT17_Graves",r:"carry",s:2,items:["Edge of Night","Giant Slayer","Striker's"],c:5,row:1},{n:"Vex",id:"TFT17_Vex",r:"carry",s:2,items:["Guinsoo's","Giant Slayer","Gunblade"],c:6,row:1}],
    items:[{u:"Vex",tags:["Guinsoo's","Giant Slayer","Gunblade"],key:true},{u:"Graves",tags:["Edge of Night","Giant Slayer","Striker's"],key:true},{u:"Fiora",tags:["Sterak's","Titan's","Bloodthirster"],key:false}],
    augments:{bis:"Bronze For Life",order:"Econ > Item > Combat > Trait",picks:"Banking on Gold · Loaded Dice · Scuttle Puddle"},
-   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-5",l:"9"},{r:"5+",l:"—"}],
-   tips:["💰 Win streak to 9. Not winning by stage 3 = pivot to LeBlanc.","⚠️ No Shred/Sunder on Graves — NOVA buff provides it. No Spell Crit — Akali provides it.","🛡️ Prioritize CC immunity on Graves.","🔝 Graves playable at 5-2 latest. Add frontline for Vex after."]},
-  {name:"Brawler Yi",tier:"A",style:"Fast 8/9",warn:false,condition:"Edge of Night required on Yi. Best from tempo win streak.",gods:"Kayle, Ahri",
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-2",l:"6"},{r:"3-5",l:"7"},{r:"4-5",l:"9"},{r:"5+",l:"—"}],
+   tips:["💰 Win streak to 9. Not winning by stage 3 = pivot to LeBlanc immediately.","⚠️ NO Shred/Sunder on Graves (NOVA provides). NO Spell Crit (Akali provides).","🎯 Graves build path: Assault Frame → Melt Through → Grav Booster → all Buckshot++.","🔝 Only roll at level 9 (40g). Never roll before."]},
+  {name:"Brawler Yi",tier:"A",style:"Fast 8",warn:false,condition:"Edge of Night required. Best from tempo win streak.",gods:"Kayle, Ahri",
    board:[{n:"TahmKench",id:"TFT17_TahmKench",r:"tank",s:2,items:["Biomatter Preserver"],c:0,row:0},{n:"Leona",id:"TFT17_Leona",r:"tank",s:2,items:[],c:1,row:0},{n:"Malphite",id:"TFT17_Malphite",r:"tank",s:2,items:[],c:2,row:0},{n:"Jarvan",id:"TFT17_JarvanIV",r:"tank",s:2,items:[],c:3,row:0},{n:"Kindred",id:"TFT17_Kindred",r:"carry",s:2,items:["Kraken Slayer","Guinsoo's","Giant Slayer"],c:4,row:1},{n:"Yi",id:"TFT17_MasterYi",r:"carry",s:2,items:["Edge of Night","Malware Matrix","Giant Slayer"],c:5,row:1},{n:"Fiora",id:"TFT17_Fiora",r:"carry",s:1,items:[],c:6,row:1}],
    items:[{u:"Master Yi",tags:["Edge of Night","Malware Matrix","Giant Slayer"],key:true},{u:"Kindred",tags:["Kraken Slayer","Guinsoo's","Giant Slayer"],key:false},{u:"Tahm Kench",tags:["Biomatter Preserver"],key:false}],
    augments:{bis:"Marauder Emblem on Yi",order:"Item > Econ > Combat > Trait",picks:"Marauder Emblem · Brawler Emblem · Psionic Emblem"},
-   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-1",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5+",l:"9"}],
-   tips:["⚔️ Edge of Night is mandatory — aggro drop keeps Yi alive to delete backlines.","🎯 Malware Matrix is best Psionic item — shreds frontlines.","💫 Position Yi near aura units for survivability.","🏷️ Emblem priority: Marauder > Brawler > Psionic = Challenger > NOVA."]},
-  {name:"Vanguard LeBlanc",tier:"A",style:"Any Streak — Flexible",warn:false,condition:"Guinsoo's on LeBlanc required. Offensive Arbiter ideal.",gods:"Kayle, Ahri",
-   board:[{n:"Nunu",id:"TFT17_Nunu",r:"tank",s:2,items:[],c:0,row:0},{n:"Malphite",id:"TFT17_Malphite",r:"tank",s:2,items:[],c:1,row:0},{n:"Leona",id:"TFT17_Leona",r:"tank",s:2,items:[],c:2,row:0},{n:"Jarvan",id:"TFT17_JarvanIV",r:"tank",s:2,items:[],c:3,row:0},{n:"Karma",id:"TFT17_Karma",r:"carry",s:2,items:["Jeweled Gauntlet","Nashor's","Void Staff"],c:4,row:1},{n:"LeBlanc",id:"TFT17_LeBlanc",r:"carry",s:2,items:["Guinsoo's","Archangel's","Gunblade"],c:5,row:1},{n:"Nami",id:"TFT17_Nami",r:"support",s:2,items:["Deathcap","Shojin"],c:6,row:1}],
+   leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-2",l:"6"},{r:"4-1",l:"7"},{r:"4-2",l:"8"},{r:"5+",l:"9"}],
+   tips:["⚔️ Edge of Night mandatory — aggro drop keeps Yi alive.","🎯 Malware Matrix = best Psionic item for frontline shred.","💫 Emblem priority: Marauder > Brawler > Psionic > Challenger > NOVA.","🚫 Never play if another player already has Yi2."]},
+  {name:"Vanguard LeBlanc",tier:"A",style:"Any Streak — Flex",warn:false,condition:"Guinsoo's on LeBlanc required.",gods:"Kayle, Ahri",
+   board:[{n:"Nunu",id:"TFT17_Nunu",r:"tank",s:2,items:[],c:0,row:0},{n:"Malphite",id:"TFT17_Malphite",r:"tank",s:2,items:[],c:1,row:0},{n:"Leona",id:"TFT17_Leona",r:"tank",s:2,items:[],c:2,row:0},{n:"Jarvan",id:"TFT17_JarvanIV",r:"tank",s:2,items:[],c:3,row:0},{n:"Karma",id:"TFT17_Karma",r:"carry",s:2,items:["Jeweled Gauntlet","Nashor's","Void Staff"],c:4,row:1},{n:"LeBlanc",id:"TFT17_LeBlanc",r:"carry",s:2,items:["Guinsoo's","Archangel's","Gunblade"],c:5,row:1},{n:"Nami",id:"TFT17_Nami",r:"support",s:2,items:[],c:6,row:1}],
    items:[{u:"LeBlanc",tags:["Guinsoo's","Archangel's","Gunblade"],key:true},{u:"Karma",tags:["Jeweled Gauntlet","Nashor's","Void Staff"],key:true},{u:"Nunu",tags:["Protector's Vow"],key:false}],
    augments:{bis:"Hold the Line",order:"Items > Econ > Combat",picks:"Vanguard Emblem · Shepherd Emblem · Voyager Emblem"},
    leveling:[{r:"2-1",l:"4"},{r:"2-5",l:"5"},{r:"3-2",l:"6"},{r:"3-5",l:"7"},{r:"4-2",l:"8"},{r:"5+",l:"9"}],
-   tips:["💰 Most flexible comp — win or loss streak works with Guinsoo's LeBlanc.","🎯 LeBlanc items first always.","🔮 Arbiter choice is the skill test — if Archangel's built, AS Arbiters > AP Arbiters.","🔝 Cap: Level 9 for Bard + Sona + Blitzcrank."]}
+   tips:["💰 Most flexible — works from any streak with Guinsoo's LeBlanc.","🎯 LeBlanc items always first. Karma/Nami cannot finish targets alone.","🔮 Arbiter rule: Archangel's on LeBlanc = AS Arbiters. Gunblade only = AP ok.","🔝 Cap: Lv9 for Bard+Sona+Blitzcrank."]}
 ];
 function renderMetaTab(){
   const s=META_COMPS.filter(c=>c.tier==='S');const a=META_COMPS.filter(c=>c.tier==='A');
   let html='';
-  if(s.length)html+=`<div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border)">S Tier — ${s.length} comps · BunnyMuffins verified</div>${s.map(renderMetaComp).join('')}`;
+  if(s.length)html+=`<div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border)">S Tier — ${s.length} comps · BunnyMuffins verified Patch 14.11</div>${s.map(renderMetaComp).join('')}`;
   if(a.length)html+=`<div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--pur2);letter-spacing:.15em;text-transform:uppercase;margin:14px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--border)">A Tier — ${a.length} comps</div>${a.map(renderMetaComp).join('')}`;
   const el=document.getElementById('metaTabContent');if(el)el.innerHTML=html;
 }
 function renderMetaComp(comp){
   const t=comp.tier.toLowerCase();const id='mc_'+comp.name.replace(/\s+/g,'_');
-  const grid=Array(2).fill(null).map(()=>Array(7).fill(null));
-  comp.board.forEach(u=>{grid[u.row][u.c]=u;});
+  const grid=Array(2).fill(null).map(()=>Array(7).fill(null));comp.board.forEach(u=>{grid[u.row][u.c]=u;});
   const RC={carry:'var(--gold)',tank:'var(--accent2)',support:'var(--pur2)'};
   let boardHtml=`<div style="background:var(--bg);padding:10px 6px;border:1px solid var(--border);overflow-x:auto"><div style="display:flex;flex-direction:column;gap:4px;min-width:480px">`;
   for(let r=0;r<2;r++){
-    const offset=r===0?'margin-left:38px':'margin-left:0';
-    boardHtml+=`<div style="display:flex;gap:4px;${offset}">`;
+    const offset=r===0?'margin-left:38px':'margin-left:0';boardHtml+=`<div style="display:flex;gap:4px;${offset}">`;
     for(let c=0;c<7;c++){
       const u=grid[r][c];
       if(u){
         const rc=RC[u.r]||'#888';const stars='★'.repeat(Math.min(u.s,3));
-        const itemImgs=(u.items||[]).map(itemName=>{const fileId=ITEM_IDS[itemName];if(!fileId)return `<div style="width:14px;height:14px;background:var(--bg3)" title="${itemName}"></div>`;return `<img src="${DD_ITEM(fileId)}" title="${itemName}" style="width:14px;height:14px;border:1px solid var(--border)" onerror="this.style.display='none'"/>`;}).join('');
-        boardHtml+=`<div style="width:62px;display:flex;flex-direction:column;align-items:center;gap:1px">
-          <div style="font-size:8px;color:#ffd700;height:9px">${stars}</div>
-          <div style="width:58px;height:58px;border:2px solid ${rc};overflow:hidden;background:var(--bg3);position:relative;box-shadow:0 0 8px ${rc}33">
-            <img src="${DD_CHAMP(u.id)}" alt="${u.n}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/>
-            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:7px;color:var(--dim2);font-family:monospace;text-align:center;position:absolute;top:0;left:0">${u.n.slice(0,4)}</div>
-          </div>
-          <div style="font-size:7px;font-family:monospace;color:var(--text);text-align:center;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${u.n}</div>
-          ${u.items&&u.items.length?`<div style="display:flex;gap:1px;justify-content:center">${itemImgs}</div>`:''}
-        </div>`;
-      }else{
-        boardHtml+=`<div style="width:62px;height:62px;display:flex;align-items:center;justify-content:center"><div style="width:54px;height:54px;border:1px solid var(--border);background:var(--bg2);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);opacity:.3"></div></div>`;
-      }
+        const itemImgs=(u.items||[]).map(itemName=>{const fileId=ITEM_IDS[itemName];if(!fileId)return`<div style="width:14px;height:14px;background:var(--bg3)" title="${itemName}"></div>`;return`<img src="${DD_ITEM(fileId)}" title="${itemName}" style="width:14px;height:14px;border:1px solid var(--border)" onerror="this.style.display='none'"/>`;}).join('');
+        boardHtml+=`<div style="width:62px;display:flex;flex-direction:column;align-items:center;gap:1px"><div style="font-size:8px;color:#ffd700;height:9px">${stars}</div><div style="width:58px;height:58px;border:2px solid ${rc};overflow:hidden;background:var(--bg3);position:relative;box-shadow:0 0 8px ${rc}33"><img src="${DD_CHAMP(u.id)}" alt="${u.n}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/><div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:7px;color:var(--dim2);font-family:monospace;text-align:center;position:absolute;top:0;left:0">${u.n.slice(0,4)}</div></div><div style="font-size:7px;font-family:monospace;color:var(--text);text-align:center;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${u.n}</div>${u.items&&u.items.length?`<div style="display:flex;gap:1px;justify-content:center">${itemImgs}</div>`:''}</div>`;
+      }else{boardHtml+=`<div style="width:62px;height:62px;display:flex;align-items:center;justify-content:center"><div style="width:54px;height:54px;border:1px solid var(--border);background:var(--bg2);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);opacity:.3"></div></div>`;}
     }
     boardHtml+='</div>';
   }
-  boardHtml+=`</div><div style="display:flex;gap:10px;margin-top:6px">${[['carry','var(--gold)'],['tank','var(--accent2)'],['support','var(--pur2)']].map(([r,c])=>`<span style="font-family:monospace;font-size:8px;color:var(--dim2);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:${c};display:inline-block"></span>${r}</span>`).join('')}</div></div>`;
-  const itemsHtml=comp.items.map(i=>`<div class="itm-row"><span class="itm-unit">${i.u}</span><div class="itm-tags">${i.tags.map(t=>`<span class="itag ${i.key?'key':''}">${t}</span>`).join('')}</div></div>`).join('');
+  boardHtml+=`</div><div style="display:flex;gap:10px;margin-top:6px">${[['carry','var(--gold)'],['tank','var(--accent2)'],['support','var(--pur2)']].map(([r2,c2])=>`<span style="font-family:monospace;font-size:8px;color:var(--dim2);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:${c2};display:inline-block"></span>${r2}</span>`).join('')}</div></div>`;
+  const itemsHtml=comp.items.map(i=>`<div class="itm-row"><span class="itm-unit">${i.u}</span><div class="itm-tags">${i.tags.map(t2=>`<span class="itag ${i.key?'key':''}">${t2}</span>`).join('')}</div></div>`).join('');
   const lvlHtml=`<div style="overflow-x:auto"><table class="lv-table"><tr>${comp.leveling.map(l=>`<th>${l.r}</th>`).join('')}</tr><tr>${comp.leveling.map(l=>`<td>Lv ${l.l}</td>`).join('')}</tr></table></div>`;
-  const tipsHtml=comp.tips.map(t=>`<div class="tip-item"><span class="tip-icon">${t.slice(0,2)}</span><span style="font-size:.77rem;color:var(--text);line-height:1.5">${t.slice(2).trim()}</span></div>`).join('');
-  return `<div class="mc-card ${t}-tier">
-    <div class="mc-head" onclick="toggleMC('${id}')">
-      <span class="mc-name">${comp.name}</span>
-      <div class="mc-badges"><span class="mc-style">${comp.style}</span><span class="mc-tier ${t}">${comp.tier}</span><span style="color:var(--dim2);font-size:11px" id="chev_${id}">▼</span></div>
-    </div>
-    <div class="mc-body" id="${id}">
-      <div class="${comp.warn?'cond-notice warn':'cond-notice ok'}">${comp.warn?'⚠':'✓'} ${comp.condition}</div>
-      <div class="mc-section"><div class="mc-slbl">Board Positioning</div>${boardHtml}</div>
-      <div class="mc-section"><div class="mc-slbl">Items</div>${itemsHtml}</div>
-      <div class="mc-section"><div class="mc-slbl">Augments</div>
-        <div class="aug-row"><span class="aug-lbl">BiS:</span><span class="aug-val bis">${comp.augments.bis}</span></div>
-        <div class="aug-row"><span class="aug-lbl">Priority:</span><span class="aug-val">${comp.augments.order}</span></div>
-        <div class="aug-row"><span class="aug-lbl">Good picks:</span><span class="aug-val">${comp.augments.picks}</span></div>
-      </div>
-      <div class="mc-section"><div class="mc-slbl">Leveling Timeline</div>${lvlHtml}</div>
-      <div class="mc-section"><div class="mc-slbl">Gameplan &amp; Tips</div>${tipsHtml}</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.57rem;color:var(--dim);margin-top:8px">Gods: ${comp.gods}</div>
-    </div>
-  </div>`;
+  const tipsHtml=comp.tips.map(tip=>`<div class="tip-item"><span class="tip-icon">${tip.slice(0,2)}</span><span style="font-size:.77rem;color:var(--text);line-height:1.5">${tip.slice(2).trim()}</span></div>`).join('');
+  return`<div class="mc-card ${t}-tier"><div class="mc-head" onclick="toggleMC('${id}')"><span class="mc-name">${comp.name}</span><div class="mc-badges"><span class="mc-style">${comp.style}</span><span class="mc-tier ${t}">${comp.tier}</span><span style="color:var(--dim2);font-size:11px" id="chev_${id}">▼</span></div></div><div class="mc-body" id="${id}"><div class="${comp.warn?'cond-notice warn':'cond-notice ok'}">${comp.warn?'⚠':'✓'} ${comp.condition}</div><div class="mc-section"><div class="mc-slbl">Board Positioning</div>${boardHtml}</div><div class="mc-section"><div class="mc-slbl">Items</div>${itemsHtml}</div><div class="mc-section"><div class="mc-slbl">Augments</div><div class="aug-row"><span class="aug-lbl">BiS:</span><span class="aug-val bis">${comp.augments.bis}</span></div><div class="aug-row"><span class="aug-lbl">Priority:</span><span class="aug-val">${comp.augments.order}</span></div><div class="aug-row"><span class="aug-lbl">Good picks:</span><span class="aug-val">${comp.augments.picks}</span></div></div><div class="mc-section"><div class="mc-slbl">Leveling</div>${lvlHtml}</div><div class="mc-section"><div class="mc-slbl">Gameplan &amp; Tips</div>${tipsHtml}</div><div style="font-family:'Share Tech Mono',monospace;font-size:.57rem;color:var(--dim);margin-top:8px">Gods: ${comp.gods}</div></div></div>`;
 }
 function toggleMC(id){const b=document.getElementById(id);const c=document.getElementById('chev_'+id);const open=b.classList.toggle('open');c.textContent=open?'▲':'▼';}
-function updateMetaTab(){const el=document.getElementById('metaTabContent');const banner=document.createElement('div');banner.style.cssText='font-family:monospace;font-size:.7rem;color:var(--grn2);padding:8px 12px;border:1px solid var(--grn);margin-bottom:12px;background:rgba(53,168,117,.05)';banner.textContent='✓ BunnyMuffins verified data · Set 17 Patch 17.3 · Updated May 13 2026';el.prepend(banner);setTimeout(()=>banner.remove(),4000);}
+function updateMetaTab(){const el=document.getElementById('metaTabContent');const banner=document.createElement('div');banner.style.cssText='font-family:monospace;font-size:.7rem;color:var(--grn2);padding:8px 12px;border:1px solid var(--grn);margin-bottom:12px;background:rgba(53,168,117,.05)';banner.textContent='✓ BunnyMuffins verified · Set 17 Patch 14.11 · Professional data';el.prepend(banner);setTimeout(()=>banner.remove(),4000);}
 let askHistory=[];
 function askQuick(question){const inp=document.getElementById('askInput');if(inp)inp.value=question;sendAsk();}
 async function sendAsk(){
@@ -1182,38 +1040,30 @@ async function sendAsk(){
   const typing=document.createElement('div');typing.id=typingId;typing.className='ask-bubble ai';typing.innerHTML='<span class="ask-typing">⟳ Thinking…</span>';
   chat.appendChild(typing);chat.scrollTop=chat.scrollHeight;
   askHistory.push({role:'user',content:question});const recentHistory=askHistory.slice(-10);
-  const systemPrompt=`You are M.A.D Forge Coach — elite TFT and ARAM coach for Bahagabag, Tooljets, and Discipleoftj pushing toward Challenger. You have VERIFIED BunnyMuffins data from Patch 17.3 (updated May 13 2026).
+  const systemPrompt=`You are M.A.D Forge Coach — a professional TFT coaching system with verified Set 17 Patch 14.11 data.
 
-=== SET 17 PATCH 17.3 META ===
-S tier: Corki Riven, 6 Dark Stars (emblem req), Vex Fast 9
+VERIFIED META (BunnyMuffins May 2026):
+S tier: Corki Riven (Meeple), 6 Dark Stars (emblem required), Vex Fast 9
 A tier: Asol AP Flex, Brawler Yi, Lulu Reroll, Vanguard LeBlanc
-B tier: Urgot, TF Reroll, 7 Shepherd, MF Reroll, Meeple Veigar, Stargazer Xayah, Rogue Reroll, 6 Mecha, NOVA Marauders, Space Groove Riven, Jhin Fast 9, Samira Reroll, Cho Ezreal
-C tier: Shepherd Viktor, Leona Teemo Reroll, Primordian Reroll
+B tier: Urgot Reroll, TF Reroll, 7 Shepherd, MF Reroll, Meeple Veigar, Stargazer Xayah, Rogue Reroll, 6 Mecha, NOVA Marauders, Space Groove Riven, Jhin Fast 9, Samira Reroll, Cho Ezreal
 
-=== VERIFIED ITEMS ===
-Corki: Last Whisper + Striker's + Blue Buff | Riven: Bloodthirster + Titan's + Sterak's
-Yi: Edge of Night (REQUIRED) + Malware Matrix + Giant Slayer
-LeBlanc: Guinsoo's (REQUIRED) + Archangel's + Gunblade
-Vex: Guinsoo's + Giant Slayer + Gunblade | Graves: Edge of Night + Giant Slayer + Striker's
-Dark Star Riven: Sterak's + HoJ | Dark Star Xayah: Guinsoo's + Red Buff
-Jhin: IE (required) + LW + Striker's | Asol: JG + Striker's + Deathcap (NO mana items)
-Urgot: QSS required + always Mecha | Fizz: Nashor's required + JG + HoJ
-Xayah: 2x Kraken + Guinsoo's | Veigar: JG + 2x Nashor's | TF: Nashor's + Striker's + Archangel's
-Samira: IE + Shojin + Deathblade | Kindred: Kraken + Guinsoo's + Giant Slayer
+BiS ITEMS:
+Corki: Last Whisper+Striker Flail+Blue Buff | Riven: Bloodthirster+Titan Resolve+Sterak Gage
+Yi: Edge of Night(REQUIRED)+Malware Matrix+Giant Slayer
+LeBlanc: Guinsoo(REQUIRED)+Archangel+Gunblade | Vex: Guinsoo+Giant Slayer+Gunblade
+Graves: Edge of Night+Giant Slayer+Striker | Dark Star Riven: Sterak+Hand of Justice
+Dark Star Xayah: Guinsoo+Red Buff | Jhin: IE(required)+LW+Striker
+Asol: JG+Striker+Rabadon — ZERO mana items | Samira: IE+Shojin+Deathblade
+Urgot: QSS(required)+IE+Giant Slayer (always Mecha) | Fizz: Nashor(required)+JG+HoJ
+Xayah(Stargazer): 2x Kraken+Guinsoo | Veigar: JG+2x Nashor | TF: Nashor+Striker+Archangel
+Kindred: Kraken+Guinsoo+Giant Slayer | Lulu: Nashor+Guinsoo+Blue Buff
 
-=== ECONOMY RULES ===
-Level 6: round 3-2 ALWAYS | Level 7: 4-1 (3-5 with econ aug) | Level 8: 4-2 for fast-8
-Roll thresholds: lv6 leave 20g | lv7 leave 30g | lv8 leave 40g
-Gold left: 0-5g perfect | 6-15g minor error | 15g+ LP loss
-Never roll below 30g unless win-out roll at 3-2 for tempo
+ECONOMY: Lv6=3-2 ALWAYS | Lv7=4-1 (3-5 econ aug) | Lv8=4-2 fast-8 | Lv9=5-2 exodia
+Roll thresholds: lv6→20g | lv7→30g | lv8→40g | Gold left: 0-5g=PERFECT | 6-15g=minor | 16g+=error
+RULES: No Shred/Sunder in NOVA/Aatrox comps. No Spell Crit in NOVA. Contested comps cost ~10 LP avg.
+AUGMENT PRIORITY: 2-1=econ if no direction | 3-2=comp synergy | 4-2=cap value
 
-=== KEY RULES ===
-Don't build Shred/Sunder in NOVA/Aatrox comps (Aatrox NOVA provides it)
-Don't build Spell Crit in NOVA comps (Akali provides it)
-Emblem comps need their emblem or drop one tier
-Contested comps cost ~10 LP avg — scout and adapt
-
-Answer with verified data. Format with clear headers and bullets. Direct and specific — Challenger-level information immediately.`;
+Answer with verified data only. Be direct, specific, Challenger-level. Use headers and bullets.`;
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':getCK(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2000,system:systemPrompt,messages:recentHistory})});
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Error ${res.status}`);}
@@ -1228,12 +1078,12 @@ function addAskBubble(text,role){
   const chat=document.getElementById('askChat');if(!chat)return;
   const empty=chat.querySelector('[style*="text-align:center"]');if(empty)empty.remove();
   const bubble=document.createElement('div');bubble.className=`ask-bubble ${role}`;
-  if(role==='ai'){bubble.innerHTML=renderCoaching(text);}else{bubble.textContent=text;}
+  if(role==='ai'){bubble.innerHTML=renderCoachingTabbed(text,'ask');}else{bubble.textContent=text;}
   chat.appendChild(bubble);chat.scrollTop=chat.scrollHeight;
 }
 function clearAskChat(){
   askHistory=[];const chat=document.getElementById('askChat');
-  if(chat)chat.innerHTML=`<div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2);text-align:center;padding:24px 0;border:1px dashed var(--border)">Ask anything about TFT, ARAM, builds, items, comps, strategy…<br><span style="font-size:.58rem;color:var(--dim)">Powered by Claude · BunnyMuffins verified Set 17 Patch 17.3</span></div>`;
+  if(chat)chat.innerHTML=`<div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim2);text-align:center;padding:24px 0;border:1px dashed var(--border)">Ask anything about TFT, ARAM, builds, items, comps, strategy…<br><span style="font-size:.58rem;color:var(--dim)">Professional coaching · BunnyMuffins verified Set 17 Patch 14.11</span></div>`;
 }
 </script>
 </body>
