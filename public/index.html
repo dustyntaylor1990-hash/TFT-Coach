@@ -364,7 +364,7 @@ async function fetchPlayer(){
   const riotId=document.getElementById('riotId').value.trim();
   const region=document.getElementById('region').value;
   if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
-  if(!getCK()){er('Enter your Claude API key in the API Keys panel above');return;}
+  if(!getCK()){er('No Claude API key saved — paste your sk-ant-... key in the API Keys panel above and it will save automatically');return;}
 
   localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
   const[name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
@@ -532,7 +532,8 @@ function renderARAMMatches(){
     const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
     const date=m.date?new Date(m.date).toLocaleDateString():'';
     const row=document.createElement('div');row.className='mrow';
-    row.innerHTML=`<div class="win-badge" style="color:${win?'var(--grn)':'var(--red)';font-size:.85rem}">${win?'W':'L'}</div><div><div class="aram-champ">${champ}</div><div class="mdate">${date} · KDA ${kda} · ${dmg} dmg · ${dur}</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep coaching</div></div><div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
+    const wcolor=win?'var(--grn)':'var(--red)';
+    row.innerHTML=`<div class="win-badge" style="color:${wcolor};font-size:.85rem">${win?'W':'L'}</div><div><div class="aram-champ">${champ}</div><div class="mdate">${date} · KDA ${kda} · ${dmg} dmg · ${dur}</div><div style="font-family:monospace;font-size:.58rem;color:var(--gdim);margin-top:2px">→ tap for deep coaching</div></div><div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>`;
     row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
     list.appendChild(row);
   });
