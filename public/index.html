@@ -1295,6 +1295,7 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
     <span style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim3);letter-spacing:.1em;text-transform:uppercase;min-width:42px">Riot</span>
     <input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()" style="height:34px"/>
     <span class="saved" id="rkSaved" style="font-family:monospace;font-size:.7rem;color:var(--grn2)">✓</span>
+    <button class="btn-sm" onclick="testRiotKey()" style="font-size:.52rem" title="Test if your Riot key is working">Test</button>
   </div>
 </div>
 <div class="container">
@@ -3316,6 +3317,9 @@ function saveKeys(){
     clearTimeout(window._squadRetry);
     window._squadRetry=setTimeout(refreshSquad,600);
     checkRiotKeyExpiry();
+    // Clear any existing key error message immediately
+    const mp=document.getElementById('miniPodium');
+    if(mp&&mp.innerHTML.includes('No Riot')){mp.innerHTML='';}
   }
 }
 function checkRiotKeyExpiry(){
@@ -5470,7 +5474,16 @@ async function refreshSquad(){
       : '⚠ No Riot key set. Paste your RGAPI-... key in the <strong>Riot field in the Keys bar</strong> at the top. Free key at <a href="https://developer.riotgames.com" target="_blank" style="color:var(--gold)">developer.riotgames.com</a> — expires every 24h.';
     if(pa2)pa2.innerHTML=`<div style="background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.25);border-left:3px solid var(--red2);padding:14px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--red2);line-height:1.7">${msg}<br><br><button class="btn-sm" onclick="refreshSquad()" style="margin-top:6px">↺ Retry</button></div>`;
     const mp2=document.getElementById('miniPodium');
-    if(mp2)mp2.innerHTML=`<div style="background:var(--bg2);border:1px solid rgba(176,53,53,.2);border-left:3px solid var(--red2);padding:8px 14px;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--red2);display:flex;align-items:center;gap:10px;margin-bottom:12px">⚠ No Riot key — paste RGAPI-... in Keys bar above <button class="btn-sm" onclick="refreshSquad()">↺ Retry</button></div>`;
+    if(mp2){
+      const hasK=!!localStorage.getItem('tft_rk');
+      if(hasK){
+        // Key exists but expired - show subtle hint
+        mp2.innerHTML='<div style="font-family:\'Share Tech Mono\',monospace;font-size:.58rem;color:var(--dim3);padding:4px 0">Riot key may be expired — <a href=\"https://developer.riotgames.com\" target=\"_blank\" style=\"color:var(--gold)\">regenerate</a> and paste above</div>';
+      } else {
+        // No key - show nothing on main page, just clear
+        mp2.innerHTML='';
+      }
+    }
   }
 }
 async function analyzeSquad() {
