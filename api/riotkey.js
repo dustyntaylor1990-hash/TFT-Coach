@@ -23,6 +23,8 @@ export default async function handler(req, res) {
     if (!key || !key.startsWith('RGAPI-')) return res.status(400).json({ error: 'Invalid key — must start with RGAPI-' });
 
     sharedKey = key;
+    // Also sync to riot.js shared memory
+    try { await fetch(`${process.env.VERCEL_URL ? 'https://'+process.env.VERCEL_URL : ''}/api/riot`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ setKey: key }) }); } catch(e) {}
 
     return res.status(200).json({
       success: true,
