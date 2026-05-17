@@ -3505,9 +3505,15 @@ function er(msg){const el=document.getElementById('err');if(!el)return;el.textCo
 function lock(on){const fb=document.getElementById('fetchBtn');const ab=document.getElementById('analyzeBtn');if(fb)fb.disabled=on;if(ab)ab.disabled=on;}
 
 async function riotGet(url){
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
-  const d=await r.json();
-  if(!r.ok)throw new Error(d?.status?.message||d?.error||'HTTP '+r.status);
+  // Always pass personal key so proxy can use it as fallback
+  const personalKey=localStorage.getItem('tft_rk')||'';
+  const keyParam=personalKey?'&key='+encodeURIComponent(personalKey):'';
+  const r=await fetch('/api/riot?url='+encodeURIComponent(url)+keyParam);
+  if(r.status===503&&!personalKey){
+    throw new Error('No Riot API key — paste your RGAPI-... key in the Keys bar at the top.');
+  }
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d?.status?.message||d?.error||'Riot API error '+r.status+'. Your key may be expired — get a new one at developer.riotgames.com');
   return d;
 }
 
@@ -3530,7 +3536,9 @@ async function fetchPlayer(){
   const riotId=document.getElementById('riotId').value.trim();
   const region=document.getElementById('region').value;
   if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
-  if(!getCK()){er('No Claude API key saved — paste your sk-ant-... key in the API Keys panel above and it will save automatically');return;}
+  if(!getCK()){er('No Claude API key — paste your sk-ant-... key in the Claude field above');return;}
+  const rk=localStorage.getItem('tft_rk')||'';
+  if(!rk){er('No Riot API key — paste your RGAPI-... key in the Riot field above. Get a free key at developer.riotgames.com');return;}
 
   localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
   const[name,tag]=riotId.includes('#')?riotId.split('#'):[riotId,region.toUpperCase()];
@@ -3548,7 +3556,19 @@ async function fetchPlayer(){
       await fetchTFT(puuid,routing,region,name,tag,currentMode);
     }
     st('');
-  }catch(e){st('');er(e.message||'Failed. Check your Riot ID and that a key is set.');}
+  }catch(e){
+    st('');
+    const msg=e.message||'';
+    if(msg.includes('403')||msg.includes('Forbidden')||msg.includes('expired')){
+      er('Riot API key expired — get a fresh key at developer.riotgames.com and paste it in the Riot field above');
+    } else if(msg.includes('404')||msg.includes('not found')){
+      er('Player not found — check your Riot ID and region (e.g. Bahagabag#NA1, region NA)');
+    } else if(msg.includes('No Riot')||msg.includes('503')){
+      er('No Riot API key — paste your RGAPI-... key in the Riot field above');
+    } else {
+      er(msg||'Failed — check your Riot ID and API keys');
+    }
+  }
   lock(false);
 }
 
