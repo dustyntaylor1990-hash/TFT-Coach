@@ -1808,10 +1808,23 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
 
 <script>
 const ROUTING={na1:'americas',br1:'americas',la1:'americas',la2:'americas',euw1:'europe',eun1:'europe',tr1:'europe',ru:'europe',kr:'asia',jp1:'asia',oc1:'sea'};
-// Queue type IDs: 1090=TFT Normal, 1100=TFT Ranked, 1110=TFT Tutorial, 1130=TFT Double Up, 1160=TFT Double Up (ranked), 450=ARAM
 const QUEUE_TFT_RANKED=[1100,1090];
 const QUEUE_DOUBLE=[1130,1160];
 const QUEUE_ARAM=[450];
+
+// ── Session-only keys — never saved to localStorage ──────────────
+let _sessionCK='';
+let _sessionRK='';
+function setKeys(){
+  _sessionCK=(document.getElementById('claudeKey')?.value||'').trim();
+  _sessionRK=(document.getElementById('riotKeyInput')?.value||'').trim();
+  const ckEl=document.getElementById('ckSaved');
+  const rkEl=document.getElementById('rkSaved');
+  if(ckEl)ckEl.style.display=_sessionCK?'inline':'none';
+  if(rkEl)rkEl.style.display=_sessionRK?'inline':'none';
+}
+function getCK(){return _sessionCK||'';}
+// ──────────────────────────────────────────────────────────────────
 
 let matchData=[],selected=new Set(),ddItems={},ddChamps={},currentMode='tft',currentPlayerName='Unknown Player';
 
@@ -3344,37 +3357,22 @@ function renderBahaProfile(){
   </div>`;
 }
 
-let _sessionCK='';let _sessionRK='';
-function setKeys(){_sessionCK=(document.getElementById('claudeKey')?.value||'').trim();_sessionRK=(document.getElementById('riotKeyInput')?.value||'').trim();const ck=document.getElementById('ckSaved');const rk=document.getElementById('rkSaved');if(ck)ck.style.display=_sessionCK?'inline':'none';if(rk)rk.style.display=_sessionRK?'inline':'none';}
-function saveKeys(){setKeys();}
-function getCK(){return _sessionCK||'';}
-
-function saveKeys(){ setKeys(); } // alias — session only, nothing saved
-function checkRiotKeyExpiry(){ /* removed — keys are session-only */ }
-    if(lbl){lbl.textContent='Riot key expires in ~'+Math.ceil(24-h)+'h — get a fresh one before it breaks';lbl.style.color='var(--gold)';}
-  }else{banner.style.display='none';}
-}
+// saveKeys/getCK/setKeys defined at top of script
+function saveKeys(){ setKeys(); }
+function checkRiotKeyExpiry(){ /* session-only — no expiry tracking */ }
 
 window.addEventListener('load',()=>{
-  const ck=getCK();const rk=_sessionRK||'';
-  if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('ckSaved').style.display='block';}
-  if(rk){document.getElementById('riotKeyInput').value=rk;const _rks=document.getElementById('rkSaved');if(_rks)_rks.style.display='block';}
+  // Keys are session-only — user enters fresh each session, nothing to restore
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
-  if(rid)document.getElementById('riotId').value=rid;
-  if(reg)document.getElementById('region').value=reg;
+  if(rid){const el=document.getElementById('riotId');if(el)el.value=rid;}
+  if(reg){const el=document.getElementById('region');if(el)el.value=reg;}
   loadDDragon();
   renderMetaTab();
-  // miniPodium removed
   // Render progress dashboard
   const pdash = document.getElementById('progressContent');
   if(pdash) pdash.innerHTML = renderProgressDashboard();
-  // Render Bahagabag profile
+  // Render profile
   renderBahaProfile();
-  // Restore theme
-  if(localStorage.getItem('tft_theme')==='light'){
-    document.body.classList.add('light');
-    var tb=document.getElementById('themeToggle');if(tb)tb.textContent='☀ Light';
-  }
   // Restore theme
   if(localStorage.getItem('tft_theme')==='light'){
     document.body.classList.add('light');
@@ -3557,7 +3555,6 @@ async function fetchPlayer(){
   const riotId=document.getElementById('riotId').value.trim();
   const region=document.getElementById('region').value;
   if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
-  if(!getCK()){er('No Claude API key — paste your sk-ant-... key in the Claude field above');return;}
   const rk=_sessionRK||'';
   if(!rk){er('No Riot API key — paste your RGAPI-... key in the Riot field above. Get a free key at developer.riotgames.com');return;}
 
