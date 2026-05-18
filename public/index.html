@@ -1283,23 +1283,24 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
   </div>
 </header>
 
-<!-- API Keys bar -->
+<!-- API Keys bar — session only, never saved -->
 <div class="keys-row">
   <span class="key-lbl" style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim3);letter-spacing:.14em;white-space:nowrap">API Keys</span>
   <div class="key-field">
     <span style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim3);letter-spacing:.1em;text-transform:uppercase;min-width:42px">Claude</span>
-    <input type="password" id="claudeKey" placeholder="sk-ant-…" oninput="saveKeys()" style="height:34px"/>
-    <span class="saved" id="ckSaved" style="font-family:monospace;font-size:.7rem;color:var(--grn2)">✓</span>
+    <input type="password" id="claudeKey" placeholder="sk-ant-… (not saved)" oninput="setKeys()" style="height:34px"/>
+    <span id="ckSaved" style="font-family:monospace;font-size:.7rem;color:var(--grn2);display:none">✓</span>
   </div>
   <div class="key-field">
     <span style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--dim3);letter-spacing:.1em;text-transform:uppercase;min-width:42px">Riot</span>
-    <input type="password" id="riotKeyInput" placeholder="RGAPI-…" oninput="saveKeys()" style="height:34px"/>
-    <span class="saved" id="rkSaved" style="font-family:monospace;font-size:.7rem;color:var(--grn2)">✓</span>
+    <input type="password" id="riotKeyInput" placeholder="RGAPI-… (not saved)" oninput="setKeys()" style="height:34px"/>
+    <span id="rkSaved" style="font-family:monospace;font-size:.7rem;color:var(--grn2);display:none">✓</span>
     <button class="btn-sm" onclick="testRiotKey()" style="font-size:.52rem" title="Test if your Riot key is working">Test</button>
   </div>
+  <span style="font-family:'Share Tech Mono',monospace;font-size:.52rem;color:var(--dim3)">🔒 Not saved — re-enter each session</span>
 </div>
 <div class="container">
-<div id="riotKeyBanner" style="display:none;align-items:center;gap:10px;padding:7px 14px;border:1px solid;margin-bottom:6px;font-family:'Share Tech Mono',monospace;font-size:.62rem;flex-wrap:wrap"><span class="rkb-text"></span><a href="https://developer.riotgames.com" target="_blank" style="color:var(--gold);text-decoration:none;margin-left:auto">Get new key ↗</a><button class="btn-sm" onclick="document.getElementById('riotKeyInput').focus()">Paste</button></div>
+
 <div style="display:flex;align-items:center;gap:6px;margin-right:8px"><button class="btn-sm" onclick="showShortcutsHelp()" title="Keyboard shortcuts">⌨ Keys</button></div>
 <div style="display:flex;align-items:center;gap:8px;padding:5px 0;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2)">
   <label style="display:flex;align-items:center;gap:5px;cursor:pointer">
@@ -1315,16 +1316,10 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
   &nbsp;·&nbsp; Keys saved in browser only
 </div>
 
-<!-- Mini squad podium — always visible on load -->
-<div id="miniPodium" style="margin-bottom:10px"></div>
-
 <!-- Mode tabs -->
 <div class="mode-tabs">
   <div class="mode-tab active" id="tab-tft" onclick="setMode('tft')">⚔ TFT</div>
-  <div class="mode-tab" id="tab-double" onclick="setMode('double')">👥 Double Up</div>
-  <div class="mode-tab" id="tab-aram" onclick="setMode('aram')">⚡ ARAM</div>
   <div class="mode-tab" id="tab-meta" onclick="setMode('meta')">📊 Meta</div>
-  <div class="mode-tab" id="tab-squad" onclick="setMode('squad')">🏆 Squad</div>
   <div class="mode-tab" id="tab-progress" onclick="setMode('progress')">📈 Progress</div>
   <div class="mode-tab" id="tab-profile" onclick="setMode('profile')">👤 Profile</div>
   <div class="mode-tab" id="tab-prep" onclick="setMode('prep')">🎯 Prep</div>
@@ -1452,56 +1447,6 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
 </div>
 
 <!-- ── SQUAD TAB ────────────────────────────────────────────── -->
-<div id="squadTab" style="display:none">
-  <div id="liveGameBadge" style="margin-bottom:4px"></div>
-  <div id="squadAnalysisResult" style="display:none"></div>
-  <!-- Podium -->
-  <div id="podiumArea" style="margin-bottom:20px"></div>
-
-  <!-- Squad recent form -->
-  <div id="squadFormArea" style="margin-bottom:20px"></div>
-
-  <!-- Admin + player setup panel -->
-  <div class="panel">
-    <div class="plbl">// Squad Setup &amp; Admin</div>
-
-    <!-- Player names -->
-    <div style="margin-bottom:14px">
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase">Player Riot IDs</div>
-      <div class="g3" style="margin-bottom:8px">
-        <div class="ig"><label>Player 1 (You)</label><input type="text" id="sq1" placeholder="Bahagabag#NA1"/></div>
-        <div class="ig"><label>Region</label><select id="sq1r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option><option value="br1">BR</option><option value="la1">LAN</option><option value="la2">LAS</option><option value="oc1">OCE</option><option value="tr1">TR</option><option value="ru">RU</option></select></div>
-        <div></div>
-      </div>
-      <div class="g3" style="margin-bottom:8px">
-        <div class="ig"><label>Player 2</label><input type="text" id="sq2" placeholder="Adam#NA1"/></div>
-        <div class="ig"><label>Region</label><select id="sq2r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div>
-        <div></div>
-      </div>
-      <div class="g3" style="margin-bottom:12px">
-        <div class="ig"><label>Player 3</label><input type="text" id="sq3" placeholder="Mikey#NA1"/></div>
-        <div class="ig"><label>Region</label><select id="sq3r"><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option></select></div>
-        <div></div>
-      </div>
-      <button class="btn" onclick="saveSquadAndRefresh()">Save &amp; Refresh Podium</button>
-      <div class="saved" id="squadSaved" style="margin-top:6px">✓ Saved</div>
-    </div>
-
-    <!-- Admin Riot key section -->
-    <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:6px">
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase">Admin — Update Shared Riot Key</div>
-      <div class="g2" style="margin-bottom:10px">
-        <div class="ig"><label>New Riot API Key</label><input type="password" id="adminRiotKey" placeholder="RGAPI-…"/></div>
-        <div class="ig"><label>Admin Password</label><input type="password" id="adminPass" placeholder="password" onkeydown="if(event.key==='Enter')updateRiotKey()"/></div>
-      </div>
-      <button class="btn" onclick="updateRiotKey()">Update Key for Everyone</button>
-      <div class="admin-msg" id="adminMsg" style="display:none;margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.72rem"></div>
-      <div class="note">Get a free Riot key at <a href="https://developer.riotgames.com" target="_blank" style="color:var(--golddim)">developer.riotgames.com</a> — expires every 24h. Only the admin password holder can update.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ── ASK AI TAB ───────────────────────────────────────────── -->
 <div id="progressTab" style="display:none">
   <div id="progressContent"></div>
 </div>
@@ -3399,43 +3344,19 @@ function renderBahaProfile(){
   </div>`;
 }
 
-function getCK(){return localStorage.getItem('tft_ck')||'';}
+let _sessionCK='';let _sessionRK='';
+function setKeys(){_sessionCK=(document.getElementById('claudeKey')?.value||'').trim();_sessionRK=(document.getElementById('riotKeyInput')?.value||'').trim();const ck=document.getElementById('ckSaved');const rk=document.getElementById('rkSaved');if(ck)ck.style.display=_sessionCK?'inline':'none';if(rk)rk.style.display=_sessionRK?'inline':'none';}
+function saveKeys(){setKeys();}
+function getCK(){return _sessionCK||'';}
 
-function saveKeys(){
-  const ck=document.getElementById('claudeKey').value.trim();
-  const rk=document.getElementById('riotKeyInput').value.trim();
-  if(ck){localStorage.setItem('tft_ck',ck);document.getElementById('ckSaved').style.display='block';}
-  if(rk){
-    localStorage.setItem('tft_rk',rk);
-    localStorage.setItem('tft_rk_saved_at',String(Date.now()));
-    const _rks=document.getElementById('rkSaved');if(_rks)_rks.style.display='block';
-    clearTimeout(window._squadRetry);
-    window._squadRetry=setTimeout(refreshSquad,600);
-    checkRiotKeyExpiry();
-    // Clear any existing key error message immediately
-    const mp=document.getElementById('miniPodium');
-    if(mp&&mp.innerHTML.includes('No Riot')){mp.innerHTML='';}
-  }
-}
-function checkRiotKeyExpiry(){
-  const savedAt=parseInt(localStorage.getItem('tft_rk_saved_at')||'0');
-  const rk=localStorage.getItem('tft_rk')||'';
-  const banner=document.getElementById('riotKeyBanner');
-  if(!banner)return;
-  if(!rk){banner.style.display='none';return;}
-  const h=(Date.now()-savedAt)/3600000;
-  const lbl=banner.querySelector('.rkb-text');
-  if(h>=24){
-    banner.style.display='flex';banner.style.background='rgba(176,53,53,.12)';banner.style.borderColor='rgba(176,53,53,.4)';
-    if(lbl){lbl.textContent='Riot key EXPIRED ('+Math.floor(h)+'h old) — paste a fresh key now';lbl.style.color='var(--red2)';}
-  }else if(h>=20){
-    banner.style.display='flex';banner.style.background='rgba(201,168,76,.07)';banner.style.borderColor='rgba(201,168,76,.3)';
+function saveKeys(){ setKeys(); } // alias — session only, nothing saved
+function checkRiotKeyExpiry(){ /* removed — keys are session-only */ }
     if(lbl){lbl.textContent='Riot key expires in ~'+Math.ceil(24-h)+'h — get a fresh one before it breaks';lbl.style.color='var(--gold)';}
   }else{banner.style.display='none';}
 }
 
 window.addEventListener('load',()=>{
-  const ck=getCK();const rk=localStorage.getItem('tft_rk')||'';
+  const ck=getCK();const rk=_sessionRK||'';
   if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('ckSaved').style.display='block';}
   if(rk){document.getElementById('riotKeyInput').value=rk;const _rks=document.getElementById('rkSaved');if(_rks)_rks.style.display='block';}
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
@@ -3443,16 +3364,12 @@ window.addEventListener('load',()=>{
   if(reg)document.getElementById('region').value=reg;
   loadDDragon();
   renderMetaTab();
-  renderMiniPodium();
+  // miniPodium removed
   // Render progress dashboard
   const pdash = document.getElementById('progressContent');
   if(pdash) pdash.innerHTML = renderProgressDashboard();
   // Render Bahagabag profile
   renderBahaProfile();
-  // Delay squad load slightly to ensure DOM + keys are ready
-  setTimeout(loadSquadSetup,300);
-  checkRiotKeyExpiry();
-  setInterval(checkRiotKeyExpiry,30*60*1000);
   // Restore theme
   if(localStorage.getItem('tft_theme')==='light'){
     document.body.classList.add('light');
@@ -3556,12 +3473,12 @@ function getUnitItems(u){return(u.items||u.itemNames||[]).map(id=>resolveItemNam
 // ── Mode switching ─────────────────────────────────────────────
 function setMode(mode){
   currentMode=mode;
-  ['tft','double','aram','meta','squad','progress','prep','profile','video','live','ref','ask'].forEach(m=>{
+  ['tft','meta','progress','prep','profile','video','live','ref','ask'].forEach(m=>{
     const el=document.getElementById('tab-'+m);
     if(el)el.classList.toggle('active',m===mode);
   });
 
-  const isGame=['tft','double','aram'].includes(mode);
+  const isGame=['tft'].includes(mode);
   if(mode==='progress'){const pd=document.getElementById('progressContent');if(pd)pd.innerHTML=renderProgressDashboard();}
   if(mode==='prep'){const pp=document.getElementById('prepContent');if(pp){pp.innerHTML=renderPrepMode();renderPracticeMode();}}
   if(mode==='profile'){renderBahaProfile();}
@@ -3572,15 +3489,15 @@ function setMode(mode){
     const el=document.getElementById(id);if(el)el.style.display='none';
   });
   // Show/hide all non-game tabs
-  const tabPanels={metaTab:'meta',squadTab:'squad',askTab:'ask',progressTab:'progress',prepTab:'prep',profileTab:'profile',videoTab:'video',liveTab:'live',refTab:'ref'};
+  const tabPanels={metaTab:'meta',askTab:'ask',progressTab:'progress',prepTab:'prep',profileTab:'profile',videoTab:'video',liveTab:'live',refTab:'ref'};
   Object.entries(tabPanels).forEach(([elId,tabMode])=>{
     const el=document.getElementById(elId);if(el)el.style.display=mode===tabMode?'block':'none';
   });
 
   if(isGame){
     const lp=document.getElementById('lookupPanel');if(lp)lp.style.display='block';
-    const labels={tft:'TFT Ranked — Player Lookup',double:'Double Up — Player Lookup',aram:'ARAM — Player Lookup'};
-    const badges={tft:'TFT RANKED',double:'DOUBLE UP',aram:'ARAM'};
+    const labels={tft:'TFT Ranked — Player Lookup'};
+    const badges={tft:'TFT RANKED'};
     const ll=document.getElementById('lookupLabel');if(ll)ll.textContent=labels[mode];
     const mb=document.getElementById('modeBadge');if(mb)mb.textContent=badges[mode];
     matchData=[];selected.clear();
@@ -3605,7 +3522,7 @@ function lock(on){const fb=document.getElementById('fetchBtn');const ab=document
 
 async function riotGet(url){
   // Always pass personal key so proxy can use it as fallback
-  const personalKey=localStorage.getItem('tft_rk')||'';
+  const personalKey=_sessionRK||'';
   const keyParam=personalKey?'&key='+encodeURIComponent(personalKey):'';
   let r;
   try {
@@ -3641,7 +3558,7 @@ async function fetchPlayer(){
   const region=document.getElementById('region').value;
   if(!riotId){er('Enter your Riot ID — example: Bahagabag#NA1');return;}
   if(!getCK()){er('No Claude API key — paste your sk-ant-... key in the Claude field above');return;}
-  const rk=localStorage.getItem('tft_rk')||'';
+  const rk=_sessionRK||'';
   if(!rk){er('No Riot API key — paste your RGAPI-... key in the Riot field above. Get a free key at developer.riotgames.com');return;}
 
   localStorage.setItem('tft_rid',riotId);localStorage.setItem('tft_reg',region);
@@ -3654,11 +3571,7 @@ async function fetchPlayer(){
     const acct=await riotGet(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
     const puuid=acct.puuid;
 
-    if(currentMode==='aram'){
-      await fetchARAM(puuid,routing,region,name,tag);
-    } else {
-      await fetchTFT(puuid,routing,region,name,tag,currentMode);
-    }
+    await fetchTFT(puuid,routing,region,name,tag,currentMode);
     st('');
   }catch(e){
     st('');
@@ -3882,7 +3795,7 @@ async function fetchTFT(puuid,routing,region,name,tag,mode){
   let ranked=null;
   try{
     const lg=await riotGet(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);
-    const qType=mode==='double'?'RANKED_TFT_DOUBLE_UP':'RANKED_TFT';
+    const qType='RANKED_TFT';
     ranked=(lg||[]).find(l=>l.queueType===qType)||null;
     if(ranked) saveLPSnapshot(name+'#'+tag, ranked);
   }catch(e){}
@@ -3896,7 +3809,7 @@ async function fetchTFT(puuid,routing,region,name,tag,mode){
     try{
       const m=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${ids[i]}`);
       const queueId=m.info?.queue_id||m.info?.queueId||0;
-      const validQueues=mode==='double'?QUEUE_DOUBLE:QUEUE_TFT_RANKED;
+      const validQueues=QUEUE_TFT_RANKED;
       if(validQueues.includes(queueId)||queueId===0){
         const p=m.info.participants.find(pp=>pp.puuid===puuid);
         if(p){
@@ -3948,7 +3861,7 @@ async function fetchTFT(puuid,routing,region,name,tag,mode){
       }
     }catch(e){}
   }
-  if(!raw.length)throw new Error(`No ${mode==='double'?'Double Up':'TFT Ranked'} matches found.`);
+  if(!raw.length)throw new Error(`No ${'TFT Ranked'} matches found.`);
   showPlayerCardTFT(name,tag,ranked,raw,mode);
   matchData=raw;
   renderTFTMatches(mode);
@@ -3966,7 +3879,7 @@ function showPlayerCardTFT(name,tag,ranked,matches,mode){
   currentPlayerName=`${name}#${tag}`;
   document.getElementById('pname').textContent=`${name}#${tag}`;
   if(ranked){document.getElementById('rbadge').textContent=ranked.tier.slice(0,1)+(ranked.rank||'');document.getElementById('pRank').textContent=`${ranked.tier} ${ranked.rank}`;document.getElementById('pLP').textContent=ranked.leaguePoints+' LP';document.getElementById('pWL').textContent=`${ranked.wins}W ${ranked.losses}L`;}
-  document.getElementById('modeBadge').textContent=mode==='double'?'DOUBLE UP':'TFT RANKED';
+  document.getElementById('modeBadge').textContent='TFT RANKED';
   document.getElementById('pcrd').classList.add('show');
 
   const pl=matches.map(m=>m.data.placement);
@@ -4088,1076 +4001,6 @@ function getTFTGrade(p, allPlayers){
   return{g:'F',c:'#e05050',bg:'rgba(224,80,80,.10)'};
 }
 
-function getARAMGrade(p){
-  const kda=(p.kills+p.assists)/Math.max(1,p.deaths);
-  const dmg=p.totalDamageDealtToChampions||0;
-  const dmgTaken=p.totalDamageTaken||0;
-  const win=p.win;
-  const dur=60; // normalized
-
-  // Base from result
-  let score=win?55:30;
-
-  // KDA
-  if(kda>=6)score+=22;
-  else if(kda>=4)score+=16;
-  else if(kda>=3)score+=10;
-  else if(kda>=2)score+=5;
-  else if(kda<1)score-=10;
-
-  // Damage output
-  if(dmg>=30000)score+=18;
-  else if(dmg>=22000)score+=12;
-  else if(dmg>=14000)score+=6;
-  else if(dmg>=8000)score+=2;
-  else if(dmg<5000)score-=10;
-
-  // Damage ratio — carried weight vs took punishment
-  const ratio=dmgTaken>0?dmg/dmgTaken:1;
-  if(ratio>=2.0)score+=5;      // dealing 2x more than taking = great
-  else if(ratio<0.5)score-=5;  // taking 2x more than dealing = bad
-
-  // Multi-kill bonus
-  if(p.pentaKills>0)score+=10;
-  else if(p.tripleKills>0)score+=5;
-  else if(p.doubleKills>=2)score+=3;
-
-  // Winning a close game well
-  if(win&&kda>=3&&dmg>=18000)score+=5;
-
-  score=Math.max(0,Math.min(score,100));
-  if(score>=95)return{g:'S+',c:'#ffd700',bg:'rgba(255,215,0,.13)'};
-  if(score>=84)return{g:'S',c:'#ffd700',bg:'rgba(255,215,0,.10)'};
-  if(score>=73)return{g:'A+',c:'#4ec994',bg:'rgba(78,201,148,.12)'};
-  if(score>=63)return{g:'A',c:'#4ec994',bg:'rgba(78,201,148,.10)'};
-  if(score>=52)return{g:'B+',c:'#4a9eda',bg:'rgba(74,158,218,.12)'};
-  if(score>=42)return{g:'B',c:'#4a9eda',bg:'rgba(74,158,218,.10)'};
-  if(score>=32)return{g:'C',c:'#9b6fe0',bg:'rgba(155,111,224,.10)'};
-  if(score>=20)return{g:'D',c:'#e08040',bg:'rgba(224,128,64,.10)'};
-  return{g:'F',c:'#e05050',bg:'rgba(224,80,80,.10)'};
-}
-
-function renderTFTMatches(mode){
-  const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
-  if(!matchData||!matchData.length){
-    list.innerHTML='<div class="empty-state"><div class="empty-icon">🎮</div><div class="empty-title">No Matches Loaded</div><div class="empty-sub">Enter your Riot ID above and click Fetch Matches to load your recent games.</div></div>';
-    return;
-  }
-  matchData.forEach((m,idx)=>{
-    const p=m.data;
-    const traits=(p.traits||[]).filter(t=>t.tier_current>0).slice(0,5).map(t=>t.name.replace(/TFT\d+_/,'').replace(/_/g,' '));
-    const augs=getAugments(p).slice(0,3);
-    const date=m.date?new Date(m.date).toLocaleDateString():'';
-    const pc=Math.min(p.placement,8);const stage=roundToStage(p.last_round);
-    const grade=getTFTGrade(p, m.allPlayers||[]);
-    const row=document.createElement('div');row.className='mrow';
-    row.style.borderLeft=`3px solid ${grade.c}`;
-    row.innerHTML=`
-      <div class="place p${pc}">${p.placement}</div>
-      <div style="flex:1">
-        <div>${traits.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
-        <div style="margin-top:3px">${augs.map(a=>`<span class="achip">${a}</span>`).join('')}</div>
-        <div class="mdate">${date} · Lv${p.level||'?'} · ended ${stage} · ${p.gold_left||0}g · ${p.total_damage_to_players||0}dmg</div>
-        <div style="font-family:monospace;font-size:.58rem;color:var(--golddim);margin-top:2px">→ tap for deep coaching</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;color:${grade.c};background:${grade.bg};border:1px solid ${grade.c}44;padding:2px 8px;border-radius:3px;min-width:36px;text-align:center">${grade.g}</div>
-        <div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>
-      </div>`;
-    row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
-    list.appendChild(row);
-  });
-  const _ms=document.getElementById('matchSection');if(_ms)_ms.style.display='block';
-  const _as=document.getElementById('asec');if(_as)_as.style.display='block';
-}
-
-// ── ARAM fetch ─────────────────────────────────────────────────
-async function fetchARAM(puuid,routing,region,name,tag){
-  st('Loading ARAM matches…');
-  // Use LoL match API for ARAM
-  const ids=await lolGet(`https://${routing}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?queue=450&count=15`);
-  if(!ids||!ids.length)throw new Error('No ARAM matches found.');
-
-  const raw=[];
-  for(let i=0;i<ids.length;i++){
-    st(`Loading ARAM match ${i+1}/${ids.length}…`);
-    try{
-      const m=await lolGet(`https://${routing}.api.riotgames.com/lol/match/v5/matches/${ids[i]}`);
-      const p=m.info.participants.find(p=>p.puuid===puuid);
-      if(p)raw.push({id:ids[i],date:m.info.gameCreation,data:p,gameMode:'ARAM',gameDuration:m.info.gameDuration});
-    }catch(e){}
-  }
-
-  if(!raw.length)throw new Error('No ARAM matches found.');
-  showPlayerCardARAM(name,tag,raw);
-  matchData=raw;
-  renderARAMMatches();
-}
-
-function showPlayerCardARAM(name,tag,matches){
-  currentPlayerName=`${name}#${tag}`;
-  document.getElementById('pname').textContent=`${name}#${tag}`;
-  document.getElementById('rbadge').textContent='AR';
-  document.getElementById('pRank').textContent='ARAM';
-  document.getElementById('pLP').textContent='—';
-  document.getElementById('modeBadge').textContent='ARAM';
-  document.getElementById('pcrd').classList.add('show');
-
-  const wins=matches.filter(m=>m.data.win).length;
-  const losses=matches.length-wins;
-  document.getElementById('pWL').textContent=`${wins}W ${losses}L`;
-
-  const kda=matches.map(m=>(m.data.kills+m.data.assists)/Math.max(1,m.data.deaths));
-  const avgKda=(kda.reduce((a,b)=>a+b,0)/kda.length).toFixed(2);
-  const avgDmg=Math.round(matches.map(m=>m.data.totalDamageDealtToChampions||0).reduce((a,b)=>a+b,0)/matches.length);
-  const avgKills=(matches.map(m=>m.data.kills||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
-  const avgDeaths=(matches.map(m=>m.data.deaths||0).reduce((a,b)=>a+b,0)/matches.length).toFixed(1);
-  const winPct=((wins/matches.length)*100).toFixed(0);
-
-  document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-box"><div class="stat-lbl">Win %</div><div class="stat-val ${winPct>=55?'good':winPct<=40?'bad':''}">${winPct}%</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg KDA</div><div class="stat-val ${avgKda>=3?'good':avgKda<1.5?'bad':''}">${avgKda}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Kills</div><div class="stat-val">${avgKills}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Deaths</div><div class="stat-val ${avgDeaths>=8?'bad':''}">${avgDeaths}</div></div>
-    <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${avgDmg.toLocaleString()}</div></div>
-    <div class="stat-box"><div class="stat-lbl">W/L</div><div class="stat-val">${wins}/${losses}</div></div>`;
-    animateStatsGrid();
-  const _sr=document.getElementById('statsRow');if(_sr)_sr.style.display='block';
-}
-
-function renderARAMMatches(){
-  const list=document.getElementById('mlist');list.innerHTML='';selected.clear();updateCount();
-  if(!matchData||!matchData.length){
-    list.innerHTML='<div class="empty-state"><div class="empty-icon">🎮</div><div class="empty-title">No Matches Loaded</div><div class="empty-sub">Enter your Riot ID above and click Fetch Matches to load your recent games.</div></div>';
-    return;
-  }
-  matchData.forEach((m,idx)=>{
-    const p=m.data;
-    const win=p.win;
-    const champ=p.championName||'Unknown';
-    const kda=`${p.kills}/${p.deaths}/${p.assists}`;
-    const dmg=(p.totalDamageDealtToChampions||0).toLocaleString();
-    const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
-    const date=m.date?new Date(m.date).toLocaleDateString():'';
-    const grade=getARAMGrade(p);
-    const wcolor=win?'var(--grn)':'var(--red)';
-    const row=document.createElement('div');row.className='mrow';
-    row.style.borderLeft=`3px solid ${grade.c}`;
-    row.innerHTML=`
-      <div class="win-badge" style="color:${wcolor};font-size:.85rem">${win?'W':'L'}</div>
-      <div style="flex:1">
-        <div class="aram-champ">${champ}</div>
-        <div class="mdate">${date} · KDA ${kda} · ${dmg} dmg · ${dur}</div>
-        <div style="font-family:monospace;font-size:.58rem;color:var(--golddim);margin-top:2px">→ tap for deep coaching</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;color:${grade.c};background:${grade.bg};border:1px solid ${grade.c}44;padding:2px 8px;border-radius:3px;min-width:36px;text-align:center">${grade.g}</div>
-        <div class="chk" id="chk${idx}" style="color:#2a4060" onclick="event.stopPropagation();toggleSel(${idx})">○</div>
-      </div>`;
-    row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
-    list.appendChild(row);
-  });
-  const _ms=document.getElementById('matchSection');if(_ms)_ms.style.display='block';
-  const _as=document.getElementById('asec');if(_as)_as.style.display='block';
-}
-
-function toggleSel(idx){
-  const row=document.getElementById('chk'+idx).closest('.mrow');
-  if(selected.has(idx)){selected.delete(idx);row.classList.remove('sel');document.getElementById('chk'+idx).textContent='○';document.getElementById('chk'+idx).style.color='#2a4060';}
-  else{selected.add(idx);row.classList.add('sel');document.getElementById('chk'+idx).textContent='✓';document.getElementById('chk'+idx).style.color='var(--gold)';}
-  updateCount();
-}
-
-function updateCount(){const n=selected.size;document.getElementById('scnt').textContent=n===0?`Analyzing all ${matchData.length} matches — tap ○ to select specific ones`:`${n} match${n>1?'es':''} selected`;}
-
-// ── Build summaries ────────────────────────────────────────────
-
-// ══════════════════════════════════════════════════════
-//  COMPLETE ITEM NAME LOOKUP — Set 17 + all TFT items
-//  Source: DDragon API string -> correct display name
-// ══════════════════════════════════════════════════════
-const ITEM_NAME_MAP = {
-  // ── COMPONENTS ──────────────────────────────────────
-  'BFSword':"B.F. Sword",'ChainVest':"Chain Vest",'NeedlesslyLargeRod':"Needlessly Large Rod",
-  'TearoftheGoddess':"Tear of the Goddess",'NegatronCloak':"Negatron Cloak",
-  'GiantsBelt':"Giant's Belt",'SparringGloves':"Sparring Gloves",'Spatula':"Spatula",
-  // ── COMBINED ITEMS ──────────────────────────────────
-  'Deathblade':"Deathblade",
-  'Bloodthirster':"Bloodthirster",
-  'InfinityEdge':"Infinity Edge",
-  'LastWhisper':"Last Whisper",
-  'SterakGage':"Sterak's Gage",'SteraksGage':"Sterak's Gage",
-  'EdgeOfNight':"Edge of Night",
-  'ArchangelsStaff':"Archangel's Staff",'ArchangelStaff':"Archangel's Staff",
-  'Morellonomicon':"Morellonomicon",
-  'BlueBuff':"Blue Buff",
-  'JeweledGauntlet':"Jeweled Gauntlet",
-  'RabadonsDeathcap':"Rabadon's Deathcap",'RabadonDeathcap':"Rabadon's Deathcap",
-  'GuinsoosRageblade':"Guinsoo's Rageblade",'GuinsooRageblade':"Guinsoo's Rageblade",
-  'KrakenSlayer':"Kraken Slayer",
-  'RedBuff':"Red Buff",
-  'HandOfJustice':"Hand of Justice",
-  'GiantSlayer':"Giant Slayer",
-  'RunaansHurricane':"Runaan's Hurricane",'RunaanHurricane':"Runaan's Hurricane",
-  'ProtectorsVow':"Protector's Vow",'ProtectorVow':"Protector's Vow",
-  'BrambleVest':"Bramble Vest",
-  'DragonsClaw':"Dragon's Claw",'DragonClaw':"Dragon's Claw",
-  'IonicSpark':"Ionic Spark",
-  'SpearOfShojin':"Spear of Shojin",
-  'WarmogsArmor':"Warmog's Armor",'Warmogs':"Warmog's Armor",
-  'GargoyleStoneplate':"Gargoyle's Stoneplate",'GargoylStoneplate':"Gargoyle's Stoneplate",
-  'Redemption':"Redemption",
-  'SunfireCape':"Sunfire Cape",
-  'TitansResolve':"Titan's Resolve",'TitanResolve':"Titan's Resolve",
-  'ZenithBlade':"Zenith Blade",
-  'AdaptiveHelm':"Adaptive Helm",
-  'RapidFireCannon':"Rapid Fire Cannon",
-  'StatikkShiv':"Statikk Shiv",
-  'QuicksilverSash':"Quicksilver Sash",'QSS':"Quicksilver Sash",
-  'HextechGunblade':"Gunblade",'Gunblade':"Gunblade",
-  // ── SET 17 EXCLUSIVES ───────────────────────────────
-  'MalwareMatrix':"Malware Matrix",
-  'Dawncore':"Dawncore",
-  'BioMatterPreserver':"Biomatter Preserver",'BiomatterPreserver':"Biomatter Preserver",
-  'StrikersFlail':"Striker's Flail",'StrikerFlail':"Striker's Flail",
-  'NashorsToothFlail':"Nashor's Tooth",'NashorToothFlail':"Nashor's Tooth",
-  'VoidStaff':"Void Staff",
-  // ── RADIANT / ORNN / SPECIAL ────────────────────────
-  'OrnnBloodswornSword':"Bloodsworn Sword (Ornn)",
-  'OrnnAnimaVisage':"Anima Visage (Ornn)",
-  'OrnnDeathsDefiance':"Death's Defiance (Ornn)",
-  'OrnnEternal Winter':"Eternal Winter (Ornn)",
-  'OrnnFrozenFist':"Frozen Fist (Ornn)",
-  'OrnnObsidianCleaver':"Obsidian Cleaver (Ornn)",
-  'OrnnRimeforgedGrasp':"Rimeforged Grasp (Ornn)",
-  'OrnnSturdy Heart':"Sturdy Heart (Ornn)",
-  'OrnnTheSkullduggery':"Skullduggery (Ornn)",
-  'RadiantDeathblade':"Deathblade (Radiant)",
-  'RadiantGuardian':"Guardian Angel (Radiant)",
-  'RadiantLastWhisper':"Last Whisper (Radiant)",
-  'RadiantInfinityEdge':"Infinity Edge (Radiant)",
-  'RadiantBlueBuff':"Blue Buff (Radiant)",
-};
-
-// Master item resolver — handles all API formats
-function resolveItemName(raw) {
-  if (!raw) return null;
-  const s = String(raw);
-
-  // If it's a pure integer ID, try the numeric map first
-  if (/^\d+$/.test(s)) {
-    const numMap = {
-      '1':"B.F. Sword",'2':"Chain Vest",'3':"Needlessly Large Rod",
-      '4':"Tear of the Goddess",'5':"Negatron Cloak",
-      '6':"Giant's Belt",'7':"Sparring Gloves",'8':"Spatula",
-      '11':"Deathblade",'12':"Bloodthirster",'13':"Infinity Edge",
-      '14':"Last Whisper",'15':"Sterak's Gage",'16':"Edge of Night",
-      '17':"Archangel's Staff",'18':"Morellonomicon",
-      '22':"Blue Buff",'23':"Jeweled Gauntlet",
-      '24':"Hand of Justice",'25':"Rabadon's Deathcap",
-      '26':"Guinsoo's Rageblade",'27':"Kraken Slayer",
-      '28':"Runaan's Hurricane",'29':"Giant Slayer",
-      '31':"Red Buff",'32':"Bramble Vest",
-      '33':"Sunfire Cape",'34':"Titan's Resolve",
-      '35':"Protector's Vow",'36':"Redemption",
-      '37':"Zenith Blade",'38':"Ionic Spark",
-      '39':"Dragon's Claw",'41':"Spear of Shojin",
-      '42':"Rapid Fire Cannon",'43':"Statikk Shiv",
-      '44':"Warmog's Armor",'45':"Gargoyle's Stoneplate",
-      '46':"Adaptive Helm",
-      '111':"Malware Matrix",'113':"Dawncore",
-      '115':"Biomatter Preserver",'117':"Striker's Flail",
-      '119':"Nashor's Tooth",'120':"Gunblade",
-    };
-    if (numMap[s]) return numMap[s];
-    // Try DDragon live data
-    if (ddItems[s]) return ddItems[s];
-    return 'Item ' + s;
-  }
-
-  // Strip all known set prefixes: TFT_Item_, TFT17_Item_, TFT6_Item_, TFT4_Item_ etc
-  const stripped = s.replace(/^TFT\d*_Item_/i, '').replace(/^TFT_Item_/i, '');
-
-  // Direct lookup in name map
-  if (ITEM_NAME_MAP[stripped]) return ITEM_NAME_MAP[stripped];
-
-  // Try DDragon live data with original key
-  if (ddItems[s]) return ddItems[s];
-  if (ddItems[stripped]) return ddItems[stripped];
-
-  // Last resort: clean the string into readable form
-  // Split camelCase, fix common missing apostrophes
-  const readable = stripped
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/^Of /i, 'of ')
-    .replace(/ Of /g, ' of ')
-    .replace(/s Rage/g, "'s Rage")
-    .replace(/s Gage/g, "'s Gage")
-    .replace(/s Flail/g, "'s Flail")
-    .replace(/s Tooth/g, "'s Tooth")
-    .replace(/s Claw/g, "'s Claw")
-    .replace(/s Vow/g, "'s Vow")
-    .replace(/s Armor/g, "'s Armor")
-    .replace(/s Resolve/g, "'s Resolve")
-    .replace(/s Staff/g, "'s Staff")
-    .replace(/s Whisper/g, "'s Whisper")
-    .replace(/s Hurricane/g, "'s Hurricane")
-    .trim();
-  return readable || stripped;
-}
-
-function buildTFTSummary(matches, mode) {
-  return matches.map((m, i) => {
-    const p = m.data;
-    const allPlayers = m.allPlayers || [];
-    const date = m.date ? new Date(m.date).toLocaleDateString() : '?';
-    const stage = roundToStage(p.last_round);
-    const lastRound = p.last_round || 0;
-    const placement = p.placement;
-    const dmg = p.total_damage_to_players || 0;
-    const elims = p.players_eliminated || 0;
-    const goldLeft = p.gold_left || 0;
-    const level = p.level || 7;
-
-    const compLevel = lastRound>=38 ? 'VERY HEAVY (stage 6+, elite lobby)'
-      : lastRound>=32 ? 'HEAVY (stage 5+, strong lobby)'
-      : lastRound>=25 ? 'STANDARD (stage 4)'
-      : lastRound>=18 ? 'LIGHT (stage 3, early exit)'
-      : 'VERY LIGHT (stage 2)';
-
-    const dmgSignal = dmg>=35 ? 'DOMINANT BOARD'
-      : dmg>=22 ? 'COMPETITIVE'
-      : dmg>=12 ? 'WEAK / LOSS-STREAKING'
-      : 'VERY WEAK';
-
-    const econSignal = goldLeft<=5  ? 'PERFECT (≤5g — Challenger standard)'
-      : goldLeft<=15 ? 'MINOR ERROR (6-15g — under-rolled slightly)'
-      : goldLeft<=30 ? 'SIGNIFICANT ERROR (16-30g — major under-roll)'
-      : 'MAJOR ERROR (30g+ — never committed to rolling)';
-
-    // Traits
-    // Trait analysis — use expanded trait objects when available
-    const rawTraits = p.traits||[];
-    const activeRawTraits = rawTraits.filter(t=>(t.tier_current||t.current||0)>0);
-    const activeTraits = activeRawTraits
-      .sort((a,b)=>(b.tier_current||b.current||0)-(a.tier_current||a.current||0))
-      .map(t=>{
-        const name=(t.name||'').replace(/TFT\d+_/g,'').replace(/_/g,' ').trim();
-        const cur=t.tier_current||t.current||0;
-        const max=t.tier_total||t.max||3;
-        const units=t.num_units||t.units||0;
-        const capped=cur>=max?'★MAX':'';
-        return `${name}(${units}u ${cur}/${max}${capped})`;
-      }).join(', ');
-    // Detect near-miss traits (1 unit away from next breakpoint)
-    const nearMiss = rawTraits.filter(t=>{
-      const cur=t.tier_current||t.current||0;
-      const max=t.tier_total||t.max||3;
-      const units=t.num_units||t.units||0;
-      return cur>0 && cur<max;
-    }).map(t=>{
-      const name=(t.name||'').replace(/TFT\d+_/g,'').replace(/_/g,' ').trim();
-      return `${name}(need +${(t.tier_total||3)-(t.num_units||0)+1}u for next tier)`;
-    }).slice(0,3).join(', ');
-    const inactiveTraits = rawTraits.filter(t=>(t.tier_current||t.current||0)===0&&(t.num_units||t.units||0)>0)
-      .map(t=>`${(t.name||'').replace(/TFT\d+_/g,'').replace(/_/g,' ').trim()}(${t.num_units||t.units||0}u)`).join(', ');
-
-    // Augments with effects
-    const augRaw = p.augments||p.augment||p.selectedAugments||[];
-    const augs = Array.isArray(augRaw) ? augRaw.map(cleanAug).filter(Boolean) : [];
-    const augAnalysis = augs.map(a => {
-      const eff = getAugmentEffect(a);
-      const tier = getAugmentTierForComp(a, compGuess);
-      if (eff) return `${a} [${tier||'?'} for this comp: ${(eff.note||eff.desc||'').slice(0,70)}]`;
-      return a;
-    }).join(' | ');
-
-    // Units — every unit with star level, items, 1-star carry flag
-    const units = (p.units||[]).sort((a,b)=>b.tier-a.tier).map(u => {
-      const name = getChampName(u.character_id);
-      const stars = u.tier || 1;
-      const rawItems = u.items&&u.items.length ? u.items : u.itemNames&&u.itemNames.length ? u.itemNames : [];
-      const itemStr = rawItems.map(id=>resolveItemName(id)).filter(Boolean).join(' + ') || 'no items';
-      const flag = stars===1 && u.rarity>=3 && rawItems.length ? '⚠1★CARRY' : '';
-      return `  • ${name} ★${stars}${flag} | ${itemStr}`;
-    }).join('\n');
-
-    // Comp detection
-    const traitNames = (p.traits||[]).filter(t=>t.tier_current>0)
-      .map(t=>t.name.replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
-    let compGuess = 'Unknown';
-    if (traitNames.some(t=>t.includes('darkstar')||t.includes('dark star'))) compGuess='Dark Stars';
-    else if (traitNames.some(t=>t.includes('meeple'))) compGuess='Corki Riven (Meeple)';
-    else if (traitNames.some(t=>t.includes('vanguard'))) compGuess='Vanguard LeBlanc / Asol';
-    else if (traitNames.some(t=>t.includes('nova'))) compGuess='NOVA Marauders';
-    else if (traitNames.some(t=>t.includes('brawler'))) compGuess='Brawler Yi';
-    else if (traitNames.some(t=>t.includes('shepherd'))) compGuess='7 Shepherd';
-    else if (traitNames.some(t=>t.includes('rogue'))) compGuess='Rogue Reroll';
-    else if (traitNames.some(t=>t.includes('stargazer'))) compGuess='Stargazer / Lulu Reroll';
-    else if (traitNames.some(t=>t.includes('marauder'))) compGuess='NOVA Marauders';
-    else if (traitNames.some(t=>t.includes('mecha'))) compGuess='Mecha / Asol';
-    else if (traitNames.some(t=>t.includes('space groove'))) compGuess='Space Groove Riven';
-    else if (traitNames.some(t=>t.includes('primordian'))) compGuess='Primordian Reroll';
-    else if (traitNames.some(t=>t.includes('timebreaker'))) compGuess='Timebreaker opener';
-
-    // Timeline inference
-    const tl = inferTimeline(m);
-    const tlErrors = tl.errors.slice(0,4).map(e=>`  [${e.sev}] ${e.round}: ${e.msg}`).join('\n');
-    const tlEvents = tl.events.slice(0,3).join(' | ');
-
-    // Lobby context — all 8 players
-    const winner = allPlayers.find(pp=>pp.placement===1);
-    const top4   = allPlayers.filter(pp=>pp.placement<=4);
-    const lobbyAvgLevel = allPlayers.length ?
-      +(allPlayers.reduce((a,pp)=>a+(pp.level||7),0)/allPlayers.length).toFixed(1) : level;
-    const lobbyAvgGold  = allPlayers.length ?
-      +(allPlayers.reduce((a,pp)=>a+(pp.gold_left||0),0)/allPlayers.length).toFixed(1) : goldLeft;
-
-    const winnerBoard = winner && !winner.isPlayer ? [
-      `  Winner P1: lv${winner.level||'?'} | ${winner.gold_left||0}g left | traits:[${(winner.traits||[]).slice(0,3).join(', ')}]`,
-      `  Winner units: ${(winner.units||[]).slice(0,5).map(u=>`${u.name}★${u.stars}`).join(', ')}`,
-      `  Winner items: ${(winner.units||[]).filter(u=>u.items.length).slice(0,3).map(u=>`${u.name}:[${u.items.slice(0,3).join('+')}]`).join(', ')}`,
-    ].join('\n') : '  (winner data not available)';
-
-    const allComps = allPlayers.map(pp=>
-      `P${pp.placement}:lv${pp.level}:${(pp.traits||[]).slice(0,2).join('/')}:${pp.gold_left||0}g`
-    ).join(' | ');
-
-    const lobbyCtx = [
-      `  All 8 players: ${allComps}`,
-      `  Lobby avg level: ${lobbyAvgLevel} | Lobby avg gold left: ${lobbyAvgGold}g`,
-      `  Player vs lobby: level ${level>=lobbyAvgLevel?'+':''}${(level-lobbyAvgLevel).toFixed(1)} | gold ${goldLeft>=lobbyAvgGold?'+':''}${(goldLeft-lobbyAvgGold).toFixed(1)}g`,
-      winnerBoard ? `WINNER COMPARISON:\n${winnerBoard}` : '',
-    ].filter(Boolean).join('\n');
-
-    return [
-      `╔══ ${mode==='double'?'[DOUBLE UP] ':''}GAME ${i+1} — ${date} ══╗`,
-      `PLACEMENT: ${placement}/8 | LEVEL: ${level} | LAST ROUND: ${stage} | COMPETITION: ${compLevel}`,
-      `DAMAGE: ${dmg} (${dmgSignal}) | ELIMS: ${elims} | GOLD LEFT: ${goldLeft}g (${econSignal})`,
-      `BOARD: avg_star=${tl.avgStar} | 2★=${tl.twoStars} | 3★=${tl.threeStars}`,
-      `LIKELY COMP: ${compGuess}`,
-      ``,
-      `ACTIVE TRAITS: ${activeTraits||'none'}`,
-      `INACTIVE: ${inactiveTraits||'none'}`,
-      nearMiss ? `NEAR-MISS TRAITS: ${nearMiss}` : '',
-      ``,
-      `AUGMENTS (with effects + tier for comp):`,
-      `  ${augAnalysis||'none recorded in API'}`,
-      ``,
-      `TIMELINE ANALYSIS:`,
-      tlErrors || '  No critical errors detected',
-      tlEvents ? `  POSITIVES: ${tlEvents}` : '',
-      ``,
-      `LOBBY CONTEXT (all 8 players extracted):`,
-      lobbyCtx,
-      ``,
-      `FULL BOARD (every unit, stars, items — BiS comparison possible):`,
-      units || '  (no unit data)',
-    ].filter(s => s !== '').join('\n');
-  }).join('\n\n═══════════════════════════════════════\n\n');
-}
-
-function buildARAMSummary(matches){
-  return matches.map((m,i)=>{
-    const p=m.data;
-    const date=m.date?new Date(m.date).toLocaleDateString():'?';
-    const dur=m.gameDuration?`${Math.floor(m.gameDuration/60)}m ${m.gameDuration%60}s`:'?';
-
-    // Full item identification with fallbacks
-    const rawItems=[p.item0,p.item1,p.item2,p.item3,p.item4,p.item5,p.item6]
-      .filter(id=>id&&id!==0);
-    const itemNames=rawItems.map(id=>{
-      const name=ddItems[String(id)];
-      return name?name:`ItemID_${id}`;
-    });
-
-    // Combat stats
-    const kda=(p.kills+p.assists)/Math.max(1,p.deaths);
-    const dmgDealt=p.totalDamageDealtToChampions||0;
-    const dmgTaken=p.totalDamageTaken||0;
-    const dmgRatio=dmgTaken>0?(dmgDealt/dmgTaken).toFixed(2):'N/A';
-    const physDmg=p.physicalDamageDealtToChampions||0;
-    const magicDmg=p.magicDamageDealtToChampions||0;
-    const trueDmg=p.trueDamageDealtToChampions||0;
-
-    // Performance signals
-    const cs=(p.totalMinionsKilled||0)+(p.neutralMinionsKilled||0);
-    const healing=p.totalHeal||0;
-    const ccTime=p.timeCCingOthers||0;
-    const multikills=p.doubleKills||0;
-    const pentakills=p.pentaKills||0;
-    const tripleKills=p.tripleKills||0;
-    const killingSprees=p.killingSprees||0;
-
-    // Damage note
-    const dmgNote=dmgDealt>=25000?'excellent damage output'
-      :dmgDealt>=15000?'solid damage'
-      :dmgDealt>=8000?'below average — underperforming for champion type'
-      :'very low — likely playing too passively or dying before dealing damage';
-
-    return [
-      `=== ARAM MATCH ${i+1} — ${date} ===`,
-      `RESULT: ${p.win?'VICTORY':'DEFEAT'} | Duration: ${dur}`,
-      `CHAMPION: ${p.championName||'Unknown'} (Level ${p.champLevel||'?'})`,
-      `KDA: ${p.kills}/${p.deaths}/${p.assists} | KDA ratio: ${kda.toFixed(2)}`,
-      `DAMAGE TO CHAMPIONS: ${dmgDealt.toLocaleString()} (${dmgNote})`,
-      `  Physical: ${physDmg.toLocaleString()} | Magic: ${magicDmg.toLocaleString()} | True: ${trueDmg.toLocaleString()}`,
-      `DAMAGE TAKEN: ${dmgTaken.toLocaleString()} | Damage ratio D:T = ${dmgRatio}:1`,
-      `HEALING DONE: ${healing.toLocaleString()} (high healing = active ability usage)`,
-      `CC TIME ON ENEMIES: ${ccTime}s | Vision score: ${p.visionScore||0}`,
-      `MULTIKILLS: Doubles=${multikills} Triples=${tripleKills} Penta=${pentakills} Sprees=${killingSprees}`,
-      `CS: ${cs} | Summoner spells: ${p.summoner1Id||'?'} / ${p.summoner2Id||'?'}`,
-      `ITEMS BUILT (in order of slots): ${itemNames.length?itemNames.join(' → '):'none detected'}`,
-      `PERKS/RUNES: ${p.perks?.styles?.[0]?.style||'not available'}`,
-    ].join('\n');
-  }).join('\n\n---\n\n');
-}
-
-// ── Claude ─────────────────────────────────────────────────────
-// callClaude: non-streaming with 55s timeout (Vercel Pro limit is 60s)
-async function callClaude(prompt, maxTokens) {
-  const ck = getCK();
-  if (!ck) throw new Error('No Claude API key — enter it in the API Keys panel at the top');
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 55000); // 55s timeout
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ck,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: maxTokens,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    });
-    if (!res.ok) {
-      const e = await res.json().catch(() => ({}));
-      throw new Error(e?.error?.message || `Claude API error ${res.status}`);
-    }
-    const d = await res.json();
-    return d.content.map(c => c.text || '').join('');
-  } catch (e) {
-    if (e.name === 'AbortError') throw new Error('Request timed out after 55s — try fewer games or a shorter analysis');
-    throw e;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-// callClaudeStreaming: true SSE streaming — tokens appear as they arrive
-// targetElId: the element to stream into. If omitted, just returns full text.
-async function callClaudeStreaming(prompt, maxTokens, targetElId) {
-  const ck = getCK();
-  if (!ck) throw new Error('No Claude API key');
-
-  // Show streaming placeholder in target element
-  const el = targetElId ? document.getElementById(targetElId) : null;
-  if (el) {
-    el.innerHTML = '<div class="stream-live" style="font-family:\'Share Tech Mono\',monospace;font-size:.72rem;color:var(--text);line-height:1.85;white-space:pre-wrap;padding:4px;min-height:60px"></div>';
-  }
-  const textEl = el ? el.querySelector('.stream-live') : null;
-  let fullText = '';
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 min max for streaming
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ck,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: maxTokens || 3000,
-        stream: true,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    });
-
-    if (!res.ok) {
-      const e = await res.json().catch(() => ({}));
-      throw new Error(e?.error?.message || 'Claude API error ' + res.status);
-    }
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let renderThrottle = 0;
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value);
-      const lines = chunk.split('\n').filter(l => l.startsWith('data: '));
-      for (const line of lines) {
-        const data = line.slice(6);
-        if (data === '[DONE]') continue;
-        try {
-          const parsed = JSON.parse(data);
-          if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
-            fullText += parsed.delta.text;
-            // Throttle DOM updates to every 8 tokens for performance
-            renderThrottle++;
-            if (textEl && renderThrottle % 8 === 0) {
-              textEl.innerHTML = renderStreamingText(fullText);
-              if (el) el.scrollTop = el.scrollHeight;
-            }
-          }
-        } catch(e) { /* ignore parse errors in stream */ }
-      }
-    }
-
-    // Final render
-    if (el) el.innerHTML = renderCoachingTabbed(fullText, 'stream');
-    return fullText;
-
-  } catch (e) {
-    if (e.name === 'AbortError') throw new Error('Streaming timed out — response was taking too long');
-    throw e;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-function renderStreamingText(text) {
-  // Fast markdown-like render for streaming
-  return text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/## ([^\n]+)/g,'<h2 style="font-family:Rajdhani,sans-serif;font-size:.9rem;font-weight:700;color:var(--accent2);margin:14px 0 4px;letter-spacing:.06em;text-transform:uppercase">$1</h2>')
-    .replace(/\*\*([^*]+)\*\*/g,'<strong style="color:var(--gold3)">$1</strong>')
-    .replace(/\n/g,'<br>');
-}
-
-// Upgrade callClaude to support optional streaming
-const _callClaude_orig = callClaude;
-
-
-async function analyzeAll(){
-  const toAnalyze=selected.size>0?[...selected].map(i=>matchData[i]):matchData;
-  if(!toAnalyze.length){toastWarn('Select at least one game to analyze.','No Matches');return;}
-  if(!getCK()){toastErr('Paste your Claude API key in the Keys bar at the top.','API Key Missing');return;}
-  const panel=document.getElementById('cpanel');
-  if(!panel)return;
-  panel.classList.add('show');panel.style.display='block';
-  // Step-by-step progress
-  const _steps=['⚡ Analyzing economy patterns…','🔍 Auditing item builds…','🔮 Evaluating augment decisions…','📊 Computing statistical correlations…','🏆 Building personalized training plan…'];
-  let _stepIdx=0;
-  function _nextStep(){
-    const el=document.getElementById('cpanel-overview');
-    if(el&&_stepIdx<_steps.length){
-      el.innerHTML='<div class="ctab-loading"><div class="dot"></div><span>'+_steps[_stepIdx]+'</span></div>';
-      _stepIdx++;
-    }
-  }
-  _nextStep();const _stepInterval=setInterval(()=>{if(_stepIdx<_steps.length)_nextStep();else clearInterval(_stepInterval);},2800);
-  document.getElementById('cpanelPlayer').textContent=currentPlayerName;
-  ['overview','economy','items','augments','training'].forEach(t=>{
-    const el=document.getElementById('cpanel-'+t);
-    if(el)el.innerHTML=`<div class="ctab-loading"><div class="dot"></div><span>Preparing…</span></div>`;
-  });
-  switchCoachTab('overview');
-  panel.scrollIntoView({behavior:'smooth',block:'start'});
-  lock(true);
-  if(currentMode==='aram'){await runARAMAnalysis(toAnalyze);lock(false);return;}
-
-  const n = toAnalyze.length;
-  const modeStr = currentMode==='double' ? 'TFT Double Up' : 'TFT Ranked';
-  const summary = buildTFTSummary(toAnalyze, currentMode);
-  const patterns = computePatterns(toAnalyze);
-  const opponents = analyzeOpponents(toAnalyze);
-  // Non-blocking opponent rank fetch (enhances coaching if it completes)
-  let opponentRanks = {};
-  try {
-    const region = document.getElementById('region')?.value || 'na1';
-    const routing = ROUTING[region] || 'americas';
-    if (toAnalyze[0]?.allPlayers?.length) {
-      opponentRanks = await fetchOpponentRanks(toAnalyze[0].allPlayers, routing, region);
-    }
-  } catch(e) {} // Silently fail — rank data is enhancement not requirement
-  // Build winner comparison block
-  const winnerBlock = opponents.winnerProfiles.map((w,i)=>
-    'G'+(i+1)+' winner: lv'+w.level+'|'+w.gold+'g|'+w.elims+' elims|capped:['+w.cappedTraits.join(',')+']|'+w.units.slice(0,60)
-  ).join('\n');
-  const lobbyBlock = opponents.lobbyStrength.map(l=>
-    'G'+l.game+': player lv'+l.playerLevel+'|'+l.playerGold+'g vs top4 avg lv'+l.top4AvgLevel+'|'+l.top4AvgGold+'g (gap: lv'+(l.levelVsTop4>=0?'+':'')+l.levelVsTop4+')'
-  ).join('\n');
-  const historyCtx = buildHistoryContext(currentPlayerName);
-  const compGuides = getRelevantCompGuides(patterns);
-  const statConclusions = computeStatisticalConclusions(toAnalyze, patterns);
-  const scoutingScore = computeScoutingScore(toAnalyze, patterns);
-
-  // ── Dynamic META from live TFT Academy data ──────────────────────
-  const liveComps = (window.metaLiveData?.comps)||[];
-  const livePatch = window.metaLiveData?.patch||'17.3';
-  const liveTierOrder = window.metaLiveData?.tierOrder||{};
-  const buildTierStr = tier => {
-    const slugs = liveTierOrder[tier]||[];
-    return slugs.map(s=>{
-      const lc=liveComps.find(c=>c.slug===s);
-      return lc?.name||s.replace('set-17-','').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-    }).join(', ')||null;
-  };
-  const liveCompNotes = (patterns.compFrequency||[]).slice(0,3).map(([comp])=>{
-    const b=Object.values(ACADEMY_BOARDS||{}).find(b=>
-      b.name.toLowerCase().includes(comp.toLowerCase().split(' ')[0])||
-      comp.toLowerCase().includes(b.name.toLowerCase().split(' ')[0])
-    );
-    const lc=liveComps.find(c=>c.name?.toLowerCase().includes(comp.toLowerCase().split(' ')[0]));
-    const note=(lc?.note||b?.note||'').slice(0,200);
-    const prio=b?.augPrio?.join(' > ')||'';
-    if(!note&&!prio) return '';
-    return `${b?.name||comp}: ${note}${prio?' | AugPrio: '+prio:''}`;
-  }).filter(Boolean).join('\n');
-
-  // ── Statistical conclusions ───────────────────────────────────────
-  const statBlock = statConclusions.length
-    ? statConclusions.map(c=>'  '+c).join('\n')
-    : '  Insufficient games for statistical analysis';
-
-  // ── Timeline summary across all games ────────────────────────────
-  const timelineBlock = toAnalyze.map((m,gi)=>{
-    const tl = inferTimeline(m);
-    const errs = tl.errors.slice(0,2).map(e=>`${e.sev}@${e.round}:${e.msg.slice(0,55)}`).join('; ');
-    return `  Game ${gi+1} P${m.data.placement}: ${errs||'no critical errors'}`;
-  }).join('\n');
-
-  // ── Bahagabag live profile ────────────────────────────────────────
-  const bahaProfile = getBahaProfile();
-  // Build ranked context for LP roadmap
-  const rankedCtx = (() => {
-    const profile = getBahaProfile();
-    if(!profile) return '';
-    const rh = (profile.rankHistory||[]).slice(-1)[0];
-    if(!rh) return '';
-    const tierLP = {IRON:0,BRONZE:400,SILVER:800,GOLD:1200,PLATINUM:1600,EMERALD:2000,DIAMOND:2400,MASTER:2800,GRANDMASTER:3200,CHALLENGER:3600};
-    const currentLP = (tierLP[rh.tier]||0) + (rh.lp||0);
-    const challengerLP = tierLP.CHALLENGER;
-    const gap = challengerLP - currentLP;
-    return 'CURRENT RANK: '+rh.tier+' '+rh.rank+' '+rh.lp+'LP | Total LP to Challenger: ~'+gap+'LP';
-  })();
-
-  const profileBlock = (bahaProfile && bahaProfile.name === currentPlayerName) ? (() => {
-    const chronic = Object.entries(bahaProfile.weaknesses||{}).sort((a,b)=>b[1]-a[1]).slice(0,4);
-    const rankHist = (bahaProfile.rankHistory||[]).slice(-3);
-    const bestComp = Object.entries(bahaProfile.compStats||{}).sort((a,b)=>a[1].avgPlacement-b[1].avgPlacement)[0];
-    const worstComp = Object.entries(bahaProfile.compStats||{}).sort((a,b)=>b[1].avgPlacement-a[1].avgPlacement)[0];
-    return `LIVE PLAYER PROFILE — ${currentPlayerName}:
-  Total games analyzed all-time: ${bahaProfile.totalGamesAnalyzed}
-  Rank history: ${rankHist.map(r=>r.tier+' '+r.rank+' '+r.lp+'LP').join(' → ')||'not tracked yet'}
-  Best comp all-time: ${bestComp?bestComp[0]+' ('+bestComp[1].avgPlacement+' avg, '+bestComp[1].played+'g)':'N/A'}
-  Worst comp all-time: ${worstComp&&worstComp[0]!==bestComp?.[0]?worstComp[0]+' ('+worstComp[1].avgPlacement+' avg)':'N/A'}
-  Chronic weaknesses across ALL sessions: ${chronic.length?chronic.map(([k,v])=>k+' ('+v+' sessions)').join(', '):'none identified yet'}`;
-  })() : '';
-
-  // ── Full META string ──────────────────────────────────────────────
-  const META = `VERIFIED TFT SET 17 PATCH ${livePatch} (TFT Academy — Dishsoap & Frodan):
-S tier: ${buildTierStr('S')||'Corki Riven, Dark Stars, Vex Fast 9'}
-A tier: ${buildTierStr('A')||'AP Asol Flex, NOVA Yi, Lulu Reroll'}
-B tier: ${buildTierStr('B')||'Karma LB, Voyager Crab, Jhin Stargazer, Kaisa Karma, Veigar, Samira, Karnami, Anima Reroll'}
-
-BiS CARRY ITEMS — Patch ${livePatch} (TFT Academy, any deviation = WRONG):
-Corki: Last Whisper + Deathblade + Power Gauntlet (Fateweavers crit inherently — IE also ok)
-Riven (Corki comp): Sterak's Gage + flex item (MUST have Sterak/IE/DB to activate AD form)
-Kai'Sa (Dark Stars): Madred's Bloodrazor + Spear of Shojin + Infinity Edge
-Jhin (Dark Stars): Last Whisper + Deathblade + Infinity Edge
-Vex: Guinsoo's Rageblade + Rabadon's Deathcap + Rapid Fire Cannon
-Graves (Vex comp): Quicksilver Sash + Madred's Bloodrazor + Deathblade (Assault Frame → Buckshot path)
-Master Yi: Edge of Night (REQUIRED — aggro drop keeps Yi alive) + Malware Matrix + Giant Slayer
-LeBlanc: Guinsoo's (REQUIRED — scales clone) + Archangel's Staff + Gunblade
-Karma: Jeweled Gauntlet + Nashor's Tooth + Void Staff
-Lulu: Nashor's Tooth + Guinsoo's Rageblade + Blue Buff
-Asol (non-Mecha): Jeweled Gauntlet + Rabadon's + Statikk Shiv — DO NOT Mecha form ever
-Nunu (tank): Frozen Heart + Frozen Heart + Adaptive Helm
-Rammus (tank): Bramble Vest + Frozen Heart + Crownguard
-
-AUGMENT PRIORITY by comp:
-Dark Stars: EMBLEM > ITEMS > COMBAT | Vex Fast 9: ECON > ITEMS > COMBAT
-Corki Riven: ITEMS > COMBAT > ECON | AP Asol: ITEMS > COMBAT > ECON
-NOVA Yi: ITEMS > ECON > COMBAT | Lulu Reroll: ECON > ITEMS > COMBAT
-
-ECONOMY (Challenger absolute rules):
-Lv6 = 3-2 EVERY GAME | Lv7 = 4-1 (3-5 with econ aug) | Lv8 = 4-2 fast-8 | Lv9 = 5-2 exodia
-Interest breakpoints: 10g=1/rd | 20g=2/rd | 30g=3/rd | 40g=4/rd | 50g=5/rd
-ALWAYS bank 50g before leveling or rolling | Gold left: ≤5g=PERFECT | 6-15g=minor | 16-30g=error | 30g+=major LP loss
-Challenger avg gold left: 3.2g | This player avg: ${patterns.avgGoldLeft}g (gap = ${patterns.goldLeftGap}g ≈ ${patterns.econLPCost} placements/game)
-Roll thresholds: lv6→leave 20g | lv7→leave 30g | lv8→leave 40g
-
-${liveCompNotes?'COMP NOTES (live TFT Academy):\n'+liveCompNotes:''}
-${(()=>{try{const d=metaTFTCache[Object.keys(metaTFTCache).find(k=>k.includes('augments'))||''];return d?buildMetaTFTBlock(patterns,d):'';} catch(e){return '';}})()}
-${buildLiveBiSBlock()?buildLiveBiSBlock():''}
-${buildPositioningBlock(patterns)}
-${compGuides?'COMP GUIDES:\n'+compGuides:''}`;
-
-  // ── COMPUTED block — all pre-verified facts ───────────────────────
-  const COMPUTED = `PRE-COMPUTED FACTS (verified — use directly, do not second-guess):
-PLACEMENT: avg ${patterns.avgPlacement} | top-4 ${patterns.top4Rate}% | bot-4 ${patterns.bot4Rate}% | wins ${patterns.win1Rate}%
-vs CHALLENGER: avg 4.1 | top-4 55% | This player gap: ${(patterns.avgPlacement-4.1).toFixed(2)} placements
-
-ECONOMY (most impactful):
-  Avg gold left: ${patterns.avgGoldLeft}g vs Challenger 3.2g → costs ~${patterns.econLPCost} placements/game
-  Over-rolled (>15g left): ${patterns.gamesOverRolled}/${n} games | Perfect (≤5g): ${patterns.gamesPerfectEcon}/${n} games
-  Grade: ${patterns.econGrade} | Score: ${patterns.econScore}/100
-
-LEVELS: avg ${patterns.avgLevel} vs Challenger 7.8 | lv8+: ${patterns.gamesHitLevel8}/${n} | lv9: ${patterns.gamesHitLevel9}/${n} | stuck lv6: ${patterns.gamesStuckLevel6}/${n}
-
-ITEMS: ${patterns.itemErrorRate}% error rate vs Challenger <8% | Grade: ${patterns.itemGrade}
-PRE-VERIFIED ITEM MISTAKES (these are FACTS from our BiS database):
-${(patterns.itemMistakes||[]).slice(0,6).map(m=>'  Game '+m.game+' '+m.unit+'★'+m.stars+': WRONG=['+m.wrong.join('+')+'] BiS should be=['+m.bis.join('+')+']').join('\n')||'  None detected'}
-
-COMPS: ${(patterns.compFrequency||[]).map(([c,cnt])=>c+'('+cnt+'x avg_place='+(patterns.compAvgPlacements||{})[c]+')').join(' | ')}
-Best: ${patterns.bestComp} avg ${(patterns.compAvgPlacements||{})[patterns.bestComp]} | Worst: ${patterns.worstComp} avg ${(patterns.compAvgPlacements||{})[patterns.worstComp]}
-Contested: ${patterns.contestedGames}/${n} games | 1-star carries: ${patterns.oneStarCarries} total (Challenger <0.2/game)
-
-LOBBY DATA (all 8 players per game):
-${(patterns.lobbyData||[]).map(l=>'  G'+l.game+' P'+l.playerPlacement+': winner=['+l.winnerTraits.slice(0,2).join('/')+']lv'+l.winnerLevel+' | vs lobby: lv'+(l.playerLevelVsLobby>=0?'+':'')+l.playerLevelVsLobby+' gold'+(l.playerGoldVsLobby>=0?'+':'')+l.playerGoldVsLobby+'g | contested:'+l.contestedCount).join('\n')}
-
-STATISTICAL CONCLUSIONS (Pearson correlation + pattern analysis):
-${statBlock}
-
-TIMELINE ERRORS PER GAME (pre-identified by severity):
-${timelineBlock}
-
-${profileBlock?'LIVE PLAYER PROFILE:\n'+profileBlock:''}
-
-TOP ISSUES: ${patterns.topIssues.join(' || ')||'none detected'}`;
-
-  const DATA = `PLAYER: ${currentPlayerName} | MODE: ${modeStr} | GAMES: ${n}
-${rankedCtx?rankedCtx+'\n':''}
-${historyCtx?'SESSION HISTORY:\n'+historyCtx+'\n\n':''}${COMPUTED}
-
-MATCH-BY-MATCH DATA:
-${summary}`;
-
-  // ── All 5 tabs fire simultaneously ───────────────────────────────
-  setTabLoading('overview',`Building overview — ${n} games…`);
-  setTabLoading('economy','Deep economy audit…');
-  setTabLoading('items','Professional item audit…');
-  setTabLoading('augments','Augment intelligence report…');
-  setTabLoading('training','Building training plan…');
-
-  const runTab = async (tab, fn) => {try{await fn();}catch(e){setTabError(tab,e.message);}};
-
-  // ── Sequential streaming tabs — no timeouts, no rate limits ──────────
-  await runTab('overview', async()=>{
-      var _sk=document.getElementById('cpanel-overview');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
-      const _cpEl=document.getElementById('cpanel-overview');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
-      const t = await callClaudeStreaming(`${META}\n\n${DATA}\n\nYou are the world's best TFT coach. The PRE-COMPUTED FACTS above are verified — do not second-guess them. Use the STATISTICAL CONCLUSIONS and TIMELINE ERRORS as hard evidence.\n\n## VERDICT\nOne precise sentence: estimated rank tier from decision patterns + the single most LP-costly fixable habit. Must reference specific numbers from pre-computed data.\n\n## SCORECARD\nOne line per dimension, using pre-computed grades where given:\nECONOMY | ${patterns.econGrade} | [reference: avg ${patterns.avgGoldLeft}g left, ${patterns.gamesOverRolled}/${n} over-rolled, costs ${patterns.econLPCost} LP/game]\nCOMP SELECTION | [grade] | [name exact comps played, reference tier list]\nITEMIZATION | ${patterns.itemGrade} | [reference: ${patterns.itemErrorRate}% error rate, name specific wrong items]\nAUGMENTS | [grade] | [reference specific augment choices from match data]\nBOARD MANAGEMENT | [grade] | [reference: ${patterns.oneStarCarries} 1-star carries, ${patterns.gamesStuckLevel6}/${n} games stuck lv6]\nMETA AWARENESS | [grade] | [scouting score ${scoutingScore.score}/100 — ${scoutingScore.contestedGames}/${n} contested, comp read: ${scoutingScore.insights[0]||'adequate'}]\n\n## TILT CHECK\n${patterns.tiltDetected?'⚠ TILT DETECTED: '+patterns.tiltGames.length+' consecutive loss streak with worsening placements detected. Address this.':'No tilt pattern detected.'}\n\n## GAME LOG\nEvery game, no skipping:\nGame [N] | [place]/8 | [grade] | [LIGHT/STANDARD/HEAVY/VERY HEAVY]\nComp: [name+tier] | Timeline: [most critical error from timeline data] | Winner did: [from winner comparison] | Key fix: [exact actionable correction]\n\n## STATISTICAL INSIGHTS\nUse the Pearson correlations and pattern conclusions above. What does the DATA say are the biggest LP levers?\n\n## TOP 3 LP LEAKS\n1. [Issue — use statistical evidence] — ~[X] LP/game — [exact fix]\n2. [Issue] — ~[X] LP/game — [fix]\n3. [Issue] — ~[X] LP/game — [fix]\n\n## LP ROADMAP\nCurrent estimated rank tier from decision patterns.\nTotal LP cost of fixable habits per game: [sum the top 3 leaks].\n"If you fix [top habit] alone: +[X] LP per 10 games, reaching [tier] in ~[Y] games."\n"If you fix all 3 habits: +[X] LP per 10 games, reaching Challenger in ~[Y] games."\nBe realistic — cite the specific LP costs from the statistical conclusions above.`, 3500);
-      const el=document.getElementById('cpanel-overview');if(el)el.innerHTML=renderCoachingTabbed(t,'overview');
-      // Save session after overview
-      // Render challenger cards at top of panel
-      const cardsEl=document.getElementById('cpanel-overview');
-      if(cardsEl){
-        const cardsHtml='<div style="margin-bottom:12px">'+renderChallengerCards(patterns,n)+'</div>';
-        cardsEl.innerHTML=cardsHtml+(cardsEl.innerHTML||'');
-      }
-      clearInterval(_stepInterval);
-      saveSessionResult(currentPlayerName,{econGrade:patterns.econGrade,itemGrade:patterns.itemGrade,avgPlacement:patterns.avgPlacement,topIssues:patterns.topIssues,gamesAnalyzed:n,mode:modeStr});
-      if(currentPlayerName.toLowerCase().includes('bahagabag'))updateLiveProfile(currentPlayerName.split('#')[0],currentPlayerName.split('#')[1],null,toAnalyze);
-  });
-  await runTab('economy', async()=>{
-      var _sk=document.getElementById('cpanel-economy');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
-      const _cpEl=document.getElementById('cpanel-economy');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
-      // Build deep per-game economy data block
-      const econGameData = toAnalyze.map((m,i)=>{
-        const tl = inferTimeline(m);
-        const rd = (patterns.rolldownByGame||[])[i]||{};
-        const lt = (patterns.levelTimingByGame||[])[i]||{};
-        const sc = (patterns.streakByGame||[])[i]||{};
-        const ld = (patterns.lobbyData||[])[i]||{};
-        const es = (patterns.econScoreByGame||[])[i]||{};
-        const p = m.data;
-        const winner = (m.allPlayers||[]).find(pp=>pp.placement===1);
-        return 'Game '+(i+1)+' | P'+p.placement+'/8 | lv'+(p.level||7)+' | '+(p.gold_left||0)+'g left | '+(p.total_damage_to_players||0)+'dmg\n'+'  Level timing: '+(lt.errors?.length ? lt.errors.map(e=>e.sev+':'+e.msg.slice(0,60)).join(' | ') : 'lv'+(p.level||7)+' on track')+'\n'+
-          '  Roll: '+(rd.rollEfficiency||'?')+' | '+(rd.twoStars||0)+' 2-stars (needed '+(rd.expected2Stars||'?')+'+ at lv'+(p.level||7)+') | over-saved: '+(rd.overSaved||0)+'g\n'+'  Streak: '+(sc.streakSignal||'?')+'\n'+
-          '  vs lobby: lv'+(ld.playerLevelVsLobby>=0?'+':'')+ld.playerLevelVsLobby+' gold'+(ld.playerGoldVsLobby>=0?'+':'')+ld.playerGoldVsLobby+'g | lobby avg lv'+ld.lobbyAvgLevel+' '+ld.lobbyAvgGold+'g'+
-          (ld.top4AvgLevel?' | top-4 avg lv'+ld.top4AvgLevel+' '+ld.top4AvgGold+'g':'')+'\n'+'  Winner: lv'+(winner?.level||'?')+' '+(winner?.gold_left||0)+'g | '+(winner?.traits||[]).slice(0,2).join('/')+'\n'+
-          '  Economy score: '+(es.score||'?')+'/100 | Est LP cost: '+(tl.estimatedLPCost||0)+' placements\n'+'  Timeline errors: '+(tl.errors.length ? tl.errors.map(e=>'['+e.sev+'] '+e.msg.slice(0,55)).join(' ') : 'none');
-      }).join('\n\n');
-
-      const econStatsBlock = 'ECONOMY STATISTICAL ANALYSIS:\n'+'Gold left per game: '+toAnalyze.map(m=>m.data.gold_left||0).join('g, ')+'g\n'+
-        'Level per game: '+toAnalyze.map(m=>m.data.level||7).join(', ')+'\n'+'Avg gold left: '+patterns.avgGoldLeft+'g vs Challenger 3.2g (gap = '+patterns.goldLeftGap+'g)\n'+
-        'Economy LP cost: ~'+patterns.econLPCost+' placements/game from gold waste\n'+'Level timing LP cost: ~'+(patterns.econLPBreakdown?.levelTiming||0)+' placements/game\n'+
-        'Roll efficiency LP cost: ~'+(patterns.econLPBreakdown?.rollEfficiency||0)+' placements/game\n'+'TOTAL ECONOMY LP COST: ~'+(parseFloat(patterns.econLPCost||0)+parseFloat(patterns.econLPBreakdown?.levelTiming||0)+parseFloat(patterns.econLPBreakdown?.rollEfficiency||0)).toFixed(1)+' placements/game\n'+
-        'Perfect econ (<=5g): '+patterns.gamesPerfectEcon+'/'+n+' | Minor (6-15g): '+(patterns.gamesMinorError||0)+'/'+n+' | Major (>30g): '+(patterns.gamesMajorError||0)+'/'+n+'\n'+'Under-rolled games: '+(patterns.underRolledGames||0)+'/'+n+' | Avg economy score: '+(patterns.avgEconScore||'?')+'/100\n'+
-        'Best econ: Game '+(patterns.bestEconGame?.game||'?')+' ('+(patterns.bestEconGame?.score||0)+'/100, '+(patterns.bestEconGame?.goldLeft||0)+'g left)\n'+'Worst econ: Game '+(patterns.worstEconGame?.game||'?')+' ('+(patterns.worstEconGame?.score||0)+'/100, '+(patterns.worstEconGame?.goldLeft||0)+'g left)\n'+
-        'Key stats: '+statConclusions.filter(c=>c.includes('ECONOMY')||c.includes('LEVEL')||c.includes('ROLL')||c.includes('WINNER')||c.includes('INTEREST')).join(' | ');
-
-      const t = await callClaudeStreaming(META+'\n\n'+DATA+'\n\nYou are Dishsoap, TFT Challenger, doing the most thorough economy audit possible for '+currentPlayerName+'. Every observation must cite specific numbers from the data below.\n\n'+econStatsBlock+'\n\nPER-GAME ECONOMY DATA:\n'+econGameData+'\n\n## ECONOMY GRADE: '+patterns.econGrade+'\nOne sentence verdict using exact numbers. State the total estimated LP cost per game.\n\n## PER-GAME ECONOMY AUDIT\n\nFor every game:\n\n**Game [N] — P[place]/8 | Economy Score: [X]/100**\n\nGOLD EXECUTION:\n  At death: [Xg] → [PERFECT/MINOR/ERROR/MAJOR] | Estimated LP cost: ~[X] placements\n  vs Winner: Winner had [Xg], you had [Yg] — [what this means]\n\nLEVEL TIMING:\n  Reached level [X] — [correct/wrong for comp?] | Challenger expects lv[Y] by round [Z]\n  Error: [specific if applicable] or [correct — on track]\n\nROLL EFFICIENCY:\n  [X] 2-stars at lv[Y] — expected [Z]+ | Verdict: [EFFICIENT/UNDER-ROLLED/UNLUCKY]\n  "Had [Xg] to spend but only [Y] 2-stars — should have rolled [X-20]g more" if under-rolled\n\nSTREAK EXECUTION:\n  Signal: [WIN/LOSS/TEMPO/UNCLEAR] | Was this correct? [yes/no + reason]\n\nLOBBY COMPARISON:\n  Level vs lobby avg: [+/-X] | vs top-4 avg: [+/-X] | Gold vs lobby: [+/-Xg]\n\nVERDICT: [#1 economy mistake this game in one sentence]\n\n## ECONOMY PATTERNS ACROSS ALL '+n+' GAMES\n\nSECTION 1 — Interest Management:\nAre they maintaining 50g cap consistently? How much interest do they lose per session?\n\nSECTION 2 — Level Timing:\nLv6, Lv7, Lv8, Lv9 — how often on time? LP cost per timing error.\n\nSECTION 3 — Rolldown Execution:\nClean (roll to threshold, stop) or sloppy (over/under-roll)? Evidence from roll efficiency data.\n\nSECTION 4 — Streak Play:\nAre they optimizing win/loss streaks? Signs of accidental streak breaking.\n\nSECTION 5 — Lobby Contextualization:\nHow does their economy compare to top-4 in their specific lobbies? Winner economy comparison.\n\n## CHALLENGER ECONOMY STANDARD — GAME BY GAME\n\nFor each game, what a Challenger player would have done at 3-2, 4-1, 4-2:\n"At 3-2 in Game [N]: Challenger would [exact action]. This data suggests [what happened]."\n\n## ECONOMY HABIT TO CHANGE — RANKED BY LP IMPACT\n\n1. **[Most expensive habit]** | ~[X] LP/game\n   Evidence: [exact numbers] | Challenger standard: [specific] | Drill: [how to build habit] | Target: [measurable]\n2. **[Second habit]** | ~[X] LP/game — [same format]\n3. **[Third habit]** | ~[X] LP/game — [same format]\n\n## ECONOMY CHECKPOINT SYSTEM\n\nFor these specific games, grade each checkpoint YES/NO/PARTIAL:\n□ 3-2 Level to 6 | □ 4-1 Level to 7 | □ 4-2 Level to 8 | □ 4-2 Roll to threshold | □ 50g banked before spending\n\nFor each NO: exact LP cost and one-sentence fix.', 4000);
-      const el=document.getElementById('cpanel-economy');if(el)el.innerHTML=renderCoachingTabbed(t,'economy');
-  });
-  await runTab('items', async()=>{
-      var _sk=document.getElementById('cpanel-items');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
-      const _cpEl=document.getElementById('cpanel-items');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
-      const itemGameData = toAnalyze.map((m,i)=>{
-        const p=m.data;
-        const units=(p.units||[]).sort((a,b)=>b.tier-a.tier);
-        const unitLines=units.map(u=>{
-          const name=getChampName(u.character_id),stars=u.tier||1,items=getUnitItems(u),isCarry=(u.rarity||0)>=3;
-          const flag=stars===1&&isCarry&&items.length?'[1-STAR CARRY]':isCarry&&!items.length?'[EMPTY CARRY]':'';
-          return name+'*'+stars+' '+flag+': '+(items.join('+')||'no items');
-        }).join(' | ');
-        const tl=inferTimeline(m);
-        const sl=units.length?(units.reduce((a,u)=>a+(u.tier||1),0)/units.length).toFixed(1):'?';
-        return 'G'+(i+1)+' P'+p.placement+' lv'+(p.level||7)+' avgstar:'+sl+' 2star:'+(tl.twoStars||0)+' 3star:'+(tl.threeStars||0)+' | '+unitLines;
-      }).join('\n');
-      const mistakes=(patterns.itemMistakes||[]).map(m=>'G'+m.game+' '+m.unit+'*'+m.stars+' WRONG:['+m.wrong.join('+')+'] BiS:['+m.bis.join('+')+']').join('\n')||'none detected';
-      const prompt=META+'\n\n'+DATA+'\n\nYou are Dishsoap doing a surgical item audit for '+currentPlayerName+'.\n\nPRE-VERIFIED MISTAKES ('+((patterns.itemMistakes||[]).length)+' confirmed from BiS DB):\n'+mistakes+'\n\nPER-GAME BOARDS:\n'+itemGameData+'\n\n## ITEM GRADE: '+patterns.itemGrade+' ('+patterns.itemErrorRate+'% error rate vs Challenger <8%)\n\n## COMPLETE ITEM AUDIT — EVERY CARRY, EVERY GAME\nFor every game, every unit with items:\n**Game [N] — [Comp] — P[place]/8**\n[Champion] *[stars]: [items]\n→ CORRECT ✓ — BiS confirmed\n→ WRONG ✗ — BiS is [correct]. Why wrong: [reason]. LP cost: ~[X] placements/game.\n→ SUBOPTIMAL △ — [better option + reason]\n→ 1-STAR CARRY ⚠ — Items on 1-star. Costs ~1.2 placements/game.\n→ EMPTY CARRY ✗ — No items on carry. Should have slammed [BiS component] at 2-1.\n\nFor every WRONG item: explain why the wrong item underperforms vs the correct one for this specific comp.\n\n## COMPONENT SLAM AUDIT\nFrom final items, what should have been slammed at 2-1 for this comp? Were the right components prioritized?\nFor each game: "Stage 2 should have: [BF priority] → [2-1 slam]. Evidence suggests [what happened]."\n\n## ITEM SYNERGY ANALYSIS\nFor each carry: do items stack the same stat? Any redundant stats? Missing the cap item? Wrong item for comp mechanic?\n\n## STAR LEVEL ANALYSIS\nFor every 1-star carry with items: name game, champion, items, cost (~1.2 placements). Was it under-rolling, contested, or unlucky?\n\n## TOP 3 ITEM HABITS TO FIX\n1. [Habit] — ~[X] LP/game — [drill]\n2. [Habit] — ~[X] LP/game — [drill]\n3. [Habit] — ~[X] LP/game — [drill]\n\n## BiS CHEAT SHEET FOR COMPS PLAYED\nFor every comp detected: exact BiS for every carry and key tank.';
-      const t=await callClaudeStreaming(prompt,3500);
-      const el=document.getElementById('cpanel-items');if(el)el.innerHTML=renderCoachingTabbed(t,'items');
-  });
-  await runTab('augments', async()=>{
-      var _sk=document.getElementById('cpanel-augments');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
-      const _cpEl=document.getElementById('cpanel-augments');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
-      const augGameData=toAnalyze.map((m,i)=>{
-        const p=m.data;
-        const augRaw=p.augments||p.augment||p.selectedAugments||[];
-        const augs=Array.isArray(augRaw)?augRaw.map(cleanAug).filter(Boolean):[];
-        const traitNames=(p.traits||[]).filter(t=>t.tier_current>0).map(t=>t.name.replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
-        let comp='Unknown';
-        if(traitNames.some(t=>t.includes('dark star')))comp='Dark Stars';
-        else if(traitNames.some(t=>t.includes('meeple')))comp='Corki Riven (Meeple)';
-        else if(traitNames.some(t=>t.includes('vanguard')))comp='Vanguard LeBlanc';
-        else if(traitNames.some(t=>t.includes('nova')))comp='NOVA Marauders';
-        else if(traitNames.some(t=>t.includes('brawler')))comp='Brawler Yi';
-        const augLines=augs.map((aug,ai)=>{
-          const eff=getAugmentEffect(aug);
-          const tier=getAugmentTierForComp(aug,comp);
-          const round=ai===0?'2-1':ai===1?'3-2':'4-2';
-          const prio=ai===0?'ECON/EMBLEM at 2-1':ai===1?'COMP SYNERGY at 3-2':'CAP VALUE at 4-2';
-          return aug+' ['+round+'|'+prio+'|grade:'+( tier||'?')+' for '+comp+'|'+(eff?eff.note:'unknown')+']';
-        }).join(' | ');
-        const augTypes=augs.map(a=>getAugmentEffect(a)?.type||'unknown');
-        const hasEcon=augTypes.includes('econ'),hasEmblem=augs.some(a=>a.toLowerCase().includes('emblem')),allCombat=augTypes.filter(t=>t==='combat').length>=2;
-        const synergy=hasEmblem?'EMBLEM-anchored':hasEcon&&!allCombat?'ECON-anchored':allCombat?'ALL-COMBAT (risky)':'MIXED';
-        return 'G'+(i+1)+' P'+p.placement+'/8 comp:'+comp+' synergy:'+synergy+'\n  '+augLines;
-      }).join('\n\n');
-      const augPrio='2-1:Econ/Emblem | 3-2:Comp-synergy | 4-2:Cap-value | NEVER:combat-no-synergy';
-      const prompt=META+'\n\n'+DATA+'\n\nChallenger augment audit for '+currentPlayerName+'.\n'+augPrio+'\n\nPER-GAME:'+augGameData+'\n\n## AUGMENT GRADE: [S/A/B/C/D/F]\n## GAME-BY-GAME AUGMENT AUDIT\nEvery game with augment data:\n**Game [N] — [Comp] — P[place]/8**\nAugment 2-1: [aug] — [S/A/B/C for this comp] — [CORRECT or BETTER OPTION + reason]\nAugment 3-2: [aug] — [grade] — [analysis]\nAugment 4-2: [aug] — [grade] — [was this best cap option?]\nSynergy: [do all 3 work together?]\nVERDICT: [one sentence — biggest LP loss in augments this game]\n## AUGMENT SYNERGY ANALYSIS\nFor each game: do the 3 augments form a coherent strategy? Rate STRONG/MODERATE/WEAK.\n## 2-1 TENDENCY\nPattern across all games: econ when should have? Combat too early? Missed emblems?\n## BEST AND WORST PICKS\nBest across all games: [name it + why]. Worst: [game, round, aug, better option].\n## AUGMENT RULE TO MEMORIZE\nThe one rule: "At [round], when [condition], always take [type] because [reason]."';
-      const t=await callClaudeStreaming(prompt,3000);
-      const el=document.getElementById('cpanel-augments');if(el)el.innerHTML=renderCoachingTabbed(t,'augments');
-    }),
-
-    runTab('training', async()=>{
-      var _sk=document.getElementById('cpanel-training');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
-      const _cpEl=document.getElementById('cpanel-training');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
-      const profileCtx=profileBlock?profileBlock:'';
-      const top4Data=toAnalyze.map((m,i)=>{
-        const all=m.allPlayers||[];
-        const top4=all.filter(pp=>pp.placement<=4);
-        const winner=all.find(pp=>pp.placement===1);
-        if(!top4.length)return 'G'+(i+1)+': no lobby data';
-        const t4lv=+(top4.reduce((a,pp)=>a+(pp.level||7),0)/top4.length).toFixed(1);
-        const t4g=+(top4.reduce((a,pp)=>a+(pp.gold_left||0),0)/top4.length).toFixed(1);
-        const plv=m.data.level||7,pg=m.data.gold_left||0;
-        return 'G'+(i+1)+' P'+m.data.placement+': player lv'+plv+'|'+pg+'g | top4-avg lv'+t4lv+'|'+t4g+'g | gap lv'+(plv-t4lv).toFixed(1)+'|g'+(pg-t4g).toFixed(1)+' | winner lv'+(winner?.level||'?')+'|'+(winner?.traits||[]).slice(0,2).join('/');
-      }).join('\n');
-      const avgT4lv=+(toAnalyze.map(m=>{const t4=(m.allPlayers||[]).filter(p=>p.placement<=4);return t4.length?(t4.reduce((a,p)=>a+(p.level||7),0)/t4.length):0;}).reduce((a,b)=>a+b,0)/toAnalyze.length).toFixed(1);
-      const avgT4g=+(toAnalyze.map(m=>{const t4=(m.allPlayers||[]).filter(p=>p.placement<=4);return t4.length?(t4.reduce((a,p)=>a+(p.gold_left||0),0)/t4.length):0;}).reduce((a,b)=>a+b,0)/toAnalyze.length).toFixed(1);
-      const evidence='HARD EVIDENCE:\n'+
-        'avg placement: '+patterns.avgPlacement+' vs Challenger 4.1 (gap: '+(patterns.avgPlacement-4.1).toFixed(2)+')\n'+
-        'economy: '+patterns.avgGoldLeft+'g left vs Challenger 3.2g = ~'+patterns.econLPCost+' LP/game\n'+
-        'level: '+patterns.avgLevel+' avg vs top-4 avg '+avgT4lv+' in their lobbies = '+(patterns.avgLevel-avgT4lv).toFixed(1)+' level gap\n'+
-        'gold vs top-4: '+patterns.avgGoldLeft+'g vs top-4 avg '+avgT4g+'g = '+(patterns.avgGoldLeft-avgT4g).toFixed(1)+'g more saved (under-rolling)\n'+
-        'item errors: '+patterns.itemErrorRate+'% vs Challenger <8%\n'+
-        'CRITICAL timeline errors: '+toAnalyze.filter(m=>inferTimeline(m).errors.some(e=>e.sev==='CRITICAL')).length+'/'+n+' games\n'+
-        'stats: '+statConclusions.slice(0,4).join(' | ')+(profileCtx?'\nprofile: '+profileCtx:'');
-      const prompt=META+'\n\n'+DATA+'\n\nBuild the most personalized Challenger training plan for '+currentPlayerName+'.\n\n'+evidence+'\n\nTOP-4 COMPARISON (what winners in their lobbies did vs them):\n'+top4Data+'\n\n## CHALLENGER GAP ASSESSMENT\nEstimated tier. 3 habits between this player and Challenger — each with data evidence, top-4 comparison, LP cost.\n\n## WHAT THE TOP-4 DOES DIFFERENTLY\n"Top-4 in these '+n+' games averaged lv'+avgT4lv+' vs this player lv'+patterns.avgLevel+'. They averaged '+avgT4g+'g left vs '+patterns.avgGoldLeft+'g. This means [specific conclusion]."\n\n## 5 SKILLS TO BUILD (ranked by LP impact)\n**Skill 1 — [Name]** | +[X] LP/game\nEvidence: [data+top-4] | Challenger standard: [benchmark] | Top-4 in lobbies: [what they did] | Drill: [specific] | Test: [measurable]\n**Skill 2 — [Name]** | +[X] LP/game [same]\n**Skill 3 — [Name]** | +[X] LP/game [same]\n**Skill 4 — [Name]** | +[X] LP/game [same]\n**Skill 5 — [Name]** | +[X] LP/game [same]\n\n## 3 IN-GAME DRILLS\n**Drill 1: [Name]** — Every game\nWhat/When/Target — specific steps, rounds, measurable goal\n**Drill 2: [Name]** — Every game [same]\n**Drill 3: [Name]** — Every game [same]\n\n## NEXT SESSION — 3 NON-NEGOTIABLES\n1. [Action + exact metric]  2. [Action + metric]  3. [Action + metric]\n\n## LP ROADMAP\nTotal fixable LP: ~[X]/game. Fix [#1]: +[X]/10 games → [tier] in ~[Y] games. Fix all: → Challenger in ~[Y] games.';
-      const t=await callClaudeStreaming(prompt,4000);
-      const el=document.getElementById('cpanel-training');if(el)el.innerHTML=renderCoachingTabbed(t,'training');
-  });
-  lock(false);
-}
-
-async function runARAMAnalysis(toAnalyze){
-  const summary=buildARAMSummary(toAnalyze);
-  const n=toAnalyze.length;
-  document.getElementById('cpanelPlayer').textContent=currentPlayerName;
-  setTabLoading('overview',`Analyzing ${n} ARAM games…`);
-  setTabLoading('items',`Auditing ARAM items…`);
-  setTabLoading('training',`Building ARAM training plan…`);
-
-  const runAramTab = async (tab, fn) => { try { await fn(); } catch(e) { setTabError(tab, e.message); } };
-
-  await Promise.all([
-    runAramTab('overview', async () => {
-      const t=await callClaude(`You are an elite ARAM coach. Analyze ${currentPlayerName}'s ${n} games.
-
-      MATCH DATA:
-      ${summary}
-
-      ## VERDICT
-      One sentence: performance level and biggest weakness.
-
-      ## SCORECARD
-      DAMAGE OUTPUT | [S/A/B/C/D/F] | [evidence with numbers vs ADC 25k+/Mage 20k+/Tank 10k+ benchmarks]
-      KDA | [grade] | [vs Challenger 4.0+ standard]
-      WIN RATE | [grade] | [vs 55%+ standard]
-      ITEMIZATION | [grade] | [evidence naming specific items]
-      POSITIONING | [grade] | [evidence from death count and dmg taken]
-
-      ## GAME LOG
-      Every game: **Game [N] | [Champion] | [W/L] | [grade]**
-      KDA, damage, D:T ratio, items built (grade CORRECT/WRONG/SUBOPTIMAL each), biggest mistake, exact fix.
-
-      ## TOP 3 LP LEAKS
-      1. [Issue] — ~[X]% win rate impact — [exact fix]
-      2. [Issue] — [impact] — [fix]
-      3. [Issue] — [impact] — [fix]`,3000);
-          document.getElementById('cpanel-overview').innerHTML=renderCoachingTabbed(t,'overview');
-    }),
-    runAramTab('items', async () => {
-      const t=await callClaude(`ARAM item auditor for ${currentPlayerName}. Audit every item across ${n} games.
-
-      MATCH DATA:
-      ${summary}
-
-      Key ARAM power items: Ability Overpower, Warmog Armor, Rabadon Deathcap, Kraken Slayer, Galeforce, Archangel Staff.
-
-      ## ITEM GRADE: [S/A/B/C/D/F]
-
-      ## FULL AUDIT
-      For every game: champion, every item built, grade each CORRECT/WRONG/SUBOPTIMAL.
-      For every wrong item: replacement, reason, % improvement estimate.
-      BiS ARAM build for each champion played.
-
-      ## WORST MISTAKE
-      Most LP-costly item error across all games.
-
-      ## ARAM ITEM CHEAT SHEET
-      BiS builds for each champion played in these games.`,2500);
-          document.getElementById('cpanel-items').innerHTML=renderCoachingTabbed(t,'items');
-    }),
-    runAramTab('training', async () => {
-      const t=await callClaude(`Build a Challenger ARAM training plan for ${currentPlayerName} from ${n} games.
-
-      MATCH DATA:
-      ${summary}
-
-      ## 4 SKILLS TO BUILD
-      Each: evidence from data, Challenger standard, training method, measurable test.
-
-      ## 3 PRACTICE ROUTINES
-      Specific drills, exact steps, frequency, tracking metrics.
-
-      ## NEXT SESSION — 3 CHANGES
-      Exact, specific, immediately actionable.`,2000);
-          document.getElementById('cpanel-training').innerHTML=renderCoachingTabbed(t,'training');
-    }),
-  ]);
-
-  ['economy','augments'].forEach(t=>{const el=document.getElementById('cpanel-'+t);if(el)el.innerHTML='<div style="padding:20px;font-family:monospace;font-size:.72rem;color:var(--dim2)">Not applicable for ARAM.</div>';});
-}
-
 function switchCoachTab(tab){
   document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.ctab-panel').forEach(p=>{
@@ -5206,7 +4049,7 @@ function closeModal(){document.getElementById('matchModal').classList.remove('sh
 
 async function openModal(idx){
   const m=matchData[idx];
-  if(currentMode==='aram'){openARAMModal(idx,m);}
+  // ARAM removed
   else{openTFTModal(idx,m,currentMode);}
 }
 
@@ -5221,7 +4064,7 @@ async function openTFTModal(idx,m,mode){
 
   document.getElementById('modalPlace').textContent=p.placement;
   const _mp2=document.getElementById('modalPlace');if(_mp2)_mp2.style.color=color;
-  document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'} ${mode==='double'?'· DOUBLE UP':''}`;
+  document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'} ${''}`;
   document.getElementById('modalSub').textContent=`Ended round ${stage} · ${p.total_damage_to_players||0} dmg · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
 
   const unitCards=units.map(u=>{const name=getChampName(u.character_id);const stars='★'.repeat(Math.min(u.tier||1,3));const items=getUnitItems(u);return `<div class="unit-card"><div class="unit-nm">${name}</div><div class="unit-st">${stars}</div>${items.length?`<div>${items.map(it=>`<span class="item-tag">${it}</span>`).join('')}</div>`:''}</div>`;}).join('');
@@ -5266,7 +4109,7 @@ async function openTFTModal(idx,m,mode){
     `Augments: ${augs.join(' | ')||'none in API data'}`,
     `Full board (every unit, stars, items):\n  ${unitsStr||'no unit data'}`,
   ].join('\n');
-  const doubleNote=mode==='double'?'\n\nDOUBLE UP CONTEXT: Also evaluate whether the comp synergized with a partner board — could traits have been shared, items passed, or comps coordinated for stronger combined output?':'';
+  const doubleNote=mode==='double'?'';
 
   try{
     const text=await callClaude(`You are the best TFT coach in the world. Analyze this single game with surgical precision. Every sentence must be actionable. No filler. Your job is to get these players to Challenger.${doubleNote}
@@ -5352,487 +4195,6 @@ Three habits to build from this game. Ranked by LP value. Specific and measurabl
 3. **[Habit name]:** [exact behavior to practice in next 5 games]`,3500);
     document.getElementById('modalCoaching').innerHTML=renderCoachingTabbed(text,'modal');
   }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
-}
-
-async function openARAMModal(idx,m){
-  const p=m.data;
-  const win=p.win;
-  const color=win?'var(--grn)':'var(--red)';
-  const date=m.date?new Date(m.date).toLocaleDateString():'?';
-  const dur=m.gameDuration?Math.floor(m.gameDuration/60)+'m':'?';
-  const items=[p.item0,p.item1,p.item2,p.item3,p.item4,p.item5,p.item6].filter(id=>id&&id!==0);
-  const itemNames=items.map(id=>ddItems[String(id)]||'Item '+id);
-
-  document.getElementById('modalPlace').textContent=win?'W':'L';
-  const _mp2=document.getElementById('modalPlace');if(_mp2)_mp2.style.color=color;
-  document.getElementById('modalTitle').textContent=`${date} — ${p.championName||'?'} — ${win?'VICTORY':'DEFEAT'}`;
-  document.getElementById('modalSub').textContent=`${dur} · KDA ${p.kills}/${p.deaths}/${p.assists} · ${(p.totalDamageDealtToChampions||0).toLocaleString()} dmg`;
-
-  document.getElementById('modalBody').innerHTML=`
-    <div class="modal-stats">
-      <div class="mstat"><div class="mstat-lbl">Result</div><div class="mstat-val" style="color:${color}">${win?'WIN':'LOSS'}</div></div>
-      <div class="mstat"><div class="mstat-lbl">KDA</div><div class="mstat-val">${p.kills}/${p.deaths}/${p.assists}</div></div>
-      <div class="mstat"><div class="mstat-lbl">Damage</div><div class="mstat-val">${Math.round((p.totalDamageDealtToChampions||0)/1000)}k</div></div>
-      <div class="mstat"><div class="mstat-lbl">Dmg Taken</div><div class="mstat-val">${Math.round((p.totalDamageTaken||0)/1000)}k</div></div>
-      <div class="mstat"><div class="mstat-lbl">Healing</div><div class="mstat-val">${Math.round((p.totalHeal||0)/1000)}k</div></div>
-      <div class="mstat"><div class="mstat-lbl">Vision</div><div class="mstat-val">${p.visionScore||0}</div></div>
-    </div>
-    <div style="margin-bottom:12px"><span class="section-lbl">CHAMPION</span><div class="aram-champ">${p.championName||'?'} · Level ${p.champLevel||'?'}</div></div>
-    <div style="margin-bottom:16px"><span class="section-lbl">ITEMS BUILT</span><div style="margin-top:6px">${itemNames.length?itemNames.map(it=>`<span class="chip" style="color:var(--accent2);border-color:rgba(74,158,218,.3)">${it}</span>`).join(''):'<span style="color:var(--dim)">No items found</span>'}</div></div>
-    <div style="border-top:1px solid var(--border);padding-top:16px">
-      <span class="section-lbl">AI COACHING ANALYSIS</span>
-      <div id="modalCoaching2" style="color:var(--dim);font-family:monospace;font-size:.8rem">Analyzing this match… ~10 seconds</div>
-    </div>`;
-
-  document.getElementById('matchModal').classList.add('show');
-  document.getElementById('matchModal').scrollTop=0;
-
-  const physDmg=p.physicalDamageDealtToChampions||0;
-  const magicDmg=p.magicDamageDealtToChampions||0;
-  const dmgTaken=p.totalDamageTaken||0;
-  const dmgDealt=p.totalDamageDealtToChampions||0;
-  const ratio=dmgTaken>0?(dmgDealt/dmgTaken).toFixed(2):'N/A';
-  const gameDurMin=m.gameDuration?Math.floor(m.gameDuration/60):0;
-  const competitionLevel=gameDurMin>=22?'HIGH (long game, fought through strong opposition)':gameDurMin>=16?'MEDIUM (full game)':'LIGHT (quick game, may be a stomp either way)';
-  const matchSummary=[
-    `Date: ${date} | Result: ${win?'WIN':'LOSS'} | Duration: ${dur} | Competition: ${competitionLevel}`,
-    `Champion: ${p.championName||'Unknown'} (Level ${p.champLevel||'?'})`,
-    `KDA: ${p.kills}/${p.deaths}/${p.assists} | KDA ratio: ${((p.kills+p.assists)/Math.max(1,p.deaths)).toFixed(2)}`,
-    `Damage to champions: ${dmgDealt.toLocaleString()} (Physical: ${physDmg.toLocaleString()} | Magic: ${magicDmg.toLocaleString()})`,
-    `Damage taken: ${dmgTaken.toLocaleString()} | Dealt:Taken ratio = ${ratio}:1`,
-    `Healing done: ${(p.totalHeal||0).toLocaleString()} | CC time on enemies: ${p.timeCCingOthers||0}s`,
-    `Multikills: ${p.doubleKills||0} doubles, ${p.tripleKills||0} triples, ${p.pentaKills||0} penta`,
-    `Vision score: ${p.visionScore||0}`,
-    `Items built (in slot order): ${itemNames.length?itemNames.join(' → '):'none detected'}`,
-  ].join('\n');
-
-  try{
-    const text=await callClaude(`You are an elite ARAM performance coach training Bahagabag, Tooljets, and Discipleoftj toward Challenger. Analyze this game like a coach reviewing film — identify the champion and every item precisely, factor in competition difficulty, and give training-grade feedback.
-
-MATCH DATA:
-${matchSummary}
-
-## ⚡ Game Film Verdict
-One sentence verdict. Grade: [S+/S/A+/A/B+/B/C/D/F]. Factor in competition level — a strong performance in a long 22+ min game is worth more than an easy win.
-
-## 🏆 Competition Context & Adjusted Rating
-- Game duration context: ${gameDurMin}min — what does this say about the lobby strength?
-- Adjusted performance grade accounting for opposition: [X/10]
-- KDA in context: [X] kills/deaths/assists against [easy/medium/hard] opposition
-
-## 🔬 Champion & Full Item Identification
-Champion: ${p.championName||'Unknown'} — ARAM tier: [S/A/B/C/D] — why this tier on Howling Abyss
-
-Items built (identify each explicitly from the names provided):
-For every item in their build:
-**[Item Name]:** CORRECT / WRONG / SUBOPTIMAL for this champion in ARAM
-- If wrong: "Replace [item] with [correct item] because on Howling Abyss [champion] needs [specific stat/reason]. Approximate improvement: [X]% more [damage/survivability/utility]."
-- If correct: confirm why it's correct for ARAM specifically
-
-Complete BiS build for ${p.championName||'this champion'} in ARAM (list all 6 items in order of purchase priority):
-1. [First item — power spike]
-2. [Second item]
-3. [Third item]
-4. [Fourth item]
-5. [Fifth item]
-6. [Sixth item / situational]
-
-Key ARAM items to flag (Ability Overpower, Warmog's, Rabadon's, etc.) — did they use them correctly?
-
-## 📊 Stats vs Challenger Benchmarks
-Compare to Challenger ARAM standards for ${p.championName||'this champion type'}:
-- Damage dealt: They dealt ${dmgDealt.toLocaleString()}. Challenger benchmark for this role: [X]. That's [Z]% above/below.
-- Damage:taken ratio: ${ratio}:1. Target for this champion type: [X]:1. Analysis.
-- Deaths: ${p.deaths} deaths. Challenger standard: under 5. [Assessment]
-- KDA: ${((p.kills+p.assists)/Math.max(1,p.deaths)).toFixed(2)}. Challenger minimum: 3.0. [Assessment]
-- Physical vs magic damage split: does it match expected output for this champion?
-
-## 💀 Death Breakdown
-${p.deaths} deaths — categorize likely causes:
-- Overextension (walked into enemy range at low HP): likely/unlikely based on dmg taken vs dealt
-- Poke deaths (standing in ability range): likely/unlikely
-- Trade deaths (went even but died): likely/unlikely
-- Challenger positioning rule specifically for ${p.championName||'this champion'} on Howling Abyss:
-
-If they had 2 fewer deaths this game, estimate how the outcome would have changed.
-
-## 🎯 Damage Efficiency
-- Dealt:taken ratio analysis for this champion type
-- Multikill assessment: ${p.doubleKills||0} doubles, ${p.tripleKills||0} triples — is this normal, above, or below Challenger rate for this champ?
-- Healing output (${(p.totalHeal||0).toLocaleString()}) — does it indicate active ability usage or passive play?
-- Ability spam efficiency: high healing on AP champ = good. Low healing = likely not casting enough.
-
-## 🧠 Champion Mastery Coaching
-For ${p.championName||'this champion'} specifically on Howling Abyss:
-- The single most important thing Challenger players do on this champion that Gold/Plat players don't
-- Exact positioning: where to stand relative to the minion wave
-- Ability priority in teamfights: which ability to throw first
-- Power spike awareness: at what item does this champion become strongest and what should they do at that spike?
-- The habit that would add the most damage immediately
-
-## 🔑 The Single Biggest Mistake
-Name it precisely. Not "bad positioning" — "Standing in auto-attack range of enemy frontline as a backline mage means taking 40% more damage than necessary while dealing the same damage. Moving back 200 units costs zero damage and eliminates most unnecessary deaths."
-
-## 🏋️ 3 Training Habits for This Champion
-Three immediately actionable habits to build, ranked by win rate impact:
-
-**Habit 1:** [Specific, measurable behavior to develop]
-**Habit 2:** [Specific, measurable behavior to develop]
-**Habit 3:** [Specific, measurable behavior to develop]`,3000);
-    document.getElementById('modalCoaching').innerHTML=renderCoachingTabbed(text,'modal');
-  }catch(e){document.getElementById('modalCoaching').innerHTML=`<span style="color:#e08080">Analysis failed: ${e.message}</span>`;}
-}
-
-
-// ── ADMIN (now in Squad tab) ──────────────────────────────────
-async function updateRiotKey(){
-  const key=document.getElementById('adminRiotKey').value.trim();
-  const pass=document.getElementById('adminPass').value.trim();
-  const msg=document.getElementById('adminMsg');
-  msg.style.display='block';msg.style.color='var(--dim)';msg.textContent='Updating…';
-  try{
-    const r=await fetch('/api/riotkey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,adminPass:pass})});
-    const d=await r.json();if(!r.ok)throw new Error(d.error||'Failed');
-    msg.style.color='var(--grn)';msg.textContent='✓ Key updated for everyone: '+d.masked;
-    document.getElementById('adminRiotKey').value='';document.getElementById('adminPass').value='';
-  }catch(e){msg.style.color='#e08080';msg.textContent='✗ '+e.message;}
-}
-
-// ── SQUAD TAB ─────────────────────────────────────────────────
-const TIER_ORDER={IRON:0,BRONZE:1,SILVER:2,GOLD:3,PLATINUM:4,EMERALD:5,DIAMOND:6,MASTER:7,GRANDMASTER:8,CHALLENGER:9};
-const RANK_ORDER={IV:0,III:1,II:2,I:3};
-const TIER_ICONS={IRON:'⬛',BRONZE:'🟫',SILVER:'⬜',GOLD:'🟡',PLATINUM:'🩵',EMERALD:'💚',DIAMOND:'💎',MASTER:'🟣',GRANDMASTER:'🔴',CHALLENGER:'🏆',UNRANKED:'❓'};
-let squadData=[null,null,null],squadSnapshotLP=[null,null,null];
-
-// ── FIXED SQUAD — always these three players, no setup needed ──
-const FIXED_SQUAD=[
-  {id:'Bahagabag#NA1',   region:'na1'},
-  {id:'Tooljets#NA1',    region:'na1'},
-  {id:'Discipleoftj#NA1',region:'na1'},
-];
-
-function getTotalLP(ranked){
-  if(!ranked)return -1;
-  return(TIER_ORDER[ranked.tier]||0)*400+(RANK_ORDER[ranked.rank]||0)*100+(ranked.leaguePoints||0);
-}
-
-function loadSquadSetup(){
-  // Always use the fixed squad — pre-fill the setup fields for display
-  document.getElementById('sq1').value=FIXED_SQUAD[0].id;
-  document.getElementById('sq2').value=FIXED_SQUAD[1].id;
-  document.getElementById('sq3').value=FIXED_SQUAD[2].id;
-
-  const snap=localStorage.getItem('squad_snapshot');
-  if(snap)try{squadSnapshotLP=JSON.parse(snap);}catch(e){}
-
-  // Load cached data if available so podium shows instantly
-  const cached=localStorage.getItem('squad_data_fixed');
-  if(cached)try{squadData=JSON.parse(cached);renderPodium();renderMiniPodium();}catch(e){}
-
-  // Always auto-refresh on load
-  refreshSquad();
-}
-
-function saveSquadAndRefresh(){
-  // Fields are display-only — squad is always fixed
-  const _ss=document.getElementById('squadSaved');if(_ss)_ss.style.display='block';
-  setTimeout(()=>{const _ss2=document.getElementById('squadSaved');if(_ss2)_ss2.style.display='none';},2000);
-  refreshSquad();
-}
-
-async function riotGetWithPersonalKey(url){
-  // First try shared proxy key
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url));
-  if(r.ok)return await r.json();
-  // Shared key failed — route personal key through the proxy (direct fetch is CORS blocked)
-  const personalKey=localStorage.getItem('tft_rk')||'';
-  if(!personalKey)throw new Error('No Riot API key — paste one in the Keys bar at the top of the page.');
-  const r2=await fetch('/api/riot?url='+encodeURIComponent(url)+'&key='+encodeURIComponent(personalKey));
-  if(r2.ok)return await r2.json();
-  const d2=await r2.json().catch(()=>({}));
-  throw new Error(d2?.status?.message||d2?.error||'Riot API error '+r2.status);
-}
-
-async function refreshSquad(){
-  const players=FIXED_SQUAD;
-
-  // Check for any usable Riot key before attempting
-  const hasKey = !!(localStorage.getItem('tft_rk'));
-  
-  const pa=document.getElementById('podiumArea');
-  const mp=document.getElementById('miniPodium');
-
-  if(!hasKey){
-    // Try proxy anyway (shared key might be set server-side)
-    // but set a friendlier loading message
-    if(pa)pa.innerHTML=`<div style="text-align:center;padding:2rem;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim2)"><span class="dot" style="display:inline-block;margin-right:8px"></span>Loading ranks…</div>`;
-    if(mp)mp.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--border);padding:8px 14px;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2)">Loading ranks…</div>`;
-  } else {
-    if(pa)pa.innerHTML=`<div style="text-align:center;padding:2rem;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim2)"><span class="dot" style="display:inline-block;margin-right:8px"></span>Loading rank data…</div>`;
-    if(mp)mp.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--border);padding:8px 14px;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2)">Loading ranks…</div>`;
-  }
-
-  squadData.forEach((d,i)=>{if(d&&d.ranked)squadSnapshotLP[i]=getTotalLP(d.ranked);});
-  localStorage.setItem('squad_snapshot',JSON.stringify(squadSnapshotLP));
-
-  const results=await Promise.all(players.map(async(p,i)=>{
-    try{
-      if(!p||!p.id)return null;
-      const[name,tag]=p.id.includes('#')?p.id.split('#'):[p.id,'NA1'];
-      const routing=ROUTING[p.region]||'americas';
-      const ar=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
-      const sr=await riotGetWithPersonalKey(`https://${p.region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${ar.puuid}`);
-      let ranked=null;
-      try{const lr=await riotGetWithPersonalKey(`https://${p.region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${sr.id}`);ranked=(lr||[]).find(l=>l.queueType==='RANKED_TFT')||null;}catch(e){}
-      let recentPl=[];
-      try{
-        const idr=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${ar.puuid}/ids?count=8`);
-        for(const id of idr.slice(0,5)){
-          try{const mr=await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${id}`);const pp=mr.info.participants.find(pp=>pp.puuid===ar.puuid);if(pp)recentPl.push(pp.placement);}catch(e){}
-        }
-      }catch(e){}
-      return{name,tag,ranked,recentPl};
-    }catch(e){
-      console.warn('Squad fetch failed for player',i,p.id,e.message);
-      return null;
-    }
-  }));
-
-  squadData=results;
-  localStorage.setItem('squad_data_fixed',JSON.stringify(squadData));
-  renderPodium();
-  renderMiniPodium();
-
-  if(results.every(r=>r===null)){
-    const pa2=document.getElementById('podiumArea');
-    const hasStoredKey=!!localStorage.getItem('tft_rk');
-    const msg=hasStoredKey
-      ? '⚠ Riot API key may be expired (they last 24h). Paste a fresh key in the Keys bar or Admin below.'
-      : '⚠ No Riot key set. Paste your RGAPI-... key in the <strong>Riot field in the Keys bar</strong> at the top. Free key at <a href="https://developer.riotgames.com" target="_blank" style="color:var(--gold)">developer.riotgames.com</a> — expires every 24h.';
-    if(pa2)pa2.innerHTML=`<div style="background:rgba(176,53,53,.06);border:1px solid rgba(176,53,53,.25);border-left:3px solid var(--red2);padding:14px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--red2);line-height:1.7">${msg}<br><br><button class="btn-sm" onclick="refreshSquad()" style="margin-top:6px">↺ Retry</button></div>`;
-    const mp2=document.getElementById('miniPodium');
-    if(mp2){
-      const hasK=!!localStorage.getItem('tft_rk');
-      if(hasK){
-        // Key exists but expired - show subtle hint
-        mp2.innerHTML='<div style="font-family:\'Share Tech Mono\',monospace;font-size:.58rem;color:var(--dim3);padding:4px 0">Riot key may be expired — <a href=\"https://developer.riotgames.com\" target=\"_blank\" style=\"color:var(--gold)\">regenerate</a> and paste above</div>';
-      } else {
-        // No key - show nothing on main page, just clear
-        mp2.innerHTML='';
-      }
-    }
-  }
-}
-async function analyzeSquad() {
-  if (!getCK()) { toastErr('Paste your Claude API key in the Keys bar.','API Key Missing'); return; }
-  const el = document.getElementById('squadAnalysisResult');
-  if (!el) return;
-  el.style.display = 'block';
-  el.innerHTML = '<div class="squad-analysis-panel"><div style="font-family:monospace;font-size:.7rem;color:var(--gold);display:flex;align-items:center;gap:8px"><span class="dot"></span> Fetching squad match data...</div></div>';
-
-  // Collect data for all 3 squad members
-  const squadData = [];
-  for (const player of FIXED_SQUAD) {
-    try {
-      const [name, tag] = player.id.split('#');
-      const region = player.region || 'na1';
-      const routing = ROUTING[region] || 'americas';
-      const acct = await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`);
-      const ids = await riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${acct.puuid}/ids?count=10`);
-      const matches = await Promise.all(ids.slice(0,8).map(id =>
-        riotGetWithPersonalKey(`https://${routing}.api.riotgames.com/tft/match/v1/matches/${id}`)
-          .then(m => {
-            const p = m.info.participants.find(pp => pp.puuid === acct.puuid);
-            const allP = m.info.participants.map(pp => ({
-              placement:pp.placement, level:pp.level||7, gold_left:pp.gold_left||0,
-              traits:(pp.traits||[]).filter(t=>t.tier_current>0).map(t=>t.name.replace(/TFT\d+_/g,'').replace(/_/g,' ')),
-              units:(pp.units||[]).map(u=>({name:getChampName(u.character_id),stars:u.tier||1,items:getUnitItems(u)})),
-              isPlayer: pp.puuid === acct.puuid,
-            }));
-            return {data:p, allPlayers:allP};
-          }).catch(()=>null)
-      ));
-      const validMatches = matches.filter(Boolean);
-      const patterns = computePatterns(validMatches);
-      const stats = computeStatisticalConclusions(validMatches, patterns);
-      const scouting = computeScoutingScore(validMatches, patterns);
-      squadData.push({ name: player.id, patterns, stats, scouting, n: validMatches.length });
-    } catch(e) {
-      squadData.push({ name: player.id, error: e.message, patterns:{}, stats:[], scouting:{}, n:0 });
-    }
-  }
-
-  el.innerHTML = '<div class="squad-analysis-panel"><div style="font-family:monospace;font-size:.7rem;color:var(--gold);display:flex;align-items:center;gap:8px"><span class="dot"></span> Generating squad coaching...</div></div>';
-
-  // Build squad summary for Claude
-  const squadSummary = squadData.map(p => {
-    if (p.error) return p.name + ': ERROR — ' + p.error;
-    const pat = p.patterns;
-    return p.name + ' (' + p.n + ' games):\n' +
-      '  Placement: avg ' + pat.avgPlacement + ' | top-4 ' + pat.top4Rate + '% | economy grade: ' + pat.econGrade + '\n' +
-      '  Avg gold left: ' + pat.avgGoldLeft + 'g | item error: ' + pat.itemErrorRate + '% | avg level: ' + pat.avgLevel + '\n' +
-      '  Scouting: ' + p.scouting.grade + ' (' + p.scouting.score + '/100) | contested: ' + p.scouting.contestedGames + '/' + p.n + '\n' +
-      '  Top issues: ' + (pat.topIssues||[]).slice(0,3).join(' | ');
-  }).join('\n\n');
-
-  try {
-    const prompt = 'You are a TFT Challenger coach analyzing a 3-player squad. Build a comprehensive squad coaching report.\n\nSQUAD MEMBERS:\n' + squadSummary + '\n\n## SQUAD OVERVIEW\nRank all 3 players by current skill level. Who is the carry, who needs the most help?\n\n## SHARED WEAKNESSES\nWhat issues do ALL 3 players share? These compound in Double Up — fixing them squad-wide multiplies the impact.\n\n## INDIVIDUAL SPOTLIGHT (one per player)\nFor each player: their single highest-LP-cost habit and the one drill to fix it.\n\n## DOUBLE UP SYNERGIES\nBased on their comp tendencies and skill profiles: who should play what role in Double Up? Who should be the economy player? Who should win-streak? Who should scout?\n\n## SQUAD TRAINING PLAN\n3 things the squad should practice TOGETHER in Double Up this week, ranked by collective LP gain.\n\n## THE SQUAD CEILING\nIf all 3 fix their top habit: realistic rank ceiling for the squad in Double Up within 2 weeks.';
-
-    const report = await callClaude(prompt, 3000);
-
-    el.innerHTML = '<div class="squad-analysis-panel">' +
-      '<div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:1rem;color:var(--gold3);margin-bottom:12px;letter-spacing:.08em">SQUAD ANALYSIS — M.A.D Forge</div>' +
-      '<div class="squad-analysis-tabs">' +
-        '<button class="squad-analysis-tab active" onclick="sqTab(this,\'report\')">📊 Report</button>' +
-        '<button class="squad-analysis-tab" onclick="sqTab(this,\'cards\')">🏆 Comparison</button>' +
-      '</div>' +
-      '<div class="squad-analysis-panel-content active" id="sqt-report">' + renderCoachingTabbed(report, 'squad') + '</div>' +
-      '<div class="squad-analysis-panel-content" id="sqt-cards">' + squadData.map(p => p.patterns.avgPlacement ? '<div style="margin-bottom:12px"><div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:.9rem;color:var(--gold3);margin-bottom:6px">'+p.name+'</div>'+renderChallengerCards(p.patterns, p.n)+'</div>' : '').join('') + '</div>' +
-      '</div>';
-  } catch(e) {
-    el.innerHTML = '<div style="color:var(--red2);font-family:monospace;font-size:.7rem;padding:12px">Squad analysis failed: ' + e.message + '</div>';
-  }
-}
-
-function sqTab(btn, tab) {
-  document.querySelectorAll('.squad-analysis-tab').forEach(t => t.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.querySelectorAll('.squad-analysis-panel-content').forEach(p => p.classList.toggle('active', p.id === 'sqt-' + tab));
-}
-
-
-function getTrend(idx){
-  const d=squadData[idx];if(!d||!d.ranked)return'flat';
-  const cur=getTotalLP(d.ranked);
-  const prev=squadSnapshotLP[idx];
-  if(prev===null||prev===undefined)return'flat';
-  if(cur-prev>10)return'up';
-  if(prev-cur>10)return'down';
-  return'flat';
-}
-
-function renderPodiumEmpty(){
-  document.getElementById('podiumArea').innerHTML=`<div style="text-align:center;padding:2rem;font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim)">Enter player names below and click Save &amp; Refresh Podium.</div>`;
-}
-
-function renderMiniPodium(){
-  const el=document.getElementById('miniPodium');
-  if(!el)return;
-
-  // Use fixed squad names as fallback
-  const playerNames=FIXED_SQUAD.map(p=>p.id.split('#')[0]);
-
-  const indices=[0,1,2];
-  const sorted=[...indices].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
-  const podOrder=[sorted[1],sorted[0],sorted[2]];
-  const heights=['38px','56px','26px'];
-  const crowns=['🥈','🥇','🥉'];
-  const bgColors=['#888','var(--gold)','#cd7f32'];
-
-  let html=`<div style="background:var(--bg2);border:1px solid var(--border);padding:8px 12px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <span style="font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--golddim);letter-spacing:.15em;text-transform:uppercase">// Squad</span>
-      <button class="btn-sm" onclick="setMode('squad')" style="font-size:.58rem;padding:2px 8px">Full view →</button>
-    </div>
-    <div style="display:flex;align-items:flex-end;gap:6px;justify-content:center">`;
-
-  podOrder.forEach((dataIdx,podPos)=>{
-    const d=squadData[dataIdx]||null;
-    const name=d?.name||playerNames[dataIdx]||'—';
-    const trend=d?getTrend(dataIdx):'flat';
-    const tIcon=trend==='up'?'▲':trend==='down'?'▼':'→';
-    const tColor=trend==='up'?'var(--grn)':trend==='down'?'var(--red)':'var(--gold)';
-    let rankStr=d?.ranked?'':`<span style="color:var(--dim)">Unranked</span>`;
-    let lpStr='';
-    if(d?.ranked){
-      const r=d.ranked;
-      const isApex=['MASTER','GRANDMASTER','CHALLENGER'].includes(r.tier);
-      rankStr=`<span style="color:var(--gold)">${isApex?r.tier:r.tier+' '+r.rank}</span>`;
-      lpStr=`<div style="font-family:'Share Tech Mono',monospace;font-size:.55rem;color:var(--dim)">${r.leaguePoints} LP</div>`;
-    }
-    html+=`<div style="flex:1;max-width:200px;text-align:center">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--gold3);margin-bottom:1px">${name}</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;margin-bottom:1px">${rankStr}</div>
-      ${lpStr}
-      <div style="font-size:.8rem;color:${tColor};font-weight:700;margin-bottom:3px">${tIcon}</div>
-      <div style="height:${heights[podPos]};background:${bgColors[podPos]};border-radius:2px 2px 0 0;display:flex;align-items:center;justify-content:center">
-        <span style="font-size:.9rem">${crowns[podPos]}</span>
-      </div>
-    </div>`;
-  });
-
-  html+=`</div>
-    <div style="text-align:center;margin-top:6px">
-      <button class="btn-sm" onclick="refreshSquad()" style="font-size:.58rem;padding:2px 10px">↺ Refresh ranks</button>
-    </div>
-  </div>`;
-  el.innerHTML=html;
-}
-
-function renderPodium(){
-  const indices=[0,1,2];
-  const sorted=[...indices].sort((a,b)=>getTotalLP(squadData[b]?.ranked)-getTotalLP(squadData[a]?.ranked));
-  // podium order: 2nd left, 1st center, 3rd right
-  const podOrder=[sorted[1],sorted[0],sorted[2]];
-  const podClasses=['pod-2','pod-1','pod-3'];
-  const podPlaces=['2','1','3'];
-  const crowns=['🥈','🥇','🥉'];
-
-  let html='<div class="podium-stage">';
-  podOrder.forEach((dataIdx,podPos)=>{
-    if(dataIdx===undefined){html+=`<div class="pod-col ${podClasses[podPos]}"><div class="pod-card"><div class="pod-name" style="color:var(--dim)">—</div></div><div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div></div>`;return;}
-    const d=squadData[dataIdx];
-    const trend=getTrend(dataIdx);
-    const trendIcon=trend==='up'?'▲':trend==='down'?'▼':'→';
-    const trendClass=trend==='up'?'up':trend==='down'?'down':'flat';
-    const trendLabel=trend==='up'?'Rising':trend==='down'?'Falling':'Steady';
-    const name=d?.name||'Unknown';
-    let rankStr='Unranked',lpStr='0 LP',icon='❓';
-    if(d?.ranked){
-      const r=d.ranked;
-      icon=TIER_ICONS[r.tier]||'❓';
-      const isApex=['MASTER','GRANDMASTER','CHALLENGER'].includes(r.tier);
-      rankStr=isApex?r.tier:`${r.tier} ${r.rank}`;
-      lpStr=`${r.leaguePoints} LP · ${r.wins}W ${r.losses}L`;
-    }
-    const dots=(d?.recentPl||[]).map(p=>`<div class="pd ${p<=4?'t':'b'}" title="Place ${p}"></div>`).join('');
-
-    html+=`<div class="pod-col ${podClasses[podPos]}">
-      <div class="pod-card">
-        <div style="font-size:1.3rem;margin-bottom:4px">${crowns[podPos]}</div>
-        <div class="pod-name">${name}</div>
-        <div class="pod-trend ${trendClass}">${trendIcon} <span style="font-size:.65rem;font-family:'Share Tech Mono',monospace">${trendLabel}</span></div>
-        <div style="font-size:1.4rem;margin-bottom:2px">${icon}</div>
-        <div class="pod-rank">${rankStr}</div>
-        <div class="pod-lp">${lpStr}</div>
-        ${dots?`<div class="pod-dots">${dots}</div>`:''}
-      </div>
-      <div class="pod-base"><span class="pod-place">${podPlaces[podPos]}</span></div>
-    </div>`;
-  });
-  html+='</div>';
-
-  // Recent form table
-  html+=`<div style="margin-top:16px">
-    <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Recent Form (last 5 games)</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">`;
-  sorted.forEach(idx=>{
-    const d=squadData[idx];
-    const name=d?.name||'—';
-    const pl=d?.recentPl||[];
-    const top4=pl.filter(p=>p<=4).length;
-    const avg=pl.length?(pl.reduce((a,b)=>a+b,0)/pl.length).toFixed(1):'—';
-    const dots=pl.map(p=>`<div class="pd ${p<=4?'t':'b'}" title="Place ${p}"></div>`).join('');
-    html+=`<div style="background:var(--bg2);border:1px solid var(--border);padding:10px;text-align:center">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;color:var(--gold3);margin-bottom:5px">${name}</div>
-      <div class="pod-dots" style="justify-content:center;margin-bottom:4px">${dots||'<span style="font-size:.65rem;color:var(--dim)">No games</span>'}</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim)">Avg: <span style="color:var(--text)">${avg}</span> · Top4: <span style="color:var(--grn2)">${pl.length?top4+'/'+pl.length:'—'}</span></div>
-    </div>`;
-  });
-  html+='</div></div>';
-
-  document.getElementById('podiumArea').innerHTML=html;
-  renderMiniPodium();
 }
 
 // ── META TAB ──────────────────────────────────────────────────
