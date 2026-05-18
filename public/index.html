@@ -1650,7 +1650,7 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
   <div style="margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <div>
       <div style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red2)">🔴 Live Companion</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px">Real-time opponent tracking via Spectator API — refresh every 60s</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim2);margin-top:3px">Real-time hints as you play · tap the stage button for instant advice</div>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-left:auto">
       <input type="text" id="liveRiotId" placeholder="Riot ID (e.g. Bahagabag#NA1)"
@@ -1661,6 +1661,101 @@ body.light select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
       </select>
       <button class="btn" onclick="startLiveCompanion()" id="liveStartBtn">🔴 Start Tracking</button>
       <button class="btn-sm" onclick="stopLiveCompanion()" id="liveStopBtn" style="display:none">⏹ Stop</button>
+    </div>
+  </div>
+
+  <!-- IN-GAME HINT ENGINE -->
+  <div id="hintEngine" style="margin-bottom:16px">
+    <!-- State inputs -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px">Gold</div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <button onclick="hintAdjust('gold',-5)" class="btn-sm" style="padding:2px 8px;font-size:.8rem">−</button>
+          <div id="hintGold" style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--gold);min-width:40px;text-align:center">30</div>
+          <button onclick="hintAdjust('gold',5)" class="btn-sm" style="padding:2px 8px;font-size:.8rem">+</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px">HP</div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <button onclick="hintAdjust('hp',-5)" class="btn-sm" style="padding:2px 8px;font-size:.8rem">−</button>
+          <div id="hintHp" style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--grn2);min-width:40px;text-align:center">80</div>
+          <button onclick="hintAdjust('hp',5)" class="btn-sm" style="padding:2px 8px;font-size:.8rem">+</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px">Level</div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <button onclick="hintAdjust('lvl',-1)" class="btn-sm" style="padding:2px 8px;font-size:.8rem">−</button>
+          <div id="hintLvl" style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent2);min-width:40px;text-align:center">6</div>
+          <button onclick="hintAdjust('lvl',1)" class="btn-sm" style="padding:2px 8px;font-size:.8rem">+</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px">Wins/Losses</div>
+        <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+          <button onclick="hintAdjust('streak','win')" id="hintWinBtn" class="btn-sm" style="padding:2px 10px;font-size:.7rem">W</button>
+          <div id="hintStreak" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim2);min-width:24px;text-align:center">—</div>
+          <button onclick="hintAdjust('streak','loss')" id="hintLossBtn" class="btn-sm" style="padding:2px 10px;font-size:.7rem">L</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage buttons — one tap = instant hint -->
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">// Tap your current stage for instant advice</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px" id="stageHintBtns">
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('2-1')" data-stage="2-1">2-1 Augment</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('2-5')" data-stage="2-5">2-5 PVE</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('3-2')" data-stage="3-2" style="border-color:var(--gold);color:var(--gold)">3-2 ⚡</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('3-5')" data-stage="3-5">3-5 Augment</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('4-1')" data-stage="4-1" style="border-color:var(--gold);color:var(--gold)">4-1 ⚡</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('4-2')" data-stage="4-2" style="border-color:var(--gold);color:var(--gold)">4-2 ⚡</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('4-5')" data-stage="4-5">4-5 Augment</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('5-2')" data-stage="5-2">5-2 Lv9?</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('carousel')" data-stage="carousel">Carousel</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('low-hp')" data-stage="low-hp" style="border-color:var(--red2);color:var(--red2)">🩸 Low HP</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('roll-now')" data-stage="roll-now">Roll Now?</button>
+      <button class="btn-sm hint-stage-btn" onclick="fireHint('augment-pick')" data-stage="augment-pick">Which Augment?</button>
+    </div>
+
+    <!-- Hint output box -->
+    <div id="hintBox" style="display:none;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold);padding:14px 16px;position:relative;min-height:56px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--golddim);letter-spacing:.15em;text-transform:uppercase" id="hintLabel">// HINT</div>
+        <div style="display:flex;gap:8px">
+          <span id="hintSpinner" style="display:none;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);animation:pulse 1s infinite">⟳ thinking…</span>
+          <button class="btn-sm" onclick="document.getElementById('hintBox').style.display='none'" style="font-size:.6rem;padding:1px 8px">✕</button>
+        </div>
+      </div>
+      <div id="hintText" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--text);line-height:1.8;white-space:pre-wrap"></div>
+    </div>
+
+    <!-- Quick comp toggle for context -->
+    <div style="margin-top:10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase">Playing:</span>
+      <select id="hintComp" style="height:26px;font-size:.68rem;background:var(--bg2);border:1px solid var(--border2);color:var(--text)">
+        <option value="">Unknown comp</option>
+        <option value="Corki Riven">Corki Riven</option>
+        <option value="6 Dark Stars">6 Dark Stars</option>
+        <option value="Vex Fast 9">Vex Fast 9</option>
+        <option value="Asol AP Flex">Asol AP Flex</option>
+        <option value="Brawler Yi">Brawler Yi</option>
+        <option value="Lulu Reroll">Lulu Reroll</option>
+        <option value="Vanguard LeBlanc">Vanguard LeBlanc</option>
+        <option value="Urgot Reroll">Urgot Reroll</option>
+        <option value="Twisted Fate Reroll">TF Reroll</option>
+        <option value="Meeple Veigar">Meeple Veigar</option>
+        <option value="Samira Reroll">Samira Reroll</option>
+        <option value="Primordian Reroll">Primordian Reroll</option>
+      </select>
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--dim2)">streak:</span>
+      <select id="hintStreakType" style="height:26px;font-size:.68rem;background:var(--bg2);border:1px solid var(--border2);color:var(--text)">
+        <option value="unknown">Unknown</option>
+        <option value="win">Win Streak</option>
+        <option value="loss">Loss Streak</option>
+        <option value="neutral">Neutral</option>
+      </select>
     </div>
   </div>
 
@@ -2015,7 +2110,7 @@ function computePatterns(matches){
   // Comps
   const compCounts={};const compPlacements={};
   matches.forEach(m=>{
-    const tn=(m.data.traits||[]).filter(t=>t.tier_current>0).map(t=>t.name.replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
+    const tn=(m.data.traits||[]).filter(t=>t&&t.tier_current>0).map(t=>(t?.name||'').replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
     let comp='Unknown';
     if(tn.some(t=>t.includes('dark star')))comp='Dark Stars';
     else if(tn.some(t=>t.includes('meeple')))comp='Corki Riven (Meeple)';
@@ -2088,12 +2183,12 @@ function computePatterns(matches){
     const winner=all.find(pp=>pp.placement===1)||null;
     const lobbyAvgGold=all.length?+(all.reduce((a,pp)=>a+(pp.gold_left||0),0)/all.length).toFixed(1):0;
     const lobbyAvgLevel=all.length?+(all.reduce((a,pp)=>a+(pp.level||7),0)/all.length).toFixed(1):0;
-    const playerTraitNames=(m.data.traits||[]).filter(t=>t.tier_current>0).map(t=>t.name.replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
+    const playerTraitNames=(m.data.traits||[]).filter(t=>t&&t.tier_current>0).map(t=>(t?.name||'').replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
     let contestedCount=0;
     all.forEach(pp=>{
       if(pp.isPlayer)return;
-      const oppTraits=(pp.traits||[]).map(t=>t.toLowerCase());
-      const shared=oppTraits.filter(t=>playerTraitNames.some(pt=>t.includes(pt.split(' ')[0])));
+      const oppTraits=(pp.traits||[]).map(t=>(typeof t==='string'?t:(t?.name||'')).replace(/TFT\d+_/g,'').replace(/_/g,' ').toLowerCase());
+      const shared=oppTraits.filter(t=>t&&playerTraitNames.some(pt=>t.includes(pt.split(' ')[0])));
       if(shared.length>=2)contestedCount++;
     });
     return{
@@ -3313,7 +3408,7 @@ function saveKeys(){
   if(rk){
     localStorage.setItem('tft_rk',rk);
     localStorage.setItem('tft_rk_saved_at',String(Date.now()));
-    document.getElementById('rkSaved').style.display='block';
+    const _rks=document.getElementById('rkSaved');if(_rks)_rks.style.display='block';
     clearTimeout(window._squadRetry);
     window._squadRetry=setTimeout(refreshSquad,600);
     checkRiotKeyExpiry();
@@ -3342,7 +3437,7 @@ function checkRiotKeyExpiry(){
 window.addEventListener('load',()=>{
   const ck=getCK();const rk=localStorage.getItem('tft_rk')||'';
   if(ck){document.getElementById('claudeKey').value=ck;document.getElementById('ckSaved').style.display='block';}
-  if(rk){document.getElementById('riotKeyInput').value=rk;document.getElementById('rkSaved').style.display='block';}
+  if(rk){document.getElementById('riotKeyInput').value=rk;const _rks=document.getElementById('rkSaved');if(_rks)_rks.style.display='block';}
   const rid=localStorage.getItem('tft_rid');const reg=localStorage.getItem('tft_reg');
   if(rid)document.getElementById('riotId').value=rid;
   if(reg)document.getElementById('region').value=reg;
@@ -3483,18 +3578,18 @@ function setMode(mode){
   });
 
   if(isGame){
-    document.getElementById('lookupPanel').style.display='block';
+    const lp=document.getElementById('lookupPanel');if(lp)lp.style.display='block';
     const labels={tft:'TFT Ranked — Player Lookup',double:'Double Up — Player Lookup',aram:'ARAM — Player Lookup'};
     const badges={tft:'TFT RANKED',double:'DOUBLE UP',aram:'ARAM'};
-    document.getElementById('lookupLabel').textContent=labels[mode];
-    document.getElementById('modeBadge').textContent=badges[mode];
+    const ll=document.getElementById('lookupLabel');if(ll)ll.textContent=labels[mode];
+    const mb=document.getElementById('modeBadge');if(mb)mb.textContent=badges[mode];
     matchData=[];selected.clear();
-    document.getElementById('mlist').innerHTML='';
-    document.getElementById('statsGrid').innerHTML='';
-  animateStatsGrid();
+    const ml=document.getElementById('mlist');if(ml)ml.innerHTML='';
+    const sg=document.getElementById('statsGrid');if(sg)sg.innerHTML='';
+    animateStatsGrid();
     er('');st('');
   }
-  if(isAsk){
+  if(mode==='ask'){
     setTimeout(()=>{const inp=document.getElementById('askInput');if(inp)inp.focus();},100);
   }
 }
@@ -3512,7 +3607,12 @@ async function riotGet(url){
   // Always pass personal key so proxy can use it as fallback
   const personalKey=localStorage.getItem('tft_rk')||'';
   const keyParam=personalKey?'&key='+encodeURIComponent(personalKey):'';
-  const r=await fetch('/api/riot?url='+encodeURIComponent(url)+keyParam);
+  let r;
+  try {
+    r=await fetch('/api/riot?url='+encodeURIComponent(url)+keyParam);
+  } catch(netErr) {
+    throw new Error('Network error reaching Vercel API — check your internet connection or try again. ('+netErr.message+')');
+  }
   if(r.status===503&&!personalKey){
     throw new Error('No Riot API key — paste your RGAPI-... key in the Keys bar at the top.');
   }
@@ -3677,6 +3777,7 @@ async function fetchOpponentRanks(allPlayers, routing, region) {
   await Promise.allSettled(toFetch.map(async pp => {
     try {
       const summ = await riotGetWithPersonalKey(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${pp.puuid}`);
+      if (!summ?.id) return; // summoner lookup returned no id — skip this opponent
       const lg   = await riotGetWithPersonalKey(`https://${region}.api.riotgames.com/tft/league/v1/entries/by-summoner/${summ.id}`);
       const ranked = (lg||[]).find(l=>l.queueType==='RANKED_TFT')||null;
       opponentRankCache[pp.puuid] = ranked ? {
@@ -3714,6 +3815,7 @@ let liveGameInterval = null;
 async function checkLiveGame(puuid, region) {
   try {
     const summ = await riotGetWithPersonalKey(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
+    if (!summ?.id) return null;
     const live = await riotGetWithPersonalKey(`https://${region}.api.riotgames.com/lol/spectator/v5/active-games/by-summoner/${summ.id}`);
     if (live && live.gameId) {
       liveGameData = {
@@ -3775,6 +3877,7 @@ function updateLiveGameBadge(liveData) {
 async function fetchTFT(puuid,routing,region,name,tag,mode){
   st('Fetching summoner…');
   const summ=await riotGet(`https://${region}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`);
+  if(!summ?.id){throw new Error('Summoner lookup failed — Riot API returned no summoner ID. Your API key may be expired. Get a new one at developer.riotgames.com');}
   st('Fetching rank…');
   let ranked=null;
   try{
@@ -3785,7 +3888,7 @@ async function fetchTFT(puuid,routing,region,name,tag,mode){
   }catch(e){}
   st('Loading matches…');
   var mlistEl2=document.getElementById('mlist');if(mlistEl2){mlistEl2.innerHTML=renderMatchSkeletons();var ms2=document.getElementById('matchSection');if(ms2)ms2.style.display='block';}
-  const mlistEl=document.getElementById('mlist'); if(mlistEl){mlistEl.innerHTML=renderMatchSkeletons();document.getElementById('matchSection').style.display='block';}
+  const mlistEl=document.getElementById('mlist'); if(mlistEl){mlistEl.innerHTML=renderMatchSkeletons();const _ms=document.getElementById('matchSection');if(_ms)_ms.style.display='block';}
   const ids=await riotGet(`https://${routing}.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=30`);
   const raw=[];
   for(let i=0;i<ids.length&&raw.length<15;i++){
@@ -3881,7 +3984,7 @@ function showPlayerCardTFT(name,tag,ranked,matches,mode){
     <div class="stat-box"><div class="stat-lbl">Bot 4 %</div><div class="stat-val ${bot>=50?'bad':''}">${bot}%</div></div>
     <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${dmg}</div></div>
     <div class="stat-box"><div class="stat-lbl">Avg Gold Left</div><div class="stat-val">${gold}</div></div>`;
-  document.getElementById('statsRow').style.display='block';
+  const _sr=document.getElementById('statsRow');if(_sr)_sr.style.display='block';
 }
 
 function roundToStage(r){if(!r||r<1)return '?';const stages=[[1,3],[4,10],[11,17],[18,24],[25,31],[32,38],[39,45]];for(let s=0;s<stages.length;s++){const[start,end]=stages[s];if(r>=start&&r<=end)return `${s+1}-${r-start+1}`;}return String(r);}
@@ -4064,8 +4167,8 @@ function renderTFTMatches(mode){
     row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
     list.appendChild(row);
   });
-  document.getElementById('matchSection').style.display='block';
-  document.getElementById('asec').style.display='block';
+  const _ms=document.getElementById('matchSection');if(_ms)_ms.style.display='block';
+  const _as=document.getElementById('asec');if(_as)_as.style.display='block';
 }
 
 // ── ARAM fetch ─────────────────────────────────────────────────
@@ -4119,7 +4222,7 @@ function showPlayerCardARAM(name,tag,matches){
     <div class="stat-box"><div class="stat-lbl">Avg Damage</div><div class="stat-val">${avgDmg.toLocaleString()}</div></div>
     <div class="stat-box"><div class="stat-lbl">W/L</div><div class="stat-val">${wins}/${losses}</div></div>`;
     animateStatsGrid();
-  document.getElementById('statsRow').style.display='block';
+  const _sr=document.getElementById('statsRow');if(_sr)_sr.style.display='block';
 }
 
 function renderARAMMatches(){
@@ -4154,8 +4257,8 @@ function renderARAMMatches(){
     row.addEventListener('click',e=>{if(!e.target.closest('.chk'))openModal(idx);});
     list.appendChild(row);
   });
-  document.getElementById('matchSection').style.display='block';
-  document.getElementById('asec').style.display='block';
+  const _ms=document.getElementById('matchSection');if(_ms)_ms.style.display='block';
+  const _as=document.getElementById('asec');if(_as)_as.style.display='block';
 }
 
 function toggleSel(idx){
@@ -4511,78 +4614,119 @@ function buildARAMSummary(matches){
 }
 
 // ── Claude ─────────────────────────────────────────────────────
-async function callClaude(prompt,maxTokens){
-  const ck=getCK();
-  if(!ck)throw new Error('No Claude API key — enter it in the API Keys panel at the top');
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':ck,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens,messages:[{role:'user',content:prompt}]})
-  });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`Claude API error ${res.status}`);}
-  const d=await res.json();return d.content.map(c=>c.text||'').join('');
+// callClaude: non-streaming with 55s timeout (Vercel Pro limit is 60s)
+async function callClaude(prompt, maxTokens) {
+  const ck = getCK();
+  if (!ck) throw new Error('No Claude API key — enter it in the API Keys panel at the top');
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 55000); // 55s timeout
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ck,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    });
+    if (!res.ok) {
+      const e = await res.json().catch(() => ({}));
+      throw new Error(e?.error?.message || `Claude API error ${res.status}`);
+    }
+    const d = await res.json();
+    return d.content.map(c => c.text || '').join('');
+  } catch (e) {
+    if (e.name === 'AbortError') throw new Error('Request timed out after 55s — try fewer games or a shorter analysis');
+    throw e;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
-// Streaming Claude call — renders text as it arrives
+
+// callClaudeStreaming: true SSE streaming — tokens appear as they arrive
+// targetElId: the element to stream into. If omitted, just returns full text.
 async function callClaudeStreaming(prompt, maxTokens, targetElId) {
   const ck = getCK();
   if (!ck) throw new Error('No Claude API key');
-  const el = document.getElementById(targetElId);
+
+  // Show streaming placeholder in target element
+  const el = targetElId ? document.getElementById(targetElId) : null;
   if (el) {
-    el.innerHTML = '<div style="font-family:monospace;font-size:.72rem;color:var(--text);line-height:1.7;white-space:pre-wrap;padding:4px"></div>';
+    el.innerHTML = '<div class="stream-live" style="font-family:\'Share Tech Mono\',monospace;font-size:.72rem;color:var(--text);line-height:1.85;white-space:pre-wrap;padding:4px;min-height:60px"></div>';
   }
-  const textEl = el ? el.querySelector('div') : null;
+  const textEl = el ? el.querySelector('.stream-live') : null;
   let fullText = '';
 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': ck,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: maxTokens || 3000,
-      stream: true,
-      messages: [{ role: 'user', content: prompt }],
-    }),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 min max for streaming
 
-  if (!res.ok) {
-    const e = await res.json().catch(() => ({}));
-    throw new Error(e?.error?.message || 'Claude API error ' + res.status);
-  }
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ck,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: maxTokens || 3000,
+        stream: true,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    });
 
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    const chunk = decoder.decode(value);
-    const lines = chunk.split('\n').filter(l => l.startsWith('data: '));
-    for (const line of lines) {
-      const data = line.slice(6);
-      if (data === '[DONE]') continue;
-      try {
-        const parsed = JSON.parse(data);
-        if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
-          fullText += parsed.delta.text;
-          if (textEl) {
-            // Render markdown-like formatting on the fly
-            textEl.innerHTML = renderStreamingText(fullText);
-            // Auto-scroll to bottom
-            if (el) el.scrollTop = el.scrollHeight;
-          }
-        }
-      } catch(e) { /* ignore parse errors in stream */ }
+    if (!res.ok) {
+      const e = await res.json().catch(() => ({}));
+      throw new Error(e?.error?.message || 'Claude API error ' + res.status);
     }
-  }
 
-  // Final render with full coaching tabbed format
-  if (el) el.innerHTML = renderCoachingTabbed(fullText, 'stream');
-  return fullText;
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let renderThrottle = 0;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value);
+      const lines = chunk.split('\n').filter(l => l.startsWith('data: '));
+      for (const line of lines) {
+        const data = line.slice(6);
+        if (data === '[DONE]') continue;
+        try {
+          const parsed = JSON.parse(data);
+          if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
+            fullText += parsed.delta.text;
+            // Throttle DOM updates to every 8 tokens for performance
+            renderThrottle++;
+            if (textEl && renderThrottle % 8 === 0) {
+              textEl.innerHTML = renderStreamingText(fullText);
+              if (el) el.scrollTop = el.scrollHeight;
+            }
+          }
+        } catch(e) { /* ignore parse errors in stream */ }
+      }
+    }
+
+    // Final render
+    if (el) el.innerHTML = renderCoachingTabbed(fullText, 'stream');
+    return fullText;
+
+  } catch (e) {
+    if (e.name === 'AbortError') throw new Error('Streaming timed out — response was taking too long');
+    throw e;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 function renderStreamingText(text) {
@@ -4803,13 +4947,11 @@ ${summary}`;
 
   const runTab = async (tab, fn) => {try{await fn();}catch(e){setTabError(tab,e.message);}};
 
-  await Promise.all([
-
-    runTab('overview', async()=>{
+  // ── Sequential streaming tabs — no timeouts, no rate limits ──────────
+  await runTab('overview', async()=>{
       var _sk=document.getElementById('cpanel-overview');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
       const _cpEl=document.getElementById('cpanel-overview');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
-      const _streamOn = document.getElementById('streamingToggle')?.checked;
-      const t = await (_streamOn ? callClaudeStreaming : callClaude)(`${META}\n\n${DATA}\n\nYou are the world's best TFT coach. The PRE-COMPUTED FACTS above are verified — do not second-guess them. Use the STATISTICAL CONCLUSIONS and TIMELINE ERRORS as hard evidence.\n\n## VERDICT\nOne precise sentence: estimated rank tier from decision patterns + the single most LP-costly fixable habit. Must reference specific numbers from pre-computed data.\n\n## SCORECARD\nOne line per dimension, using pre-computed grades where given:\nECONOMY | ${patterns.econGrade} | [reference: avg ${patterns.avgGoldLeft}g left, ${patterns.gamesOverRolled}/${n} over-rolled, costs ${patterns.econLPCost} LP/game]\nCOMP SELECTION | [grade] | [name exact comps played, reference tier list]\nITEMIZATION | ${patterns.itemGrade} | [reference: ${patterns.itemErrorRate}% error rate, name specific wrong items]\nAUGMENTS | [grade] | [reference specific augment choices from match data]\nBOARD MANAGEMENT | [grade] | [reference: ${patterns.oneStarCarries} 1-star carries, ${patterns.gamesStuckLevel6}/${n} games stuck lv6]\nMETA AWARENESS | [grade] | [scouting score ${scoutingScore.score}/100 — ${scoutingScore.contestedGames}/${n} contested, comp read: ${scoutingScore.insights[0]||'adequate'}]\n\n## TILT CHECK\n${patterns.tiltDetected?'⚠ TILT DETECTED: '+patterns.tiltGames.length+' consecutive loss streak with worsening placements detected. Address this.':'No tilt pattern detected.'}\n\n## GAME LOG\nEvery game, no skipping:\nGame [N] | [place]/8 | [grade] | [LIGHT/STANDARD/HEAVY/VERY HEAVY]\nComp: [name+tier] | Timeline: [most critical error from timeline data] | Winner did: [from winner comparison] | Key fix: [exact actionable correction]\n\n## STATISTICAL INSIGHTS\nUse the Pearson correlations and pattern conclusions above. What does the DATA say are the biggest LP levers?\n\n## TOP 3 LP LEAKS\n1. [Issue — use statistical evidence] — ~[X] LP/game — [exact fix]\n2. [Issue] — ~[X] LP/game — [fix]\n3. [Issue] — ~[X] LP/game — [fix]\n\n## LP ROADMAP\nCurrent estimated rank tier from decision patterns.\nTotal LP cost of fixable habits per game: [sum the top 3 leaks].\n"If you fix [top habit] alone: +[X] LP per 10 games, reaching [tier] in ~[Y] games."\n"If you fix all 3 habits: +[X] LP per 10 games, reaching Challenger in ~[Y] games."\nBe realistic — cite the specific LP costs from the statistical conclusions above.`, 3500);
+      const t = await callClaudeStreaming(`${META}\n\n${DATA}\n\nYou are the world's best TFT coach. The PRE-COMPUTED FACTS above are verified — do not second-guess them. Use the STATISTICAL CONCLUSIONS and TIMELINE ERRORS as hard evidence.\n\n## VERDICT\nOne precise sentence: estimated rank tier from decision patterns + the single most LP-costly fixable habit. Must reference specific numbers from pre-computed data.\n\n## SCORECARD\nOne line per dimension, using pre-computed grades where given:\nECONOMY | ${patterns.econGrade} | [reference: avg ${patterns.avgGoldLeft}g left, ${patterns.gamesOverRolled}/${n} over-rolled, costs ${patterns.econLPCost} LP/game]\nCOMP SELECTION | [grade] | [name exact comps played, reference tier list]\nITEMIZATION | ${patterns.itemGrade} | [reference: ${patterns.itemErrorRate}% error rate, name specific wrong items]\nAUGMENTS | [grade] | [reference specific augment choices from match data]\nBOARD MANAGEMENT | [grade] | [reference: ${patterns.oneStarCarries} 1-star carries, ${patterns.gamesStuckLevel6}/${n} games stuck lv6]\nMETA AWARENESS | [grade] | [scouting score ${scoutingScore.score}/100 — ${scoutingScore.contestedGames}/${n} contested, comp read: ${scoutingScore.insights[0]||'adequate'}]\n\n## TILT CHECK\n${patterns.tiltDetected?'⚠ TILT DETECTED: '+patterns.tiltGames.length+' consecutive loss streak with worsening placements detected. Address this.':'No tilt pattern detected.'}\n\n## GAME LOG\nEvery game, no skipping:\nGame [N] | [place]/8 | [grade] | [LIGHT/STANDARD/HEAVY/VERY HEAVY]\nComp: [name+tier] | Timeline: [most critical error from timeline data] | Winner did: [from winner comparison] | Key fix: [exact actionable correction]\n\n## STATISTICAL INSIGHTS\nUse the Pearson correlations and pattern conclusions above. What does the DATA say are the biggest LP levers?\n\n## TOP 3 LP LEAKS\n1. [Issue — use statistical evidence] — ~[X] LP/game — [exact fix]\n2. [Issue] — ~[X] LP/game — [fix]\n3. [Issue] — ~[X] LP/game — [fix]\n\n## LP ROADMAP\nCurrent estimated rank tier from decision patterns.\nTotal LP cost of fixable habits per game: [sum the top 3 leaks].\n"If you fix [top habit] alone: +[X] LP per 10 games, reaching [tier] in ~[Y] games."\n"If you fix all 3 habits: +[X] LP per 10 games, reaching Challenger in ~[Y] games."\nBe realistic — cite the specific LP costs from the statistical conclusions above.`, 3500);
       const el=document.getElementById('cpanel-overview');if(el)el.innerHTML=renderCoachingTabbed(t,'overview');
       // Save session after overview
       // Render challenger cards at top of panel
@@ -4821,9 +4963,8 @@ ${summary}`;
       clearInterval(_stepInterval);
       saveSessionResult(currentPlayerName,{econGrade:patterns.econGrade,itemGrade:patterns.itemGrade,avgPlacement:patterns.avgPlacement,topIssues:patterns.topIssues,gamesAnalyzed:n,mode:modeStr});
       if(currentPlayerName.toLowerCase().includes('bahagabag'))updateLiveProfile(currentPlayerName.split('#')[0],currentPlayerName.split('#')[1],null,toAnalyze);
-    }),
-
-    runTab('economy', async()=>{
+  });
+  await runTab('economy', async()=>{
       var _sk=document.getElementById('cpanel-economy');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
       const _cpEl=document.getElementById('cpanel-economy');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
       // Build deep per-game economy data block
@@ -4851,11 +4992,10 @@ ${summary}`;
         'Best econ: Game '+(patterns.bestEconGame?.game||'?')+' ('+(patterns.bestEconGame?.score||0)+'/100, '+(patterns.bestEconGame?.goldLeft||0)+'g left)\n'+'Worst econ: Game '+(patterns.worstEconGame?.game||'?')+' ('+(patterns.worstEconGame?.score||0)+'/100, '+(patterns.worstEconGame?.goldLeft||0)+'g left)\n'+
         'Key stats: '+statConclusions.filter(c=>c.includes('ECONOMY')||c.includes('LEVEL')||c.includes('ROLL')||c.includes('WINNER')||c.includes('INTEREST')).join(' | ');
 
-      const t = await callClaude(META+'\n\n'+DATA+'\n\nYou are Dishsoap, TFT Challenger, doing the most thorough economy audit possible for '+currentPlayerName+'. Every observation must cite specific numbers from the data below.\n\n'+econStatsBlock+'\n\nPER-GAME ECONOMY DATA:\n'+econGameData+'\n\n## ECONOMY GRADE: '+patterns.econGrade+'\nOne sentence verdict using exact numbers. State the total estimated LP cost per game.\n\n## PER-GAME ECONOMY AUDIT\n\nFor every game:\n\n**Game [N] — P[place]/8 | Economy Score: [X]/100**\n\nGOLD EXECUTION:\n  At death: [Xg] → [PERFECT/MINOR/ERROR/MAJOR] | Estimated LP cost: ~[X] placements\n  vs Winner: Winner had [Xg], you had [Yg] — [what this means]\n\nLEVEL TIMING:\n  Reached level [X] — [correct/wrong for comp?] | Challenger expects lv[Y] by round [Z]\n  Error: [specific if applicable] or [correct — on track]\n\nROLL EFFICIENCY:\n  [X] 2-stars at lv[Y] — expected [Z]+ | Verdict: [EFFICIENT/UNDER-ROLLED/UNLUCKY]\n  "Had [Xg] to spend but only [Y] 2-stars — should have rolled [X-20]g more" if under-rolled\n\nSTREAK EXECUTION:\n  Signal: [WIN/LOSS/TEMPO/UNCLEAR] | Was this correct? [yes/no + reason]\n\nLOBBY COMPARISON:\n  Level vs lobby avg: [+/-X] | vs top-4 avg: [+/-X] | Gold vs lobby: [+/-Xg]\n\nVERDICT: [#1 economy mistake this game in one sentence]\n\n## ECONOMY PATTERNS ACROSS ALL '+n+' GAMES\n\nSECTION 1 — Interest Management:\nAre they maintaining 50g cap consistently? How much interest do they lose per session?\n\nSECTION 2 — Level Timing:\nLv6, Lv7, Lv8, Lv9 — how often on time? LP cost per timing error.\n\nSECTION 3 — Rolldown Execution:\nClean (roll to threshold, stop) or sloppy (over/under-roll)? Evidence from roll efficiency data.\n\nSECTION 4 — Streak Play:\nAre they optimizing win/loss streaks? Signs of accidental streak breaking.\n\nSECTION 5 — Lobby Contextualization:\nHow does their economy compare to top-4 in their specific lobbies? Winner economy comparison.\n\n## CHALLENGER ECONOMY STANDARD — GAME BY GAME\n\nFor each game, what a Challenger player would have done at 3-2, 4-1, 4-2:\n"At 3-2 in Game [N]: Challenger would [exact action]. This data suggests [what happened]."\n\n## ECONOMY HABIT TO CHANGE — RANKED BY LP IMPACT\n\n1. **[Most expensive habit]** | ~[X] LP/game\n   Evidence: [exact numbers] | Challenger standard: [specific] | Drill: [how to build habit] | Target: [measurable]\n2. **[Second habit]** | ~[X] LP/game — [same format]\n3. **[Third habit]** | ~[X] LP/game — [same format]\n\n## ECONOMY CHECKPOINT SYSTEM\n\nFor these specific games, grade each checkpoint YES/NO/PARTIAL:\n□ 3-2 Level to 6 | □ 4-1 Level to 7 | □ 4-2 Level to 8 | □ 4-2 Roll to threshold | □ 50g banked before spending\n\nFor each NO: exact LP cost and one-sentence fix.', 4000);
+      const t = await callClaudeStreaming(META+'\n\n'+DATA+'\n\nYou are Dishsoap, TFT Challenger, doing the most thorough economy audit possible for '+currentPlayerName+'. Every observation must cite specific numbers from the data below.\n\n'+econStatsBlock+'\n\nPER-GAME ECONOMY DATA:\n'+econGameData+'\n\n## ECONOMY GRADE: '+patterns.econGrade+'\nOne sentence verdict using exact numbers. State the total estimated LP cost per game.\n\n## PER-GAME ECONOMY AUDIT\n\nFor every game:\n\n**Game [N] — P[place]/8 | Economy Score: [X]/100**\n\nGOLD EXECUTION:\n  At death: [Xg] → [PERFECT/MINOR/ERROR/MAJOR] | Estimated LP cost: ~[X] placements\n  vs Winner: Winner had [Xg], you had [Yg] — [what this means]\n\nLEVEL TIMING:\n  Reached level [X] — [correct/wrong for comp?] | Challenger expects lv[Y] by round [Z]\n  Error: [specific if applicable] or [correct — on track]\n\nROLL EFFICIENCY:\n  [X] 2-stars at lv[Y] — expected [Z]+ | Verdict: [EFFICIENT/UNDER-ROLLED/UNLUCKY]\n  "Had [Xg] to spend but only [Y] 2-stars — should have rolled [X-20]g more" if under-rolled\n\nSTREAK EXECUTION:\n  Signal: [WIN/LOSS/TEMPO/UNCLEAR] | Was this correct? [yes/no + reason]\n\nLOBBY COMPARISON:\n  Level vs lobby avg: [+/-X] | vs top-4 avg: [+/-X] | Gold vs lobby: [+/-Xg]\n\nVERDICT: [#1 economy mistake this game in one sentence]\n\n## ECONOMY PATTERNS ACROSS ALL '+n+' GAMES\n\nSECTION 1 — Interest Management:\nAre they maintaining 50g cap consistently? How much interest do they lose per session?\n\nSECTION 2 — Level Timing:\nLv6, Lv7, Lv8, Lv9 — how often on time? LP cost per timing error.\n\nSECTION 3 — Rolldown Execution:\nClean (roll to threshold, stop) or sloppy (over/under-roll)? Evidence from roll efficiency data.\n\nSECTION 4 — Streak Play:\nAre they optimizing win/loss streaks? Signs of accidental streak breaking.\n\nSECTION 5 — Lobby Contextualization:\nHow does their economy compare to top-4 in their specific lobbies? Winner economy comparison.\n\n## CHALLENGER ECONOMY STANDARD — GAME BY GAME\n\nFor each game, what a Challenger player would have done at 3-2, 4-1, 4-2:\n"At 3-2 in Game [N]: Challenger would [exact action]. This data suggests [what happened]."\n\n## ECONOMY HABIT TO CHANGE — RANKED BY LP IMPACT\n\n1. **[Most expensive habit]** | ~[X] LP/game\n   Evidence: [exact numbers] | Challenger standard: [specific] | Drill: [how to build habit] | Target: [measurable]\n2. **[Second habit]** | ~[X] LP/game — [same format]\n3. **[Third habit]** | ~[X] LP/game — [same format]\n\n## ECONOMY CHECKPOINT SYSTEM\n\nFor these specific games, grade each checkpoint YES/NO/PARTIAL:\n□ 3-2 Level to 6 | □ 4-1 Level to 7 | □ 4-2 Level to 8 | □ 4-2 Roll to threshold | □ 50g banked before spending\n\nFor each NO: exact LP cost and one-sentence fix.', 4000);
       const el=document.getElementById('cpanel-economy');if(el)el.innerHTML=renderCoachingTabbed(t,'economy');
-    }),,
-
-        runTab('items', async()=>{
+  });
+  await runTab('items', async()=>{
       var _sk=document.getElementById('cpanel-items');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
       const _cpEl=document.getElementById('cpanel-items');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
       const itemGameData = toAnalyze.map((m,i)=>{
@@ -4872,11 +5012,10 @@ ${summary}`;
       }).join('\n');
       const mistakes=(patterns.itemMistakes||[]).map(m=>'G'+m.game+' '+m.unit+'*'+m.stars+' WRONG:['+m.wrong.join('+')+'] BiS:['+m.bis.join('+')+']').join('\n')||'none detected';
       const prompt=META+'\n\n'+DATA+'\n\nYou are Dishsoap doing a surgical item audit for '+currentPlayerName+'.\n\nPRE-VERIFIED MISTAKES ('+((patterns.itemMistakes||[]).length)+' confirmed from BiS DB):\n'+mistakes+'\n\nPER-GAME BOARDS:\n'+itemGameData+'\n\n## ITEM GRADE: '+patterns.itemGrade+' ('+patterns.itemErrorRate+'% error rate vs Challenger <8%)\n\n## COMPLETE ITEM AUDIT — EVERY CARRY, EVERY GAME\nFor every game, every unit with items:\n**Game [N] — [Comp] — P[place]/8**\n[Champion] *[stars]: [items]\n→ CORRECT ✓ — BiS confirmed\n→ WRONG ✗ — BiS is [correct]. Why wrong: [reason]. LP cost: ~[X] placements/game.\n→ SUBOPTIMAL △ — [better option + reason]\n→ 1-STAR CARRY ⚠ — Items on 1-star. Costs ~1.2 placements/game.\n→ EMPTY CARRY ✗ — No items on carry. Should have slammed [BiS component] at 2-1.\n\nFor every WRONG item: explain why the wrong item underperforms vs the correct one for this specific comp.\n\n## COMPONENT SLAM AUDIT\nFrom final items, what should have been slammed at 2-1 for this comp? Were the right components prioritized?\nFor each game: "Stage 2 should have: [BF priority] → [2-1 slam]. Evidence suggests [what happened]."\n\n## ITEM SYNERGY ANALYSIS\nFor each carry: do items stack the same stat? Any redundant stats? Missing the cap item? Wrong item for comp mechanic?\n\n## STAR LEVEL ANALYSIS\nFor every 1-star carry with items: name game, champion, items, cost (~1.2 placements). Was it under-rolling, contested, or unlucky?\n\n## TOP 3 ITEM HABITS TO FIX\n1. [Habit] — ~[X] LP/game — [drill]\n2. [Habit] — ~[X] LP/game — [drill]\n3. [Habit] — ~[X] LP/game — [drill]\n\n## BiS CHEAT SHEET FOR COMPS PLAYED\nFor every comp detected: exact BiS for every carry and key tank.';
-      const t=await callClaude(prompt,3500);
+      const t=await callClaudeStreaming(prompt,3500);
       const el=document.getElementById('cpanel-items');if(el)el.innerHTML=renderCoachingTabbed(t,'items');
-    }),,,
-
-        runTab('augments', async()=>{
+  });
+  await runTab('augments', async()=>{
       var _sk=document.getElementById('cpanel-augments');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
       const _cpEl=document.getElementById('cpanel-augments');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
       const augGameData=toAnalyze.map((m,i)=>{
@@ -4904,11 +5043,11 @@ ${summary}`;
       }).join('\n\n');
       const augPrio='2-1:Econ/Emblem | 3-2:Comp-synergy | 4-2:Cap-value | NEVER:combat-no-synergy';
       const prompt=META+'\n\n'+DATA+'\n\nChallenger augment audit for '+currentPlayerName+'.\n'+augPrio+'\n\nPER-GAME:'+augGameData+'\n\n## AUGMENT GRADE: [S/A/B/C/D/F]\n## GAME-BY-GAME AUGMENT AUDIT\nEvery game with augment data:\n**Game [N] — [Comp] — P[place]/8**\nAugment 2-1: [aug] — [S/A/B/C for this comp] — [CORRECT or BETTER OPTION + reason]\nAugment 3-2: [aug] — [grade] — [analysis]\nAugment 4-2: [aug] — [grade] — [was this best cap option?]\nSynergy: [do all 3 work together?]\nVERDICT: [one sentence — biggest LP loss in augments this game]\n## AUGMENT SYNERGY ANALYSIS\nFor each game: do the 3 augments form a coherent strategy? Rate STRONG/MODERATE/WEAK.\n## 2-1 TENDENCY\nPattern across all games: econ when should have? Combat too early? Missed emblems?\n## BEST AND WORST PICKS\nBest across all games: [name it + why]. Worst: [game, round, aug, better option].\n## AUGMENT RULE TO MEMORIZE\nThe one rule: "At [round], when [condition], always take [type] because [reason]."';
-      const t=await callClaude(prompt,3000);
+      const t=await callClaudeStreaming(prompt,3000);
       const el=document.getElementById('cpanel-augments');if(el)el.innerHTML=renderCoachingTabbed(t,'augments');
-    }),,,
+    }),
 
-        runTab('training', async()=>{
+    runTab('training', async()=>{
       var _sk=document.getElementById('cpanel-training');if(_sk&&!_sk.innerHTML.trim())_sk.innerHTML=renderCoachingSkeleton();
       const _cpEl=document.getElementById('cpanel-training');if(_cpEl)_cpEl.innerHTML=renderCoachingSkeleton();
       const profileCtx=profileBlock?profileBlock:'';
@@ -4933,11 +5072,9 @@ ${summary}`;
         'CRITICAL timeline errors: '+toAnalyze.filter(m=>inferTimeline(m).errors.some(e=>e.sev==='CRITICAL')).length+'/'+n+' games\n'+
         'stats: '+statConclusions.slice(0,4).join(' | ')+(profileCtx?'\nprofile: '+profileCtx:'');
       const prompt=META+'\n\n'+DATA+'\n\nBuild the most personalized Challenger training plan for '+currentPlayerName+'.\n\n'+evidence+'\n\nTOP-4 COMPARISON (what winners in their lobbies did vs them):\n'+top4Data+'\n\n## CHALLENGER GAP ASSESSMENT\nEstimated tier. 3 habits between this player and Challenger — each with data evidence, top-4 comparison, LP cost.\n\n## WHAT THE TOP-4 DOES DIFFERENTLY\n"Top-4 in these '+n+' games averaged lv'+avgT4lv+' vs this player lv'+patterns.avgLevel+'. They averaged '+avgT4g+'g left vs '+patterns.avgGoldLeft+'g. This means [specific conclusion]."\n\n## 5 SKILLS TO BUILD (ranked by LP impact)\n**Skill 1 — [Name]** | +[X] LP/game\nEvidence: [data+top-4] | Challenger standard: [benchmark] | Top-4 in lobbies: [what they did] | Drill: [specific] | Test: [measurable]\n**Skill 2 — [Name]** | +[X] LP/game [same]\n**Skill 3 — [Name]** | +[X] LP/game [same]\n**Skill 4 — [Name]** | +[X] LP/game [same]\n**Skill 5 — [Name]** | +[X] LP/game [same]\n\n## 3 IN-GAME DRILLS\n**Drill 1: [Name]** — Every game\nWhat/When/Target — specific steps, rounds, measurable goal\n**Drill 2: [Name]** — Every game [same]\n**Drill 3: [Name]** — Every game [same]\n\n## NEXT SESSION — 3 NON-NEGOTIABLES\n1. [Action + exact metric]  2. [Action + metric]  3. [Action + metric]\n\n## LP ROADMAP\nTotal fixable LP: ~[X]/game. Fix [#1]: +[X]/10 games → [tier] in ~[Y] games. Fix all: → Challenger in ~[Y] games.';
-      const t=await callClaude(prompt,4000);
+      const t=await callClaudeStreaming(prompt,4000);
       const el=document.getElementById('cpanel-training');if(el)el.innerHTML=renderCoachingTabbed(t,'training');
-    }),,,
-
-  ]);
+  });
   lock(false);
 }
 
@@ -5083,7 +5220,7 @@ async function openTFTModal(idx,m,mode){
   const units=(p.units||[]).sort((a,b)=>b.tier-a.tier);
 
   document.getElementById('modalPlace').textContent=p.placement;
-  document.getElementById('modalPlace').style.color=color;
+  const _mp2=document.getElementById('modalPlace');if(_mp2)_mp2.style.color=color;
   document.getElementById('modalTitle').textContent=`${date} — ${p.placement<=4?'TOP 4':'BOTTOM 4'} — Level ${p.level||'?'} ${mode==='double'?'· DOUBLE UP':''}`;
   document.getElementById('modalSub').textContent=`Ended round ${stage} · ${p.total_damage_to_players||0} dmg · ${p.gold_left||0}g left · ${p.players_eliminated||0} elims`;
 
@@ -5227,7 +5364,7 @@ async function openARAMModal(idx,m){
   const itemNames=items.map(id=>ddItems[String(id)]||'Item '+id);
 
   document.getElementById('modalPlace').textContent=win?'W':'L';
-  document.getElementById('modalPlace').style.color=color;
+  const _mp2=document.getElementById('modalPlace');if(_mp2)_mp2.style.color=color;
   document.getElementById('modalTitle').textContent=`${date} — ${p.championName||'?'} — ${win?'VICTORY':'DEFEAT'}`;
   document.getElementById('modalSub').textContent=`${dur} · KDA ${p.kills}/${p.deaths}/${p.assists} · ${(p.totalDamageDealtToChampions||0).toLocaleString()} dmg`;
 
@@ -5398,8 +5535,8 @@ function loadSquadSetup(){
 
 function saveSquadAndRefresh(){
   // Fields are display-only — squad is always fixed
-  document.getElementById('squadSaved').style.display='block';
-  setTimeout(()=>document.getElementById('squadSaved').style.display='none',2000);
+  const _ss=document.getElementById('squadSaved');if(_ss)_ss.style.display='block';
+  setTimeout(()=>{const _ss2=document.getElementById('squadSaved');if(_ss2)_ss2.style.display='none';},2000);
   refreshSquad();
 }
 
@@ -6152,7 +6289,7 @@ function renderAcademyComp(slug, comp) {
         boardHtml += `<div class="ta-hex">
           <div class="ta-hex-img ${roleClass}" title="${unit.name}">
             <img src="${ACADEMY_CHAMP(unit.id)}" alt="${unit.name}"
-              onerror="this.src='';this.parentElement.style.background='var(--bg4)';this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--dim2);text-align:center;padding:2px\\'>${unit.name.slice(0,6)}</div>'"
+              onerror="this.style.display='none'"
             />
           </div>
           <div class="ta-hex-name">${unit.name}</div>
@@ -6695,7 +6832,7 @@ function vcHandleFile(file) {
     document.getElementById('vcVideoInfo').textContent =
       `Duration: ${mins}m ${secs}s | Resolution: ${videoEl.videoWidth}×${videoEl.videoHeight} | ~${gameLenMins}min/game`;
     info.innerHTML = `📁 ${file.name} | ${sizeMB >= 1000 ? sizeGB + 'GB' : sizeMB + 'MB'} | ${mins}m ${secs}s | ${videoEl.videoWidth}×${videoEl.videoHeight}`;
-    document.getElementById('vcPreviewWrap').style.display = 'block';
+    const _vpw=document.getElementById('vcPreviewWrap');if(_vpw)_vpw.style.display='block';
     vcUpdateCostEstimate();
   };
 
@@ -6902,14 +7039,14 @@ async function vcAnalyze() {
   const numGames = parseInt(document.getElementById('vcNumGames').value) || 3;
   const analyzeBtn = document.getElementById('vcAnalyzeBtn');
   analyzeBtn.disabled = true;
-  document.getElementById('vcProgress').style.display = 'block';
-  document.getElementById('vcCoaching').style.display = 'none';
+  const _vcp=document.getElementById('vcProgress');if(_vcp)_vcp.style.display='block';
+  const _vcc=document.getElementById('vcCoaching');if(_vcc)_vcc.style.display='none';
   document.getElementById('vcCoachingPlayer').textContent = riotId;
 
   // ── Progress helper ──────────────────────────────────────────────────────
   const STEPS = ['Riot API','Frame Vision','Per-Game Analysis','Cross-Reference','Coaching Build'];
   function progress(pct, msg, step) {
-    document.getElementById('vcProgressBar').style.width = pct + '%';
+    const _vpb=document.getElementById('vcProgressBar');if(_vpb)_vpb.style.width=pct+'%';
     document.getElementById('vcProgressLabel').textContent = msg;
     document.getElementById('vcProgressSteps').innerHTML = STEPS.map((s,i) =>
       `<span class="vc-step ${i<step?'done':i===step?'active':''}">${i<step?'✓ ':''} ${s}</span>`
@@ -7405,8 +7542,8 @@ If these habits are fixed over 50 games: projected LP gain, target rank, timelin
   // ── Show results ─────────────────────────────────────────────────────────
   progress(100, `Analysis complete — ${vc.frames.length} frames analyzed across ${numGames} games`, 4);
   setTimeout(() => {
-    document.getElementById('vcProgress').style.display = 'none';
-    document.getElementById('vcCoaching').style.display = 'block';
+    const _vcp2=document.getElementById('vcProgress');if(_vcp2)_vcp2.style.display='none';
+    const _vcc2=document.getElementById('vcCoaching');if(_vcc2)_vcc2.style.display='block';
     vcSwitchTab('timeline');
     document.getElementById('vcCoaching').scrollIntoView({ behavior:'smooth', block:'start' });
   }, 800);
@@ -7931,7 +8068,7 @@ async function startLiveCompanion() {
 
   document.getElementById('liveStatus').textContent = 'Looking up player...';
   document.getElementById('liveStartBtn').disabled = true;
-  document.getElementById('liveStopBtn').style.display = 'inline-block';
+  const _lsb=document.getElementById('liveStopBtn');if(_lsb)_lsb.style.display='inline-block';
 
   try {
     const [name, tag] = riotId.includes('#') ? riotId.split('#') : [riotId, 'NA1'];
@@ -7957,7 +8094,7 @@ function stopLiveCompanion() {
   document.getElementById('liveStatus').textContent = 'Stopped.';
   document.getElementById('liveGamePanel').style.display = 'none';
   document.getElementById('liveStartBtn').disabled = false;
-  document.getElementById('liveStopBtn').style.display = 'none';
+  const _lsb2=document.getElementById('liveStopBtn');if(_lsb2)_lsb2.style.display='none';
   livePuuid = null;
 }
 
@@ -7968,6 +8105,7 @@ async function refreshLiveGame() {
   try {
     // Get summoner ID
     const summ = await riotGetWithPersonalKey(`https://${liveRegion}.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${livePuuid}`);
+    if (!summ?.id) { statusEl.textContent = 'Summoner lookup failed — Riot API may be rate limited. Retry in 30s.'; return; }
 
     // Check spectator API
     let liveGame = null;
@@ -8954,8 +9092,182 @@ function showConfirm(title, msg, onOk, onCancel){
 }
 
 // ════════════════════════════════════════════════════════════════════════
-//  COUNT-UP ANIMATIONS
+//  IN-GAME HINT ENGINE
+//  Instant context-aware hints based on stage + gold + hp + level
 // ════════════════════════════════════════════════════════════════════════
+const _hintState = { gold: 30, hp: 80, lvl: 6, streak: 'unknown', wins: 0, losses: 0 };
+
+function hintAdjust(stat, delta) {
+  if (stat === 'gold') {
+    _hintState.gold = Math.max(0, Math.min(99, _hintState.gold + delta));
+    const el = document.getElementById('hintGold');
+    if (el) { el.textContent = _hintState.gold; el.style.color = _hintState.gold >= 50 ? 'var(--grn2)' : _hintState.gold >= 30 ? 'var(--gold)' : 'var(--red2)'; }
+  } else if (stat === 'hp') {
+    _hintState.hp = Math.max(0, Math.min(100, _hintState.hp + delta));
+    const el = document.getElementById('hintHp');
+    if (el) { el.textContent = _hintState.hp; el.style.color = _hintState.hp <= 30 ? 'var(--red2)' : _hintState.hp <= 50 ? 'var(--orange)' : 'var(--grn2)'; }
+  } else if (stat === 'lvl') {
+    _hintState.lvl = Math.max(1, Math.min(10, _hintState.lvl + delta));
+    document.getElementById('hintLvl').textContent = _hintState.lvl;
+  } else if (stat === 'streak') {
+    if (delta === 'win') { _hintState.wins++; _hintState.losses = 0; _hintState.streak = 'win'; }
+    else { _hintState.losses++; _hintState.wins = 0; _hintState.streak = 'loss'; }
+    const el = document.getElementById('hintStreak');
+    if (el) {
+      el.textContent = delta === 'win' ? `W${_hintState.wins}` : `L${_hintState.losses}`;
+      el.style.color = delta === 'win' ? 'var(--grn2)' : 'var(--red2)';
+    }
+    document.getElementById('hintStreakType').value = _hintState.streak;
+  }
+}
+
+// Local instant hints — no API call needed for common stages
+function getLocalHint(stage, state) {
+  const { gold, hp, lvl } = state;
+  const comp = (document.getElementById('hintComp')?.value || '').trim();
+  const streak = document.getElementById('hintStreakType')?.value || 'unknown';
+  const interest = Math.min(5, Math.floor(gold / 10));
+  const compStr = comp ? `Running ${comp}. ` : '';
+  const isReroll = comp && (comp.includes('Reroll') || comp.includes('Lulu') || comp.includes('Twisted'));
+  const isFast9 = comp && (comp.includes('Fast 9') || comp.includes('Vex'));
+
+  const hints = {
+    '2-1': () => {
+      const base = gold >= 10 ? `Gold: ${gold}g. Interest: ${interest}g/round. ` : `LOW GOLD: ${gold}g. `;
+      const augAdvice = streak === 'win' ? 'Win-streak active — take a COMBAT augment to keep streak going. Avoid econ augment that breaks streak.' :
+        streak === 'loss' ? 'Loss-streak active — take an ECON augment (Banking on Gold, Loaded Dice). Do NOT take combat unless your comp direction is crystal clear.' :
+        'No streak — take an ECON augment if comp is unclear. Take TRAIT/EMBLEM if you know your comp.';
+      return `${compStr}Stage 2-1 Augment round.\n${base}\n${augAdvice}\n\nRule: Emblem > Econ if comp is clear. Econ > Emblem if still flexible.`;
+    },
+    '2-5': () => {
+      return `${compStr}PVE round (Wolves). ${gold}g, Level ${lvl}, ${hp} HP.\n\nCheck: Did you hit level 5 at 2-5? (costs 4 XP)\nGold target: 30g minimum before stage 3.\nItems from PVE: slam components if you have BF+Rod, BF+Tear, or 2 of same for comp BiS.`;
+    },
+    '3-2': () => {
+      const levelCheck = lvl >= 6 ? '✓ Level 6 reached.' : `⚠ NOT level 6 yet. Level UP NOW — costs ${Math.max(0, 6 - lvl) * 4}g. This is non-negotiable.`;
+      const econCheck = gold >= 30 ? `✓ ${gold}g — ${interest}g/round interest.` : `⚠ Low gold (${gold}g). Stop spending unless leveling.`;
+      const hpCheck = hp <= 40 ? '🩸 LOW HP. Rolling to stabilize may be correct here.' : `HP: ${hp} — stable.`;
+      return `${compStr}STAGE 3-2 — Critical checkpoint.\n${levelCheck}\n${econCheck}\n${hpCheck}\n\nChallenger standard: Lv6 ✓, 30g+ ✓, items on carry ✓.`;
+    },
+    '3-5': () => {
+      return `${compStr}Stage 3-5 Augment round. ${gold}g, Level ${lvl}, ${hp} HP.\n\nAt 3-5: you should be level 6 already. Start planning level 7 (4-1).\nGold target: 50g by 4-1.\nAugment: COMP augment > econ augment at this stage. Your comp should be clear by now.`;
+    },
+    '4-1': () => {
+      const shouldLevel = !isReroll;
+      const levelAdvice = isReroll ? `REROLL COMP: Do NOT level to 7 at 4-1 if you haven't hit your 3-star yet. Stay at lv${lvl} and roll.` :
+        lvl >= 7 ? `✓ Level 7 reached at 4-1.` : `Level to 7 NOW (costs ${Math.max(0, 7 - lvl) * 4}g from ${lvl}).`;
+      const rollAdvice = isReroll ? `Roll now if you have 30g+. Roll to hit your 3-star carry.` :
+        `After leveling to 7: roll if below ${hp <= 40 ? 'HP critical — roll to 20g' : '30g? No — bank 50g for 4-2 level 8'}.`;
+      return `${compStr}STAGE 4-1 — Level timing check.\n${levelAdvice}\n${rollAdvice}\n\nGold: ${gold}g | HP: ${hp} | Level: ${lvl}`;
+    },
+    '4-2': () => {
+      const fast8 = !isReroll && !isFast9;
+      const levelAdvice = fast8 ? (lvl >= 8 ? '✓ Level 8 at 4-2.' : `Fast 8: Level to 8 NOW (costs ${Math.max(0, 8 - lvl) * 4 + (Math.max(0, 8 - lvl) > 1 ? (Math.max(0, 8 - lvl) - 1) * 4 : 0)}g approx from lv${lvl}).`) :
+        isReroll ? 'REROLL: stay at level 6-7 and roll to find 3-stars before leveling.' :
+        'Vex Fast 9: save gold for level 9 at 4-5. Do not roll yet.';
+      const rollAdvice = fast8 ? `After hitting 8: roll to find 2-star 4-costs. Roll to threshold (leave 40g+).` :
+        isReroll ? `Roll down here if not 3-star yet. All-in on your carry.` : `Save gold for level 9.`;
+      return `${compStr}STAGE 4-2 — Level 8 spike.\n${levelAdvice}\n${rollAdvice}\n\nGold: ${gold}g | HP: ${hp} | Level: ${lvl}\n\nChallenger avg: ${lvl === 8 ? '✓ Level 8 on time' : `Level 8 by 4-2 — you're at ${lvl}`}`;
+    },
+    '4-5': () => {
+      return `${compStr}Stage 4-5 — Third augment + level 9 decision.\n\nGold: ${gold}g | HP: ${hp} | Level: ${lvl}\n\n${isFast9 ? 'VEX FAST 9: Level to 9 HERE if you have 40g+ and HP is above 20.' : lvl >= 9 ? '✓ Level 9 already.' : gold >= 40 && hp >= 30 ? 'Consider level 9 if you have a strong 5-cost to complete your board.' : 'Hold — level 9 requires 40g+ and stable HP.'}\n\nAugment: take the highest power augment for your specific comp right now.`;
+    },
+    '5-2': () => {
+      return `${compStr}Stage 5-2 — Late game.\n\nGold: ${gold}g | HP: ${hp} | Level: ${lvl}\n\n${lvl < 9 ? `Level to 9 if you have 28g spare: costs 28g from lv8.` : '✓ Level 9.'}\nRoll to find 2-star 5-costs.\nPositioning is critical now — scout every opponent and adjust.`;
+    },
+    'carousel': () => {
+      const compN = comp || 'your comp';
+      return `Carousel priority for ${compN}:\n\n1. Spatula (if you need trait emblem)\n2. Component for your carry's BiS\n3. Champion you need for your board\n\nIf HP is below 40: take any item that helps stabilize your board NOW, don't greed for perfect item.`;
+    },
+    'low-hp': () => {
+      const urgency = hp <= 15 ? '🚨 CRITICAL — you may be eliminated soon.' : hp <= 30 ? '⚠ Very low HP.' : '⚠ HP getting dangerous.';
+      return `${urgency} ${hp} HP.\n\nImmediately:\n1. Scout who's strong — avoid fighting them if possible (bend board)\n2. Roll to 20g minimum to stabilize your board\n3. Level ${lvl < 6 ? 'to 6 NOW — board power > interest' : lvl < 7 ? 'to 7 if you have 30g+' : 'is fine — roll'}\n4. Items: slam ANYTHING bench-locked on your carry\n\nGold: ${gold}g available. ${gold >= 30 ? 'Roll now.' : 'Roll what you have.'}`;
+    },
+    'roll-now': () => {
+      const should = (hp <= 40 && gold >= 20) || (gold >= 60) || isReroll;
+      const verdict = should ? '✓ YES — Roll now.' : '△ WAIT — conditions not ideal.';
+      const reason = hp <= 40 ? `HP is ${hp} — stabilize your board.` :
+        gold >= 60 ? `Gold is ${gold}g — you have room to roll and maintain interest.` :
+        isReroll ? 'Reroll comp: roll at your designated level.' :
+        `Gold ${gold}g, HP ${hp} — build to 50g first, roll at 4-1 or 4-2.`;
+      return `Roll decision:\n${verdict}\nReason: ${reason}\n\nCurrent: ${gold}g gold | ${hp} HP | Level ${lvl}\nIf rolling: stop at 20g (lv6), 30g (lv7), 40g (lv8). Never go to 0.`;
+    },
+    'augment-pick': () => {
+      const compCtx = comp ? `For ${comp}: ` : '';
+      const tierAdvice = comp && ['Corki Riven','Brawler Yi'].includes(comp) ? 'ITEMS > COMBAT > ECON' :
+        comp && ['6 Dark Stars','Vanguard LeBlanc'].includes(comp) ? 'EMBLEM/TRAIT > ITEMS > ECON' :
+        comp && ['Vex Fast 9','Lulu Reroll'].includes(comp) ? 'ECON > ITEMS > COMBAT' :
+        comp && ['Twisted Fate Reroll','Urgot Reroll','Primordian Reroll'].includes(comp) ? 'REROLL > ITEMS > ECON' :
+        'EMBLEM (if it fits your comp) > ECON (if no direction) > COMBAT (if strong board)';
+      return `${compCtx}Augment priority:\n${tierAdvice}\n\nGeneral rules:\n- 2-1: Take ECON unless you have a clear comp and an emblem fits perfectly\n- 3-5: COMP augment — your direction should be locked\n- 4-5: POWER augment — take what maximizes your ceiling\n\nNever take an augment that requires you to change your comp mid-game.`;
+    },
+  };
+
+  const fn = hints[stage];
+  return fn ? fn() : `Hint for stage ${stage}: ${gold}g, ${hp}HP, Level ${lvl}. ${compStr}`;
+}
+
+async function fireHint(stage) {
+  const box = document.getElementById('hintBox');
+  const hintText = document.getElementById('hintText');
+  const hintLabel = document.getElementById('hintLabel');
+  const spinner = document.getElementById('hintSpinner');
+  if (!box || !hintText) return;
+
+  box.style.display = 'block';
+  hintLabel.textContent = `// ${stage.toUpperCase()} HINT`;
+
+  const state = { ..._hintState };
+  const localHint = getLocalHint(stage, state);
+
+  // Show local hint instantly
+  hintText.textContent = localHint;
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // If API key available, enhance with Claude
+  if (getCK()) {
+    spinner.style.display = 'inline';
+    const comp = (document.getElementById('hintComp')?.value || '').trim();
+    const streak = document.getElementById('hintStreakType')?.value || 'unknown';
+    const quick_prompt = `You are M.A.D Forge Coach. Player is at stage ${stage} in TFT Set 17 Patch 17.3.
+Current state: ${state.gold}g gold | ${state.hp} HP | Level ${state.lvl} | Streak: ${streak}${comp ? ` | Playing: ${comp}` : ''}.
+
+Give a SHORT (3-5 bullet points MAX) coaching hint for RIGHT NOW. Be direct and specific. Reference exact numbers. What is the single most important action to take this round?
+
+Format: Each bullet point on its own line starting with • 
+No headers. No fluff. Just the key actions.`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': getCK(),
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 300,
+          messages: [{ role: 'user', content: quick_prompt }],
+        }),
+        signal: AbortSignal.timeout(15000), // 15s timeout for hint
+      });
+      if (res.ok) {
+        const d = await res.json();
+        const aiHint = d.content.map(c => c.text || '').join('');
+        if (aiHint.trim()) {
+          hintText.textContent = aiHint.trim();
+        }
+      }
+    } catch(e) {
+      // Keep local hint if API fails — no error shown
+    } finally {
+      spinner.style.display = 'none';
+    }
+  }
+}
+
+
 function animateCountUp(el, from, to, decimals, suffix, duration){
   decimals=decimals||0; suffix=suffix||''; duration=duration||800;
   if(!el)return;
